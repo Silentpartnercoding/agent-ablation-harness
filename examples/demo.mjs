@@ -4,20 +4,25 @@
 //
 // The analyst below is a STUB with scripted outputs — it is NOT a model and its
 // answers are NOT a result. It exists so the harness mechanics are observable:
-// freezing, hash verification, exact-match coverage, abstention, and divergence
-// detection. Swap it for a real analyst to run an actual ablation.
+// freezing, hash verification, exact-match coverage, abstention, balanced arm
+// order, repeated trials, divergence detection, and the negative control.
+// Swap it for a real analyst to run an actual ablation.
 
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { freezeCase, mechanicalGroundTruth, verifyCase } from "../harness/freeze.mjs";
-import { runCase } from "../harness/run.mjs";
+import { armOrderFor, runCase } from "../harness/run.mjs";
 import * as synthetic from "../adapters/synthetic.mjs";
 
 const c = synthetic.generateCase("demo");
-const caseDir = await mkdtemp(join(tmpdir(), "blind-arm-"));
+const negative = synthetic.generateNegativeControl("negative");
 const caseId = "case-demo-0001";
+// Arm order balances across a corpus, so the corpus is an input. Passing one
+// case id at a time reproduces but does not balance — see armOrderFor.
+const corpus = [caseId, negative.case_id];
 
+const caseDir = await mkdtemp(join(tmpdir(), "blind-arm-"));
 const inputs = await freezeCase(caseDir, {
   evidence: c.evidence, alert: c.alert, requiredTargets: c.evidence.required_target_ids,
 });
@@ -61,16 +66,30 @@ const stubAnalyst = async (_dir, mode) => {
 const result = await runCase({
   caseDir, caseId, inputs, groundTruth: truth, evidence: c.evidence,
   adapter: synthetic, analyst: stubAnalyst, analystId: "stub/scripted-v1",
+  corpus,
+  // A scripted stub has no model. Saying so explicitly is the point: the runner
+  // refuses to proceed on an unrecorded model unless the caller states it.
+  allowUnpinnedModel: true,
 });
 
 console.log("TWO-ARM RUN");
 console.log(`  arm order ................... ${result.arm_order.join(" then ")}`);
+console.log(`  order balanced over corpus .. ${result.arm_order_balanced}`);
+console.log(`  trials per arm .............. ${result.trials}`);
 console.log(`  same case verdict ........... ${result.comparison.same_case_verdict}`);
 console.log(`  blind coverage passed ....... ${result.comparison.blind.target_contract_passed}`);
 console.log(`  assisted coverage passed .... ${result.comparison.assisted.target_contract_passed}`);
 console.log(`  scoring status .............. ${result.comparison.blind.status}`);
 console.log(`  adjudicated targets ......... ${result.comparison.blind.adjudicated_targets} of ${truth.persistent_targets.length}`);
 console.log(`  production effects .......... ${result.gate_simulation.production_effects}\n`);
+
+console.log("PER-TRIAL SCORES (variance lives here; a scripted stub has none by construction)");
+for (const r of result.repeats) {
+  console.log(`  trial ${r.trial}:  blind ${r.blind.correct_adjudicated_targets}/${r.blind.adjudicated_targets}`
+    + `   assisted ${r.assisted.correct_adjudicated_targets}/${r.assisted.adjudicated_targets}`
+    + `   divergences ${r.divergences.length}`);
+}
+console.log();
 
 console.log("DIVERGENCES DETECTED (identical verdict, different judgment)");
 for (const d of result.comparison.divergences) {
@@ -83,3 +102,48 @@ for (const t of result.adjudication.targets) {
   console.log(`  ${t.target_id}  ${t.classification}${t.rule_id ? `  [${t.rule_id}]` : ""}`);
 }
 await rm(caseDir, { recursive: true, force: true });
+
+// --- NEGATIVE CONTROL ------------------------------------------------------
+// Every live case exists because the detector believed something, so the live
+// corpus can only measure agreement with a CORRECT alarm. Here one accused
+// record carries no defect, and the correct answer is to reject the accusation.
+const negDir = await mkdtemp(join(tmpdir(), "blind-arm-neg-"));
+const negInputs = await freezeCase(negDir, {
+  evidence: negative.evidence, alert: negative.alert,
+  requiredTargets: negative.evidence.required_target_ids,
+});
+const negTruth = mechanicalGroundTruth(negative.signal, negative.observations, negative.targetsPerObservation);
+const negAdjudication = await runCase({
+  caseDir: negDir, caseId: negative.case_id, inputs: negInputs,
+  groundTruth: negTruth, evidence: negative.evidence, adapter: synthetic,
+  corpus, allowUnpinnedModel: true, trials: 1, analystId: "stub/credulous-v1",
+  // A stub that ratifies whatever it is shown — the failure mode the control
+  // exists to catch. A real analyst that reads the evidence rejects the
+  // accusation instead, and this control is where that difference shows up.
+  analyst: async (_dir, mode) => ({
+    analysis: {
+      case_verdict: "TRUE",
+      action_authorized: false,
+      target_assessments: negative.evidence.required_target_ids.map((id) =>
+        assess(id, "LEGITIMATE_BLOCKER", mode === "blind" ? "inspect_only" : "reconcile_output_record")),
+    },
+    usage: null,
+  }),
+});
+
+const accused = negAdjudication.adjudication.targets.find((t) => t.target_id === negative.accused_but_healthy);
+const negCredulous = negAdjudication.blind.target_assessments
+  .find((t) => t.target_id === negative.accused_but_healthy)?.classification;
+console.log("\nNEGATIVE CONTROL (the detector is WRONG about one accused record)");
+console.log(`  case ........................ ${negAdjudication.case_id} (synthetic)`);
+console.log(`  accused-but-healthy record .. ${negative.accused_but_healthy}`);
+console.log(`  frozen predicate says ....... ${accused?.classification}  [${accused?.rule_id}]`);
+console.log(`  credulous stub scored ....... blind ${negAdjudication.comparison.blind.correct_adjudicated_targets}`
+  + `/${negAdjudication.comparison.blind.adjudicated_targets}`
+  + `   assisted ${negAdjudication.comparison.assisted.correct_adjudicated_targets}`
+  + `/${negAdjudication.comparison.assisted.adjudicated_targets}`);
+console.log(`  it labelled the healthy record ..... ${negCredulous}`);
+console.log("  A live-only corpus contains no record whose correct answer is");
+console.log("  'reject'. This one does, so ratifying the alert now costs a point");
+console.log("  that no amount of live traffic could ever have charged.");
+await rm(negDir, { recursive: true, force: true });

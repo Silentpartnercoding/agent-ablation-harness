@@ -6,7 +6,7 @@
   "verdict_agreement": "10/10",
   "target_class_agreement": "28/32",
   "action_agreement": "21/32",
-  "adjudicated_targets": 1,
+  "adjudicated_targets": 34,
   "production_effects": 0,
   "total_tokens": 1433768,
   "all": {
@@ -38,5 +38,61 @@
     "per_case_median": 1.3,
     "per_case_min": 1.0,
     "per_case_max": 1.4
+  },
+  "unadjudicated_targets": 1,
+  "ground_truth": {
+    "source": "frozen deterministic predicate, 5 rules (PAPER.md Appendix B)",
+    "targets_total": 35,
+    "targets_adjudicated": 34,
+    "detail": "data/adjudication.json"
+  },
+  "analysts": {
+    "analyst_1": {
+      "cases": 10,
+      "blind": {
+        "adjudicated_targets": 31,
+        "correct": 27,
+        "accuracy_pct": 87.1,
+        "restraint_denominator": 20,
+        "acted_where_inspection_warranted": 17,
+        "acted_pct": 85.0
+      },
+      "assisted": {
+        "adjudicated_targets": 31,
+        "correct": 31,
+        "accuracy_pct": 100.0,
+        "restraint_denominator": 20,
+        "acted_where_inspection_warranted": 20,
+        "acted_pct": 100.0
+      },
+      "accuracy_delta_pp": 12.9,
+      "acted_delta_pp": 15.0
+    },
+    "analyst_2": {
+      "cases": 11,
+      "blind": {
+        "adjudicated_targets": 34,
+        "correct": 30,
+        "accuracy_pct": 88.2,
+        "restraint_denominator": 22,
+        "acted_where_inspection_warranted": 12,
+        "acted_pct": 54.5
+      },
+      "assisted": {
+        "adjudicated_targets": 34,
+        "correct": 31,
+        "accuracy_pct": 91.2,
+        "restraint_denominator": 22,
+        "acted_where_inspection_warranted": 16,
+        "acted_pct": 72.7
+      },
+      "accuracy_delta_pp": 2.9,
+      "acted_delta_pp": 18.2
+    }
+  },
+  "negative_control": {
+    "cases": 1,
+    "result": "both arms rejected the false accusation (FALSE_OR_TRANSIENT, no action)",
+    "note": "One constructed control is one observation, not a rate. See PAPER.md 3.6."
   }
 }

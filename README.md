@@ -29,9 +29,21 @@ frozen evidence ─────┤   (evidence only)
   guessed, never counted correct.
 - **Exact-match coverage.** A nearby finding earns no credit.
 - **No action authority.** `production_effects: 0` is asserted and recorded per case.
-- **Order is not confounded with treatment.** Arm order is derived from the case id: balanced
-  across cases, reproducible within one.
-- **Runs are provenanced.** Analyst id, arm order, prompt hash, and timing are recorded per arm.
+- **Order is not confounded with treatment.** Arm order is derived by ranking the corpus by hash
+  and splitting the ranking: reproducible per case *and* balanced to within one across the corpus.
+  (Hashing each id independently gives only the first property — on the corpus in `PAPER.md` it
+  came out 7 blind-first to 4. Determinism is not balance.)
+- **Repeated trials.** Three per arm per case by default, each scored against the same frozen
+  adjudication, so a treatment effect can be told apart from run-to-run variance. Trials are
+  additive: a case is topped up, never re-run, and no finished trial is discarded.
+- **Runs are provenanced, and the model is pinned by default.** Analyst id, model, arm order and
+  whether it was balanced, prompt hash, trial number and timing are recorded per arm. The runner
+  refuses to start on an unrecorded model unless the caller explicitly puts that on the record —
+  an opt-in that nothing sets is not a control.
+- **A negative control ships with it.** Every case a detector opens exists because the detector
+  believed something, so a live-only corpus cannot separate reading the evidence from ratifying
+  the alarm. `generateNegativeControl` accuses a record that carries no defect, where the correct
+  answer is to reject the accusation.
 
 ## Try it
 
@@ -41,9 +53,10 @@ No credentials, no network, no real system:
 node examples/demo.mjs
 ```
 
-Runs a fabricated case end to end — freeze, verify, adjudicate, two arms, compare. The analyst in
-the demo is a **stub with scripted outputs**, not a model; it exists so the mechanics are
-observable. Swap it for a real analyst to run an actual ablation.
+Runs a fabricated case end to end — freeze, verify, adjudicate, two arms across three trials,
+compare — and then runs the negative control past a deliberately credulous analyst to show what it
+catches. The analysts in the demo are **stubs with scripted outputs**, not models; they exist so
+the mechanics are observable. Swap them for a real analyst to run an actual ablation.
 
 ## Layout
 
@@ -51,10 +64,10 @@ observable. Swap it for a real analyst to run an actual ablation.
 harness/contract.mjs   coverage, adjudication, scoring, gate simulation
 harness/freeze.mjs     freezing, manifests, independent verification
 harness/run.mjs        two-arm runner, arm-order randomisation, divergence detection
-adapters/synthetic.mjs worked example on fabricated data
+adapters/synthetic.mjs worked example on fabricated data, plus the negative control
 adapters/README.md     the three-function adapter interface
 PAPER.md               a study conducted with this harness
-data/                  derived results from that study
+data/                  derived results from that study, with a key in data/README.md
 docs/BOUNDARY.md       what this repository deliberately does not contain
 ```
 
@@ -70,8 +83,14 @@ The adapter for the system a study is *about* need not be published; see
 ## Status
 
 The harness is complete and runnable. `PAPER.md` reports a first application: 11 cases, two signal
-types, with observations that are explicitly **preliminary and underpowered** — see its §4, which
-states every disqualifying limitation, including two that this harness now fixes (fixed arm order,
-missing run provenance).
+types, two analysts, and a mechanically-derived ground truth covering 34 of 35 targets. Its central
+observation — that assistance shifts per-target judgment toward confirming the alert and toward
+acting rather than inspecting — replicates in direction across both analysts, and remains
+**preliminary and underpowered**; §4 states every limitation that still stands.
+
+Five of the limitations that study named are fixed in this harness rather than merely described:
+fixed arm order, unbalanced arm order, thin run provenance, single-trial runs, and the absence of a
+negative control. §4.1 and §4.6 are permanent for that corpus — they cannot be retrofitted to data
+already collected, which is the whole reason they are worth fixing before the next one.
 
 Licensed under Apache-2.0.
