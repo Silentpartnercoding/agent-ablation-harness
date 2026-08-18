@@ -231,6 +231,20 @@ Two measures, answering different questions:
   warranted. `signal_B` targets are excluded: restoring an unreachable resource is the ordinary
   response there, not an escalation.
 
+**Restraint is a stipulation, not a derived quantity.** That `inspect_only` and `no_action` are
+the defensible responses to a corroborated blocker is this deployment's operating policy, adopted
+because proposing a repair on a record whose blocker is real risks acting on a cause nobody
+established. A deployment with a different risk appetite could reasonably score the same behaviour
+as decisiveness rather than as overreach. Nothing in the frozen evidence settles which reading is
+right; the predicate supplies the classification, and the operator supplies the threshold.
+
+The tension is visible in the data rather than hidden by it. Analyst 1's assisted arm labelled
+every adjudicated target correctly — 31/31 — *and* proposed acting on all 20 corroborated blockers.
+On the accuracy measure that arm is flawless; on the restraint measure it is maximally
+unrestrained. The instrument measures the shift, and the shift is real. What the shift is worth is
+a policy question this instrument cannot answer, and readers applying it to their own deployment
+should set that threshold themselves before scoring anything.
+
 | analyst / arm | cases | accuracy | acted where inspection was warranted |
 |---|---|---|---|
 | analyst 1 / blind | 10 | 27/31 (87.1%) | 17/20 (85.0%) |
