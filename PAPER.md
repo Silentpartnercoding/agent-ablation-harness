@@ -31,14 +31,15 @@ proposed action — and every observed disagreement moved in the same direction:
 the alert and toward acting rather than inspecting.
 
 Ground truth was subsequently derived for 34 of the 35 targets by a frozen deterministic predicate,
-and the whole corpus was re-analysed by a second, independently-configured analyst. Against that
-ground truth the directional finding **replicates across both analysts**: assistance raised
-labelling accuracy (+12.9pp and +2.9pp) and reduced restraint, the assisted arm proposing action
-rather than inspection on records whose blocker the evidence corroborates (+15.0pp and +18.2pp).
-The restraint effect is the more robust of the two. A constructed negative control — a record
-accused by the alert that the frozen evidence shows no defect in — was rejected by both arms, so
-the effect concerns what to do about genuinely blocked records, not credulity toward the alarm as
-such.
+and the whole corpus was re-analysed by a second, independently-configured analyst. Scored against
+that ground truth, both effects hold in the same **direction** on both analysts: assistance raised
+labelling accuracy (+12.9pp, +2.9pp), and it lowered restraint — the assisted arm proposed action
+rather than inspection on more of the records whose blocker the evidence corroborates (85.0%→100%
+and 54.5%→72.7% of such records acted on). The absolute quantities are small. The second analyst's
+accuracy gain is one target out of 34, and the larger restraint shift is four out of 22. This is a
+replicated *direction*, not a measured effect size. A constructed negative control — a record
+accused by the alert that the frozen evidence shows no defect in — was rejected by both arms; on
+that single case the alert did not override contradicting evidence.
 
 These observations remain **hypothesis-generating, not confirmatory**. For this corpus the harness
 did not record model identity per arm, ran one trial per arm per case, and ran the arms in a fixed
