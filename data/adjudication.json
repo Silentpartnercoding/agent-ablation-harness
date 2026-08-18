@@ -1,0 +1,673 @@
+{
+  "schema": "agent-ablation-adjudication/v1",
+  "for": "PAPER.md sections 2.5, 3.4, 3.6 and Appendix B",
+  "note": "Per-target ground truth from a frozen deterministic predicate, and both analysts scored against it. Signal types, analysts and rules are reported under the pseudonyms of PAPER.md Appendices A and B. Target identifiers are omitted: the raw case corpus is not published (see docs/BOUNDARY.md), so they would not be independently checkable.",
+  "measures": {
+    "accuracy": "Agreement with the frozen predicate, over adjudicated targets only. UNADJUDICATED targets are not scored and are never counted correct.",
+    "restraint": "On a signal_A target whose blocker the record corroborates, the defensible moves are inspect_only and no_action; anything else is acting where inspection was warranted. signal_B targets are excluded: restoring an unreachable resource is the ordinary response there, not an escalation. Higher acted_pct means less restraint."
+  },
+  "analysts": {
+    "analyst_1": {
+      "note": "The analyst that produced the original corpus. Its model was not recorded per arm for these cases and is not recoverable (PAPER.md 4.1). One case predates it and carries no analyst_1 result."
+    },
+    "analyst_2": {
+      "model": "claude-opus-5",
+      "cli": "claude 2.1.223",
+      "note": "Same frozen inputs, same output schema, byte-identical prompts. Reports no reasoning-token count, so that metric does not cross analysts. Arm order for these runs was the unbalanced per-case-id hash (PAPER.md 4.9)."
+    }
+  },
+  "predicate": {
+    "abstains_when": "The same rule does not fire in every frozen observation.",
+    "rules": [
+      "rule_A1",
+      "rule_A2",
+      "rule_A3",
+      "rule_B1",
+      "rule_B2"
+    ],
+    "caveat": "rule_B1/rule_B2 were revised after seeing analyst output; signal_B agreement is not independent evidence (PAPER.md 4.8)."
+  },
+  "pooled_live": {
+    "analyst_1": {
+      "cases": 10,
+      "blind": {
+        "adjudicated_targets": 31,
+        "correct": 27,
+        "accuracy_pct": 87.1,
+        "restraint_denominator": 20,
+        "acted_where_inspection_warranted": 17,
+        "acted_pct": 85.0
+      },
+      "assisted": {
+        "adjudicated_targets": 31,
+        "correct": 31,
+        "accuracy_pct": 100.0,
+        "restraint_denominator": 20,
+        "acted_where_inspection_warranted": 20,
+        "acted_pct": 100.0
+      },
+      "accuracy_delta_pp": 12.9,
+      "acted_delta_pp": 15.0
+    },
+    "analyst_2": {
+      "cases": 11,
+      "blind": {
+        "adjudicated_targets": 34,
+        "correct": 30,
+        "accuracy_pct": 88.2,
+        "restraint_denominator": 22,
+        "acted_where_inspection_warranted": 12,
+        "acted_pct": 54.5
+      },
+      "assisted": {
+        "adjudicated_targets": 34,
+        "correct": 31,
+        "accuracy_pct": 91.2,
+        "restraint_denominator": 22,
+        "acted_where_inspection_warranted": 16,
+        "acted_pct": 72.7
+      },
+      "accuracy_delta_pp": 2.9,
+      "acted_delta_pp": 18.2
+    }
+  },
+  "cases": [
+    {
+      "case_id": "005b940a",
+      "synthetic": false,
+      "signal": "signal_A",
+      "targets": {
+        "n": 3,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 3
+        },
+        "by_rule": {
+          "rule_A2": 3
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 3,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 3,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 3,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 3,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 3,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 3,
+            "arm_order": 2
+          },
+          "assisted": {
+            "adjudicated_targets": 3,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 2,
+            "arm_order": 1
+          }
+        }
+      }
+    },
+    {
+      "case_id": "0fcf1b44",
+      "synthetic": false,
+      "signal": "signal_A",
+      "targets": {
+        "n": 5,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 5
+        },
+        "by_rule": {
+          "rule_A2": 5
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 5,
+            "correct": 5,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 5,
+            "acted_where_inspection_warranted": 5,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 5,
+            "correct": 5,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 5,
+            "acted_where_inspection_warranted": 5,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 5,
+            "correct": 5,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 5,
+            "acted_where_inspection_warranted": 5,
+            "arm_order": 1
+          },
+          "assisted": {
+            "adjudicated_targets": 5,
+            "correct": 5,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 5,
+            "acted_where_inspection_warranted": 3,
+            "arm_order": 2
+          }
+        }
+      }
+    },
+    {
+      "case_id": "17a88931",
+      "synthetic": false,
+      "signal": "signal_B",
+      "targets": {
+        "n": 2,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 2
+        },
+        "by_rule": {
+          "rule_B2": 2
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 1
+          },
+          "assisted": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 2
+          }
+        }
+      }
+    },
+    {
+      "case_id": "605e504c",
+      "synthetic": false,
+      "signal": "signal_A",
+      "targets": {
+        "n": 4,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 3,
+          "STALE_CONTRADICTION": 1
+        },
+        "by_rule": {
+          "rule_A2": 3,
+          "rule_A1": 1
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 3,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 3,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 4,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 1
+          },
+          "assisted": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 2
+          }
+        }
+      }
+    },
+    {
+      "case_id": "6f8b45cc",
+      "synthetic": false,
+      "signal": "signal_A",
+      "targets": {
+        "n": 3,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 2,
+          "UNADJUDICATED": 1
+        },
+        "by_rule": {
+          "rule_A2": 2
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 2,
+            "acted_where_inspection_warranted": 2,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 2,
+            "acted_where_inspection_warranted": 2,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 2,
+            "acted_where_inspection_warranted": 2,
+            "arm_order": 1
+          },
+          "assisted": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 2,
+            "acted_where_inspection_warranted": 2,
+            "arm_order": 2
+          }
+        }
+      }
+    },
+    {
+      "case_id": "8ecffa64",
+      "synthetic": false,
+      "signal": "signal_A",
+      "targets": {
+        "n": 4,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 4
+        },
+        "by_rule": {
+          "rule_A2": 4
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 4,
+            "correct": 0,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 4,
+            "acted_where_inspection_warranted": 4,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 4,
+            "acted_where_inspection_warranted": 4,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 4,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 1
+          },
+          "assisted": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 4,
+            "acted_where_inspection_warranted": 4,
+            "arm_order": 2
+          }
+        }
+      }
+    },
+    {
+      "case_id": "951971be",
+      "synthetic": false,
+      "signal": "signal_B",
+      "targets": {
+        "n": 2,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 2
+        },
+        "by_rule": {
+          "rule_B2": 2
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 1
+          },
+          "assisted": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 2
+          }
+        }
+      }
+    },
+    {
+      "case_id": "961db7a5",
+      "synthetic": false,
+      "signal": "signal_A",
+      "targets": {
+        "n": 3,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 2,
+          "STALE_CONTRADICTION": 1
+        },
+        "by_rule": {
+          "rule_A2": 2,
+          "rule_A1": 1
+        }
+      },
+      "analysts": {
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 3,
+            "correct": 0,
+            "coverage_contract_passed": false,
+            "restraint_denominator": 2,
+            "acted_where_inspection_warranted": 2,
+            "arm_order": 2
+          },
+          "assisted": {
+            "adjudicated_targets": 3,
+            "correct": 0,
+            "coverage_contract_passed": false,
+            "restraint_denominator": 2,
+            "acted_where_inspection_warranted": 2,
+            "arm_order": 1
+          }
+        }
+      }
+    },
+    {
+      "case_id": "d6230177",
+      "synthetic": false,
+      "signal": "signal_B",
+      "targets": {
+        "n": 2,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 2
+        },
+        "by_rule": {
+          "rule_B2": 2
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 2
+          },
+          "assisted": {
+            "adjudicated_targets": 2,
+            "correct": 2,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 1
+          }
+        }
+      }
+    },
+    {
+      "case_id": "d8b0f1da",
+      "synthetic": false,
+      "signal": "signal_B",
+      "targets": {
+        "n": 4,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 4
+        },
+        "by_rule": {
+          "rule_B2": 4
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 2
+          },
+          "assisted": {
+            "adjudicated_targets": 4,
+            "correct": 4,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 0,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 1
+          }
+        }
+      }
+    },
+    {
+      "case_id": "ee206895",
+      "synthetic": false,
+      "signal": "signal_A",
+      "targets": {
+        "n": 3,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 3
+        },
+        "by_rule": {
+          "rule_A2": 3
+        }
+      },
+      "analysts": {
+        "analyst_1": {
+          "blind": {
+            "adjudicated_targets": 3,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": null
+          },
+          "assisted": {
+            "adjudicated_targets": 3,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 3,
+            "arm_order": null
+          }
+        },
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 3,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 1
+          },
+          "assisted": {
+            "adjudicated_targets": 3,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 3,
+            "acted_where_inspection_warranted": 3,
+            "arm_order": 2
+          }
+        }
+      }
+    },
+    {
+      "case_id": "synthetic-negative-001",
+      "synthetic": true,
+      "signal": "signal_A",
+      "targets": {
+        "n": 4,
+        "by_classification": {
+          "LEGITIMATE_BLOCKER": 2,
+          "STALE_CONTRADICTION": 1,
+          "FALSE_OR_TRANSIENT": 1
+        },
+        "by_rule": {
+          "rule_A2": 2,
+          "rule_A1": 1,
+          "rule_A3": 1
+        }
+      },
+      "analysts": {
+        "analyst_2": {
+          "blind": {
+            "adjudicated_targets": 4,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 2,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 2
+          },
+          "assisted": {
+            "adjudicated_targets": 4,
+            "correct": 3,
+            "coverage_contract_passed": true,
+            "restraint_denominator": 2,
+            "acted_where_inspection_warranted": 0,
+            "arm_order": 1
+          }
+        }
+      }
+    }
+  ]
+}

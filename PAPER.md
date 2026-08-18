@@ -1,8 +1,8 @@
 # A Blind-Control Harness for Measuring Alert-Assisted Agent Analysis
 
 **Status:** Preprint draft — instrument description with preliminary, underpowered observations.
-**Data:** `data/per-case.csv`, `data/aggregate.json`
-**Version:** draft-01
+**Data:** `data/per-case.csv`, `data/aggregate.json`, `data/adjudication.json`
+**Version:** draft-02
 
 ---
 
@@ -30,10 +30,21 @@ case-level verdicts, per-target agreement was lower — 28/32 on classification 
 proposed action — and every observed disagreement moved in the same direction: toward confirming
 the alert and toward acting rather than inspecting.
 
-These observations are **hypothesis-generating, not confirmatory**. The harness does not currently
-record model identity or configuration per arm, ran one trial per arm per case, and yielded exactly
-one adjudicated target. We state these limitations precisely and specify what each would require.
-The contribution we claim is the instrument.
+Ground truth was subsequently derived for 34 of the 35 targets by a frozen deterministic predicate,
+and the whole corpus was re-analysed by a second, independently-configured analyst. Scored against
+that ground truth, both effects hold in the same **direction** on both analysts: assistance raised
+labelling accuracy (+12.9pp, +2.9pp), and it lowered restraint — the assisted arm proposed action
+rather than inspection on more of the records whose blocker the evidence corroborates (85.0%→100%
+and 54.5%→72.7% of such records acted on). The absolute quantities are small. The second analyst's
+accuracy gain is one target out of 34, and the larger restraint shift is four out of 22. This is a
+replicated *direction*, not a measured effect size. A constructed negative control — a record
+accused by the alert that the frozen evidence shows no defect in — was rejected by both arms; on
+that single case the alert did not override contradicting evidence.
+
+These observations remain **hypothesis-generating, not confirmatory**. For this corpus the harness
+did not record model identity per arm, ran one trial per arm per case, and ran the arms in a fixed
+order; none of that can be retrofitted to data already collected. We state these limitations
+precisely and specify what each would require. The contribution we claim is the instrument.
 
 ---
 
@@ -99,6 +110,13 @@ the same targets in both observations, the case is `CONFIRMED_CONDITION`. Its sc
 explicitly in every record:
 
 > "Confirms the machine condition only; it does not prove the cause or authorize a repair."
+
+That establishes the condition, not the cause, and so cannot say whether an analyst was *right*
+about any individual target. Per-target ground truth is supplied separately, by a frozen
+deterministic predicate over the same frozen fields (Appendix B). Five rules, each asserting only
+what a record contradicts **about itself**; no rule infers cause, and a rule must fire in *every*
+frozen observation or the target abstains. The predicate is code, not a model, and it was frozen
+before scoring. Its per-target output for this corpus is `data/adjudication.json`.
 
 ### 2.6 Abstention over guessing
 
@@ -185,7 +203,106 @@ as an accusation, not truth" (§2.4). If the divergence is anchoring, the instru
 it — which would be the more useful result, since it suggests prompt-level debiasing is insufficient
 and the effect must be measured rather than instructed away.
 
-We emphasise this remains a *hypothesis*; see §4.
+At the point this was written it was a reading of four targets in one run, with no ground truth
+to check it against. §3.4 supplies that ground truth and §3.6 bounds what it means; §4.4 states
+what is still missing.
+
+### 3.4 Scored against ground truth: the direction holds
+
+Sections 3.1–3.3 could show only that the arms *differ*. With the per-target predicate of §2.5 in
+place, 34 of the 35 targets carry a mechanically-derived classification, and the arms can be
+scored. One target abstains: its classification was not stable across every frozen observation, so
+the predicate declines to decide it.
+
+| rule | classification | targets |
+|---|---|---|
+| `rule_A1` | STALE_CONTRADICTION | 2 |
+| `rule_A2` | LEGITIMATE_BLOCKER | 22 |
+| `rule_A3` | FALSE_OR_TRANSIENT | 0 live |
+| `rule_B1` | STALE_CONTRADICTION | 0 |
+| `rule_B2` | LEGITIMATE_BLOCKER | 10 |
+| — | UNADJUDICATED (abstained) | 1 |
+
+Two measures, answering different questions:
+
+- **Accuracy** — did the arm label the target the way the frozen predicate does.
+- **Restraint** — on a `signal_A` target whose blocker the record *corroborates*, the defensible
+  moves are `inspect_only` and `no_action`. Anything else is acting where inspection was
+  warranted. `signal_B` targets are excluded: restoring an unreachable resource is the ordinary
+  response there, not an escalation.
+
+**Restraint is a stipulation, not a derived quantity.** That `inspect_only` and `no_action` are
+the defensible responses to a corroborated blocker is this deployment's operating policy, adopted
+because proposing a repair on a record whose blocker is real risks acting on a cause nobody
+established. A deployment with a different risk appetite could reasonably score the same behaviour
+as decisiveness rather than as overreach. Nothing in the frozen evidence settles which reading is
+right; the predicate supplies the classification, and the operator supplies the threshold.
+
+The tension is visible in the data rather than hidden by it. Analyst 1's assisted arm labelled
+every adjudicated target correctly — 31/31 — *and* proposed acting on all 20 corroborated blockers.
+On the accuracy measure that arm is flawless; on the restraint measure it is maximally
+unrestrained. The instrument measures the shift, and the shift is real. What the shift is worth is
+a policy question this instrument cannot answer, and readers applying it to their own deployment
+should set that threshold themselves before scoring anything.
+
+| analyst / arm | cases | accuracy | acted where inspection was warranted |
+|---|---|---|---|
+| analyst 1 / blind | 10 | 27/31 (87.1%) | 17/20 (85.0%) |
+| analyst 1 / assisted | 10 | 31/31 (100%) | 20/20 (100%) |
+| | | **+12.9pp** | **+15.0pp** |
+| analyst 2 / blind | 11 | 30/34 (88.2%) | 12/22 (54.5%) |
+| analyst 2 / assisted | 11 | 31/34 (91.2%) | 16/22 (72.7%) |
+| | | **+2.9pp** | **+18.2pp** |
+
+The alert improves labelling and reduces restraint, and **both effects replicate in direction
+across two analysts**. They are not equally robust: the restraint effect is comparable in size on
+both (+15.0 and +18.2pp), while the accuracy gain is much weaker on the second analyst (+12.9 vs
++2.9pp). The anchoring hypothesis of §3.3 is therefore no longer a reading of four targets in one
+run; it is a directional effect measured against ground truth on two analysts. It is still small
+in absolute terms — see §4.4.
+
+`signal_B` scores 100% in all four arms and discriminates nothing. All signal is in `signal_A`.
+
+A caution about reading sub-corpora: at an interim n=5 the second analyst appeared to *reverse* the
+restraint effect (−23.1pp). That did not survive the full 11 cases.
+
+### 3.5 A second analyst
+
+The corpus was re-analysed end to end by a second analyst — `claude-opus-5` via the `claude` CLI
+2.1.223 — on the same frozen inputs, the same output schema, and **byte-identical prompts**. Both
+arm prompts were extracted to a shared module and verified character-for-character against the
+revision that produced the original corpus (blind 572 characters, alert-assisted 562). Per-run
+provenance is recorded: CLI version, model, whether the model was pinned, arm order, and argv and
+prompt digests.
+
+Two differences are recorded rather than smoothed over. This CLI does not resolve the 2020-12
+meta-schema by URL, so `$schema` is dropped while every constraint is kept — the dropped dialect
+and the original schema digest are in each run record. And it reports no reasoning-token count, so
+that metric does not cross analysts.
+
+The second analyst does **not** de-confound the first; see §4.6 and §4.9.
+
+### 3.6 Negative control: the arms rejected a false accusation
+
+Every case in the corpus exists because the detector believed something. Such a corpus can measure
+agreement with a *correct* alarm and nothing else — an analyst that reads the evidence and one that
+ratifies the accusation produce the same answer on every case in it.
+
+A constructed case supplies the missing condition: verbatim frozen records, with one settled
+target — no blocker, no outstanding remedy — added to the accused set. The correct answer is to
+reject the accusation.
+
+**Both arms rejected it**, classifying it `FALSE_OR_TRANSIENT` and proposing no action. The
+alert-assisted arm reasoned that the accused condition was *"positively absent, not merely
+unevidenced."*
+
+So on this control the alert did not override clear contradicting evidence. That materially bounds
+the interpretation of §3.4: the restraint effect concerns what to do about records that really are
+blocked, not credulity toward the alarm as such. One constructed control is one observation, not a
+rate.
+
+The case is marked synthetic in every artifact, carries a `synthetic-` id prefix, and is admitted
+to a run only by an explicit flag, so no scan for live cases can pool it with real traffic.
 
 ## 4. Limitations
 
@@ -200,39 +317,93 @@ cost comparison from supporting a causal claim, and it cannot be retrofitted to 
 assisted run cannot separate treatment effect from run-to-run variance. The tight `signal_B`
 clustering suggests low variance in that regime; variance in the deep regime is unmeasured.
 
-**4.3 Ground-truth accuracy is n=1.** Exactly one target was adjudicated
-(`605e504c/mh_e3f24242` → `STALE_CONTRADICTION`); both arms were correct. We can show the arms
-*diverge*. We cannot show either is *wrong*.
+**4.3 Ground truth is a predicate, not an oracle.** *Superseded in part.* An earlier draft recorded
+one hand-adjudicated target; 34 of 35 are now adjudicated mechanically (§2.5, §3.4), which is what
+makes §3.4 possible at all. What remains is that the predicate is a frozen rule set over the same
+frozen fields the analysts read. It asserts only what a record contradicts about itself; it does
+not observe the world. Where a record is internally consistent and wrong, the predicate is wrong
+with it, and both arms are scored against that error identically.
 
-**4.4 The anchoring observation is a single case.** The four classification flips are four targets
-inside one analysis run, not four independent observations.
+**4.4 The effect is directional, replicated, and small.** *Superseded in part.* The anchoring
+observation is no longer four targets inside one run: it is scored against ground truth on two
+analysts and holds in direction on both (§3.4). But the absolute quantities are small. The larger
+restraint delta, +18.2pp, is 4 targets out of 22. The accuracy delta on the second analyst, +2.9pp,
+is a single target. Effects this size on a corpus this size are consistent with a real shift and
+also with noise, which is precisely why §5.2 and §5.4 come before any confirmatory claim.
 
 **4.5 Scope.** One orchestration system, one operator, two signal types, cases spanning 2026-08-13
-to 2026-08-17. No claim generalises beyond this deployment.
+to 2026-08-17. Two analysts, which addresses analyst identity but not deployment, operator or
+signal diversity. No claim generalises beyond this deployment.
 
 **4.6 Arm order was fixed, not merely unrecorded.** In the code that produced these 11 cases, the
 blind arm always ran first and the assisted arm always second. Order is therefore perfectly
 confounded with treatment, and any order effect — including provider-side caching warmed by the
 first run — is indistinguishable from the alert's effect. This is the most serious confound after
-§4.1. It has since been corrected: arm order is now derived from the case-id hash, balanced across
-cases and reproducible within one.
+§4.1. It has since been corrected, and the first correction was itself wrong: deriving order from
+each case-id hash independently is deterministic but not balanced, and on this corpus produced 7
+blind-first to 4. Order is now assigned by ranking the corpus by hash and splitting the ranking,
+which is reproducible per case and even to within one across the corpus. Neither correction applies
+to the 11 cases already collected.
 
 **4.7 Selection.** Cases are opened by a persistence detector, not sampled. The population is
-"signals that persisted," not "signals."
+"signals that persisted," not "signals." The negative control of §3.6 addresses a different problem
+— that every case had a *correct* alarm — and does not correct this one.
+
+**4.8 One adjudication rule was revised after seeing analyst output.** The first version of the
+`signal_B` rule classified an enrolled-but-unreachable resource as a `STALE_CONTRADICTION`. Both
+analysts independently rejected that on all ten such targets, and they were right: an enrolled
+resource that is down is a corroborated blocker, not a record contradicting itself. The rule was
+rewritten. The consequence for interpretation is that **`signal_B` agreement is partly circular and
+is not independent evidence.** The `signal_A` rules were derived from the frozen field table and
+one hand-adjudicated target before any analyst output was read, so `signal_A` is the clean subset —
+which is also where all the signal is (§3.4).
+
+**4.9 The second analyst does not de-confound the first.** Its arm order was assigned by the
+per-case-id hash described in §4.6, which came out 7 blind-first to 4 rather than balanced. The
+corrected assignment applies to runs from here on, not to anything already collected. The second
+analyst therefore establishes that the direction is not an artifact of one analyst; it does not
+establish that the direction is not an artifact of order.
+
+**4.10 A defect this corpus concealed.** Every `signal_B` target is a resource, but the adjudicator
+resolved targets only against the record collection. All ten were returned `UNADJUDICATED` with the
+reason *"not present in every frozen observation"* — which was false. They were present, under a
+key nobody searched. Those ten were silently unscoreable for the whole study, and nothing in the
+output indicated it, because a wrongly-abstaining instrument and a properly-cautious one produce
+identical records. We report this because abstention-by-default makes the failure mode invisible by
+construction, and any harness built this way inherits it. The harness now requires an adapter to
+report which collections it searched, and refuses to state an absence it did not verify.
 
 ## 5. What would make this a finding
 
-In dependency order:
+In dependency order. Items marked **[harness]** are implemented and apply to runs from here on;
+none of them repairs the 11 cases already collected.
 
-1. **Record model, configuration and seed per arm.** Without this nothing downstream is
-   interpretable.
-2. **Repeat each arm ≥3 times per case** to obtain variance and error bars.
-3. **Randomise arm order.**
+1. **Record model and configuration per arm.** Without this nothing downstream is interpretable.
+   **[harness]** Pinning is now the default rather than opt-in, and the runner refuses to start on
+   an unrecorded model unless the caller explicitly puts that on the record. This mattered: pinning
+   had been gated behind a flag that nothing set, so the default path recorded an unpinned model
+   and silently reproduced §4.1 — the exact defect the flag existed to prevent.
+2. **Repeat each arm ≥3 times per case** to obtain variance and error bars. **[harness]** Three
+   trials per arm is the default, each scored against the same frozen adjudication. Trials are
+   additive — an existing case is topped up rather than re-run, and no finished trial is discarded.
+3. **Randomise arm order.** **[harness]** Assigned by ranking the corpus by hash and splitting the
+   ranking: reproducible per case, even to within one across the corpus. See §4.6 for the first
+   attempt, which was deterministic without being balanced.
 4. **Complete the queued cases.** 11 further cases are held at `awaiting_blind_validation`; n=22
-   would roughly double the evidence and particularly help `signal_B` (n=4).
-5. **Adjudicate targets.** The step from "the arms differ" to "one is better" requires ground truth
-   on cause, which currently exists for one target.
-6. **Add signal types**, to test whether depth — rather than signal identity — predicts the effect.
+   would roughly double the evidence and particularly help `signal_B` (n=4). This is the binding
+   constraint on everything above: three trials over eleven queued cases is sixty-six analyst
+   calls, which exhausted an analyst quota and stalled the study for two days. Cases per invocation
+   are now capped, and a runner that meets a quota outage aborts and requeues rather than marking
+   cases failed and retiring them permanently.
+5. **Adjudicate targets.** **Done** — 34 of 35 (§2.5, §3.4). What this bought is §3.4; what it did
+   not buy is §4.3.
+6. **A second analyst.** **Done** — §3.5. Establishes the direction is not an artifact of one
+   analyst; does not address order (§4.9).
+7. **A negative control.** **Done** — §3.6. One constructed case is one observation. A *rate* of
+   false-accusation rejection needs a population of them.
+8. **Add signal types**, to test whether depth — rather than signal identity — predicts the effect.
+   Untouched, and now the clearest gap: `signal_B` discriminates nothing, so the depth hypothesis
+   currently rests on a two-point contrast.
 
 ## 6. Relation to existing work
 
@@ -257,8 +428,15 @@ The gap between this and full reproducibility is §4.1: for these 11 cases the a
 is not captured, and it is not recoverable — the event stream (`thread.started`, `turn.started`,
 `item.started`, `item.completed`, `turn.completed`) contains no model or configuration field.
 
-Subsequent cases record a `run` block per arm carrying the analyst version, whether a model was
-pinned, the argv and prompt hashes, and the arm order.
+Subsequent cases record a `run` block per arm carrying the analyst version, the model and whether
+it was pinned, the argv and prompt hashes, the trial number, and the arm order together with
+whether that order was balanced across a corpus. Per-trial scores are retained alongside the
+primary trial, so a reader can see the spread rather than a single draw.
+
+The per-target adjudication (§2.5) is likewise reproducible without trusting the operator: it is a
+frozen predicate over fields already present in the frozen evidence, so a third party holding a
+case directory can re-derive every classification in `data/adjudication.json` and check it against
+what each arm said.
 
 ## 8. Conclusion
 
@@ -271,7 +449,16 @@ assistance is concentrated in deep cases and absent in shallow ones, and that id
 verdicts can conceal a directional shift in per-target judgment toward confirming the alert and
 toward acting rather than inspecting.
 
-Both remain hypotheses. The instrument is the result.
+The second of those has since been scored against ground truth on 34 of 35 targets and re-run by a
+second analyst, and it holds in direction on both: assistance raised accuracy and reduced restraint
+(§3.4). A constructed negative control bounds what that means — the assisted arm rejected a false
+accusation, so the effect is about what to do with genuinely blocked records rather than credulity
+toward the alarm (§3.6). The quantities remain small, one adjudication rule is circular, and arm
+order is still confounded in the collected data (§4.4, §4.8, §4.9).
+
+So: a replicated direction, not a confirmed effect. The instrument remains the result — and the
+most useful thing it produced is the list of its own defects in §4, three of which (§4.6's first
+correction, §4.9, §4.10) were invisible until something was measured against them.
 
 ---
 
@@ -285,3 +472,30 @@ source deployment. The distinction that matters analytically is depth, not ident
 - **`signal_B`** — a shallow reachability condition; ~29k tokens either arm; 2–4 targets per case.
 
 No result depends on the underlying names. The mapping is held by the authors.
+
+## Appendix B — The adjudication predicate
+
+Five rules, reported by structure rather than by the source deployment's field names. Each asserts
+only what a record contradicts **about itself**; none infers cause; none authorizes an action. A
+rule must fire in *every* frozen observation for the target to be classified at all — a
+classification that holds in one observation and not another is not persistent, and a
+non-persistent classification is not evidence.
+
+| rule | applies to | classification | fires when |
+|---|---|---|---|
+| `rule_A1` | `signal_A` targets | STALE_CONTRADICTION | the recorded blocker asserts an artifact is missing while the same frozen record carries that artifact and complete passing remedy evidence for it |
+| `rule_A2` | `signal_A` targets | LEGITIMATE_BLOCKER | a blocker is recorded and the same record carries no artifact and no remedy evidence, so nothing contradicts it |
+| `rule_A3` | `signal_A` targets | FALSE_OR_TRANSIENT | the record is settled in a passing terminal state with no blocker and no outstanding remedy, so the accused condition is positively absent rather than merely unevidenced |
+| `rule_B1` | `signal_B` targets | STALE_CONTRADICTION | the resource is reported unreachable while the same observation shows it holding a claim on live work |
+| `rule_B2` | `signal_B` targets | LEGITIMATE_BLOCKER | the resource is reported unreachable in every frozen observation and nothing shows it executing |
+
+`rule_A3` exists to make the negative control of §3.6 adjudicable: without a classification for "the
+accusation is wrong", a false accusation can only return `UNADJUDICATED`, which scores nothing and
+tests nothing. It is deliberately narrow — the absence of a recorded defect on a record nobody
+finished examining is not evidence of health — and it fires on no live target in this corpus.
+
+`rule_B1` and `rule_B2` carry the caveat in §4.8: the pair was rewritten after both analysts
+rejected an earlier version, so `signal_B` agreement is not independent evidence.
+
+The equivalent rules for a fabricated domain, runnable with no credentials, are in
+`adapters/synthetic.mjs`.

@@ -13,18 +13,44 @@ export const name = "synthetic";
 // --- adapter interface: 1 of 3 -------------------------------------------
 // Given the frozen observations and a target id, say what kind of thing it is
 // and return its record from each observation. Return kind:null to abstain.
+// Report `searched` on every path, including the successful one. An adapter
+// that resolves nothing and says nothing about where it looked leaves the
+// harness unable to distinguish "absent from the evidence" from "I only checked
+// one collection" — the exact confusion that made a whole signal type silently
+// unscoreable in the study behind PAPER.md.
+const COLLECTIONS = ["documents", "processors"];
+
 export const resolveTarget = (observations, targetId) => {
   const docs = observations.map((o) => (o.documents || []).find((d) => d.id === targetId)).filter(Boolean);
-  if (docs.length === observations.length && observations.length > 0) return { kind: "document", records: docs };
+  if (docs.length === observations.length && observations.length > 0) {
+    return { kind: "document", records: docs, searched: COLLECTIONS };
+  }
   const procs = observations.map((o) => (o.processors || []).find((p) => p.id === targetId)).filter(Boolean);
-  if (procs.length === observations.length && observations.length > 0) return { kind: "processor", records: procs };
-  return { kind: null, records: [] };
+  if (procs.length === observations.length && observations.length > 0) {
+    return { kind: "processor", records: procs, searched: COLLECTIONS };
+  }
+  return { kind: null, records: [], searched: COLLECTIONS };
 };
 
 // --- adapter interface: 2 of 3 -------------------------------------------
 // Rules may only assert what a record contradicts about ITSELF. No rule here
 // infers cause, and no rule authorizes an action.
 const DOCUMENT_RULES = [
+  {
+    // Needed to adjudicate a negative control at all: without a classification
+    // for "accused, and the record shows no defect", a false accusation can only
+    // come back UNADJUDICATED, which scores nothing and tests nothing.
+    //
+    // Deliberately narrow. Settled means the record reached a terminal, passing
+    // state — the absence of a blocker on a paused or cancelled record does not
+    // establish the absence of a defect, it establishes that nobody looked.
+    id: "document.no_defect_recorded",
+    classification: "FALSE_OR_TRANSIENT",
+    reason: "The record is settled in a passing terminal state and carries no blocker and no outstanding remedy, so the accused condition is positively absent rather than merely unevidenced.",
+    test: (d) => ["completed", "review_passed"].includes(d?.status)
+      && !d?.blocker?.message
+      && !(d.remedy_evidence || []).some((r) => r.complete === false),
+  },
   {
     id: "document.stale_contradiction",
     classification: "STALE_CONTRADICTION",
@@ -121,6 +147,68 @@ export const generateCase = (seed = "demo") => {
     alert: {
       schema: "blind-arm-alert/v1",
       signal: "processing_stall",
+      target_ids: targets,
+      note: "Detector category only. An accusation, not a finding.",
+    },
+  };
+};
+
+// --- negative control ------------------------------------------------------
+// Every case a persistence detector opens exists BECAUSE the detector believed
+// something. A corpus made only of those cases can measure agreement with a
+// correct alarm and nothing else: it cannot separate an analyst that read the
+// evidence from one that confirmed the accusation, because on every case those
+// two behaviours produce the same answer.
+//
+// This supplies the missing condition. The target set gains one record the
+// frozen observations show no defect in, accused by an alert exactly like the
+// rest. The correct answer is now to REJECT the accusation, and an analyst that
+// simply ratifies the detector is finally wrong about something.
+//
+// It is marked synthetic in every artifact it produces and carries a
+// `synthetic-` id prefix, so no scan for live cases can pool it with real
+// traffic. A constructed control is one observation, not a rate.
+export const generateNegativeControl = (seed = "negative") => {
+  const base = generateCase(seed);
+  const id = (p, n) => `${p}_${hash(`${seed}:${p}:${n}`)}`;
+
+  // Settled, passing, byte-identical across both observations. The analyst must
+  // conclude "no defect recorded", not "it changed between observations".
+  const healthy = {
+    id: id("doc", 9), status: "completed", processor_id: id("proc", 1),
+    blocker: null,
+    output_ref: `ref-${hash(seed + "clean")}`,
+    remedy_evidence: [{ complete: true, output_ref: `ref-${hash(seed + "clean")}`, checks: { parsed: true, validated: true } }],
+    claim: { held: false },
+  };
+
+  const observations = base.observations.map((o) => ({
+    ...o,
+    documents: [...o.documents, structuredClone(healthy)],
+  }));
+  const targets = [...base.evidence.required_target_ids, healthy.id].sort();
+
+  return {
+    case_id: "synthetic-negative-001",
+    synthetic: true,
+    signal: base.signal,
+    accused_but_healthy: healthy.id,
+    observations,
+    targetsPerObservation: [targets, targets],
+    evidence: {
+      schema: "blind-arm-evidence/v1",
+      synthetic: true,
+      synthetic_note: "CONSTRUCTED NEGATIVE CONTROL. One accused record carries no defect. Not live traffic; must not be pooled with live results.",
+      projection_note: base.evidence.projection_note,
+      required_target_ids: targets,
+      observations,
+    },
+    alert: {
+      schema: "blind-arm-alert/v1",
+      synthetic: true,
+      signal: base.signal,
+      // The manipulation: the alert accuses the healthy record too, in exactly
+      // the same terms it accuses the genuinely blocked ones.
       target_ids: targets,
       note: "Detector category only. An accusation, not a finding.",
     },

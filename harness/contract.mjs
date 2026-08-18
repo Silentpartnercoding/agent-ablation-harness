@@ -38,11 +38,25 @@ export const deterministicAdjudication = (groundTruth, evidence, adapter) => {
   const observations = evidence.observations || [];
   const targets = [];
   for (const targetId of groundTruth.persistent_targets || []) {
-    const { kind, records } = adapter.resolveTarget(observations, targetId);
+    const { kind, records, searched = null } = adapter.resolveTarget(observations, targetId);
     if (!kind) {
+      // Do not assert an absence that was never checked. The obvious reason to
+      // write here — "not present in every frozen observation" — is a claim
+      // about the evidence, but all the harness actually observed is that the
+      // adapter did not resolve the target. In the study behind PAPER.md those
+      // two came apart: the adapter looked in one collection of records and the
+      // targets of one whole signal type lived in another. Every one of them was
+      // returned UNADJUDICATED with a reason that was false, and they were
+      // silently unscoreable for the entire study before anyone noticed.
+      //
+      // So the reason is built from what the adapter says it searched, and an
+      // adapter that says nothing gets a sentence that claims nothing.
       targets.push({
         target_id: targetId, target_kind: null, classification: "UNADJUDICATED",
-        reason: "Target is not present in every frozen observation.",
+        searched_collections: searched,
+        reason: Array.isArray(searched) && searched.length
+          ? `Target was not resolved in every frozen observation under any collection the adapter searched (${searched.join(", ")}).`
+          : "The adapter did not resolve this target and did not report where it looked. Its absence from the evidence is therefore not established — only its non-resolution.",
       });
       continue;
     }
