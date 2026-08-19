@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_008d51ff",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "doc_008d51ff is blocked with 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Remedy evidence for output_ref 'ref-1a2a7de6' is marked complete with all checks passed, yet the document remains blocked for missing output. This suggests the block is no longer valid or is transient."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The output exists and is validated, so the block should be cleared or reconciled.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_018d5392",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_018d5392 is blocked with 'schema_unconfirmed' and has no output or remedy evidence.",
+          "support": "No output_ref or remedy evidence is present, and the schema is unconfirmed. The block is legitimate until further processing occurs."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "No evidence of error or resolution; the block is appropriate.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_028d5525",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_028d5525 is blocked with 'destination_unresolved' and its processor (proc_c717ce74) is offline.",
+          "support": "The processor required for routing is offline, making the destination unresolved. No remedy evidence is present."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor must be online to resolve routing and unblock the document.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_c717ce74",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_c717ce74 is offline, affecting routing for associated documents.",
+          "support": "Processor reachability is marked as 'online: false' in both observations, directly causing routing blocks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Restoring processor availability is necessary to resolve dependent routing blocks.",
+        "risk": "low"
+      }
+    }
+  ]
+}

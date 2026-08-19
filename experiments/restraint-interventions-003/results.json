@@ -1,0 +1,230 @@
+{
+  "model": "gpt-4.1",
+  "startedAt": "2026-08-19T17:07:46.339Z",
+  "variants": {
+    "V0_control": {
+      "why": "unchanged anchor",
+      "promptSha256": "sha256:e5b9b647f80758e743317baee0cc1485eff1a3cfd2b1d588193390683eb4bcf9",
+      "blindRestraint": null,
+      "assistedRestraint": null,
+      "gap": null,
+      "tally": {
+        "blind": {
+          "restrained": 0,
+          "total": 0
+        },
+        "assisted": {
+          "restrained": 0,
+          "total": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-002",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-003",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-004",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-005",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-006",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-007",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-008",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-neg",
+          "negative": true,
+          "trials": 5,
+          "wrote": true
+        }
+      ],
+      "uncachedInputTokens": 64853
+    },
+    "V1R_citation_no_fallback": {
+      "why": "requires evidence for an action, and names no fallback",
+      "promptSha256": "sha256:4cbe18e702b69580e4be7e7022e292fbe1d6aee2b03dfd00b526d0dd834eb5cf",
+      "blindRestraint": null,
+      "assistedRestraint": null,
+      "gap": null,
+      "tally": {
+        "blind": {
+          "restrained": 0,
+          "total": 0
+        },
+        "assisted": {
+          "restrained": 0,
+          "total": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-002",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-003",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-004",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-005",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-006",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-007",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-008",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-neg",
+          "negative": true,
+          "trials": 5,
+          "wrote": true
+        }
+      ],
+      "uncachedInputTokens": 65871
+    },
+    "V3R_falsifier_recorded": {
+      "why": "same question as 002 V3, with the answer recorded in a parseable field",
+      "promptSha256": "sha256:04f828844e741d89bbbfdb3f537f2cf00a7442d0a8109cc90595205b35c1a0f6",
+      "blindRestraint": null,
+      "assistedRestraint": null,
+      "gap": null,
+      "tally": {
+        "blind": {
+          "restrained": 0,
+          "total": 0
+        },
+        "assisted": {
+          "restrained": 0,
+          "total": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-002",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-003",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-004",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-005",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-006",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-007",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-008",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-neg",
+          "negative": true,
+          "trials": 5,
+          "wrote": true
+        }
+      ],
+      "uncachedInputTokens": 65260
+    }
+  },
+  "corpusDigest": "sha256:a823506ca499e0f1532f149692f0d509fbe6ebfacd7998b3778dfd244844e620",
+  "finishedAt": "2026-08-19T17:36:32.676Z"
+}

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_8e4ceb3c",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_8e4ceb3c is blocked for 'output_missing' (verification), but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Remedy evidence for output_ref 'ref-0a586bbf' is complete with both 'parsed' and 'validated' true, yet the document remains blocked for missing output."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document is blocked for missing output despite remedy evidence confirming output is present and valid. This suggests a stale or contradictory state.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_904cee62",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_904cee62 is blocked for 'destination_unresolved' (routing) and its processor is offline.",
+          "support": "Blocker is routing-related and processor proc_b3a76031 is reported as offline, making the routing destination legitimately unresolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, which is causing the routing block. Restoring processor reachability is the logical next step.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_914ceff5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_914ceff5 is blocked for 'schema_unconfirmed' (verification) with no output_ref or remedy evidence.",
+          "support": "No output or remedy evidence is present, so the schema cannot be confirmed. The block is legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "No output or remedy evidence is available; further inspection or waiting for output is required.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_b3a76031",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_b3a76031 is offline.",
+          "support": "Processor reachability is explicitly marked as 'online': false, which directly causes routing blocks for dependent documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Restoring processor reachability will resolve dependent routing blocks.",
+        "risk": "low"
+      }
+    }
+  ]
+}

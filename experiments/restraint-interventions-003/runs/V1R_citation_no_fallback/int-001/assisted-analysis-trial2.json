@@ -1,0 +1,70 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_dc82cd54",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dc82cd54 is blocked due to verification: schema_unconfirmed",
+          "support": "\"id\": \"doc_dc82cd54\", \"status\": \"blocked\", ... \"blocker\": { \"class\": \"verification\", \"message\": \"schema_unconfirmed\" }"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The document is correctly blocked due to unconfirmed schema, with no remedy evidence present.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dd82cee7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dd82cee7 is blocked due to routing: destination_unresolved",
+          "support": "\"id\": \"doc_dd82cee7\", \"status\": \"blocked\", ... \"blocker\": { \"class\": \"routing\", \"message\": \"destination_unresolved\" }"
+        },
+        {
+          "claim": "Processor proc_4719a42e is offline, which may explain the unresolved destination.",
+          "support": "\"id\": \"proc_4719a42e\", \"reachability\": { \"online\": false }"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The document is correctly blocked due to unresolved routing, and the responsible processor is offline.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_df82d20d",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_df82d20d is blocked due to verification: output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "\"id\": \"doc_df82d20d\", \"status\": \"blocked\", ... \"blocker\": { \"class\": \"verification\", \"message\": \"output_missing\" }, ... \"remedy_evidence\": [ { \"complete\": true, \"output_ref\": \"ref-42bef3e4\", \"checks\": { \"parsed\": true, \"validated\": true } } ]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked for missing output despite evidence that output is present and validated. The output record should be reconciled to resolve the contradiction.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_4719a42e",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_4719a42e is offline.",
+          "support": "\"id\": \"proc_4719a42e\", \"reachability\": { \"online\": false }"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Processor is correctly marked as offline, which is a legitimate state.",
+        "risk": "low"
+      }
+    }
+  ]
+}

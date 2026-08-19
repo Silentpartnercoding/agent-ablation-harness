@@ -1,0 +1,82 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_008d51ff",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_008d51ff is blocked due to output_missing, but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Both observations show doc_008d51ff blocked for output_missing, but remedy_evidence for the referenced output (ref-1a2a7de6) is complete, parsed, and validated. This contradicts the continued block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked despite remedy evidence indicating the output is present and valid. The output record and block status need reconciliation.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the remedy evidence is incomplete, invalid, or not associated with the correct output_ref would show the alert is wrong about this being a contradiction.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_018d5392",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_018d5392 is blocked due to schema_unconfirmed, with no output_ref and no remedy evidence.",
+          "support": "Both observations show the document blocked for schema_unconfirmed, with no output or remedy evidence. The block is legitimate and unresolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The block is legitimate and unresolved; no evidence of error or contradiction.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that schema confirmation has occurred, or remedy evidence exists, would show the alert is wrong about this being a legitimate blocker.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_028d5525",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_028d5525 is blocked due to destination_unresolved, with no remedy evidence and processor offline.",
+          "support": "Both observations show the document blocked for routing (destination_unresolved), with no remedy evidence. The processor (proc_c717ce74) is offline, supporting the legitimacy of the block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The block is legitimate and unresolved; no evidence of error or contradiction.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the destination is resolved, remedy evidence exists, or the processor is online would show the alert is wrong about this being a legitimate blocker.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "proc_c717ce74",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_c717ce74 is offline, causing routing blocks for associated documents.",
+          "support": "Both observations show proc_c717ce74 with reachability.online: false. This directly causes routing blocks for documents depending on it."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, blocking dependent documents. Restoration is required to resolve the stall.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the processor is online or not required for routing would show the alert is wrong about this being a legitimate blocker.",
+        "present": false
+      }
+    }
+  ]
+}

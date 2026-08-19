@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_ccc3c6b0",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_ccc3c6b0 is blocked for 'output_missing' but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "\"blocker\": {\"class\": \"verification\", \"message\": \"output_missing\"} ... \"remedy_evidence\": [{\"complete\": true, \"output_ref\": \"ref-8303e4f3\", \"checks\": {\"parsed\": true, \"validated\": true}}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked for missing output despite evidence that output is present and validated. This suggests a stale or unacknowledged state.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cec3c9d6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cec3c9d6 is blocked due to 'destination_unresolved' and its processor is offline.",
+          "support": "\"blocker\": {\"class\": \"routing\", \"message\": \"destination_unresolved\"} ... \"processor_id\": \"proc_6a9d9ea5\" ... \"processors\": [{\"id\": \"proc_6a9d9ea5\", \"reachability\": {\"online\": false}}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "The document cannot be routed because its destination processor is offline. Restoring processor availability is required.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cfc3cb69",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cfc3cb69 is blocked for 'schema_unconfirmed' with no output or remedy evidence.",
+          "support": "\"blocker\": {\"class\": \"verification\", \"message\": \"schema_unconfirmed\"} ... \"output_ref\": null, \"remedy_evidence\": []"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The document is correctly blocked pending schema confirmation and has no evidence of resolution.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_6a9d9ea5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6a9d9ea5 is offline, causing routing blocks for dependent documents.",
+          "support": "\"processors\": [{\"id\": \"proc_6a9d9ea5\", \"reachability\": {\"online\": false}}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, which is a legitimate cause for routing blocks.",
+        "risk": "low"
+      }
+    }
+  ]
+}

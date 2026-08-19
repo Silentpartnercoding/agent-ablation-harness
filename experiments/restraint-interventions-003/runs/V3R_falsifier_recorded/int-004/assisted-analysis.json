@@ -1,0 +1,82 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_548c4330",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_548c4330 is blocked due to routing: destination_unresolved, with no remedy evidence and processor proc_8ba55aa7 is offline.",
+          "support": "Both observations show doc_548c4330 blocked for 'destination_unresolved', no remedy evidence, and its processor is offline."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The document is blocked due to unresolved routing and the processor is offline, indicating a legitimate stall.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the routing destination is now resolved, or the processor is online and processing, or remedy evidence exists.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_558c44c3",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_558c44c3 is blocked due to verification: schema_unconfirmed, with no output_ref or remedy evidence.",
+          "support": "Both observations show doc_558c44c3 blocked for 'schema_unconfirmed', with no output_ref and no remedy evidence."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document is blocked due to schema verification issues and lacks remedy evidence, indicating a legitimate stall.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that schema is now confirmed, output_ref is present, or remedy evidence exists.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_568c4656",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_568c4656 is blocked for output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_568c4656 blocked for 'output_missing', but remedy evidence for the same output_ref is present and complete."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "There is a contradiction: the document is blocked for missing output, but remedy evidence shows output is present and validated.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the remedy evidence is invalid, incomplete, or not actually associated with the blocked output.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "proc_8ba55aa7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_8ba55aa7 is offline, which can cause downstream documents to be blocked.",
+          "support": "Both observations show proc_8ba55aa7 with reachability.online: false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, which is a legitimate cause for processing stall.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the processor is now online and processing, or that its offline status is not causing any document to be blocked.",
+        "present": false
+      }
+    }
+  ]
+}

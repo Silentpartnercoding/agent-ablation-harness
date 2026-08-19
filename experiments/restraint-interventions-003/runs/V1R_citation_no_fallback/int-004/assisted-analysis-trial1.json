@@ -1,0 +1,70 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_548c4330",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_548c4330 is blocked due to routing: destination_unresolved.",
+          "support": "From evidence.json: 'doc_548c4330', 'status': 'blocked', 'blocker': {'class': 'routing', 'message': 'destination_unresolved'}."
+        },
+        {
+          "claim": "Processor proc_8ba55aa7 (handling doc_548c4330) is offline.",
+          "support": "From evidence.json: processor 'proc_8ba55aa7', 'reachability': {'online': false}."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "The processor responsible for routing is offline, causing a legitimate block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_558c44c3",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_558c44c3 is blocked due to verification: schema_unconfirmed.",
+          "support": "From evidence.json: 'doc_558c44c3', 'status': 'blocked', 'blocker': {'class': 'verification', 'message': 'schema_unconfirmed'}."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Schema confirmation is missing, which is a legitimate verification block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_568c4656",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_568c4656 is blocked due to verification: output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "From evidence.json: 'doc_568c4656', 'status': 'blocked', 'blocker': {'class': 'verification', 'message': 'output_missing'}, 'remedy_evidence': [{'complete': true, 'output_ref': 'ref-b5f20af1', 'checks': {'parsed': true, 'validated': true}}]."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Block persists despite evidence that output is present and validated; likely a stale or contradictory state.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_8ba55aa7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_8ba55aa7 is offline.",
+          "support": "From evidence.json: processor 'proc_8ba55aa7', 'reachability': {'online': false}."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, which is a legitimate cause for processing stall.",
+        "risk": "low"
+      }
+    }
+  ]
+}

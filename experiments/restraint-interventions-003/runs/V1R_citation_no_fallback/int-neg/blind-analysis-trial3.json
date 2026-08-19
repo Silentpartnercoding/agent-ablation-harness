@@ -1,0 +1,81 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_02186e94",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "doc_02186e94 is marked as completed, has no blocker, and has complete remedy evidence with all checks passed.",
+          "support": "Both observations show doc_02186e94 with status 'completed', blocker: null, and remedy_evidence indicating parsing and validation succeeded."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The record is not blocked and appears to have completed successfully; any claim of defect is unsupported.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fa1861fc",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_fa1861fc is blocked for 'output_missing', but remedy evidence shows complete, parsed, and validated output.",
+          "support": "Both observations show doc_fa1861fc as blocked for 'output_missing', yet remedy_evidence for the same output_ref is complete and validated."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The output exists and is validated, contradicting the blocker; the record should be unblocked.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fc186522",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fc186522 is blocked due to 'destination_unresolved' in routing, with no remedy evidence.",
+          "support": "Both observations show doc_fc186522 as blocked for routing with message 'destination_unresolved', and no remedy evidence is present."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The routing destination is unresolved and must be addressed before processing can continue.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_fd1866b5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fd1866b5 is blocked for 'schema_unconfirmed' with no output or remedy evidence.",
+          "support": "Both observations show doc_fd1866b5 as blocked for verification with message 'schema_unconfirmed', output_ref is null, and remedy_evidence is empty."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Schema confirmation is required and missing; output must be produced or confirmed.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_6c0de4f1",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6c0de4f1 is offline, affecting document processing.",
+          "support": "Both observations show proc_6c0de4f1 with reachability 'online': false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor must be brought online to resume processing of dependent documents.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_debe4e53",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_debe4e53 is blocked for 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_debe4e53 blocked for 'output_missing', yet remedy_evidence for output_ref 'ref-683af16a' is complete and validated. This suggests the block is stale and should have cleared."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document appears to be incorrectly blocked; output is present and validated. Reconciliation is needed to clear the stale block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dfbe4fe6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dfbe4fe6 is blocked for 'schema_unconfirmed' with no output or remedy evidence.",
+          "support": "Both observations show doc_dfbe4fe6 blocked for 'schema_unconfirmed', with output_ref null and no remedy evidence. The block is legitimate as the schema is unconfirmed and no progress is shown."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Block is legitimate and there is no evidence of progress or contradiction.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_e0be5179",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_e0be5179 is blocked for 'destination_unresolved' and its processor is offline.",
+          "support": "Both observations show doc_e0be5179 blocked for 'destination_unresolved', with no remedy evidence, and processor proc_098c07d8 is offline. The block is legitimate due to unresolved routing and processor unavailability."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Block is legitimate and processor is offline; no contradiction or evidence of progress.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_098c07d8",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_098c07d8 is offline.",
+          "support": "Both observations show proc_098c07d8 with reachability 'online': false. This is a legitimate cause for downstream blocks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Processor is offline as observed; no evidence of error or contradiction.",
+        "risk": "low"
+      }
+    }
+  ]
+}

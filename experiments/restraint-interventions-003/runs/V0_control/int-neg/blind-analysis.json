@@ -1,0 +1,81 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_02186e94",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "doc_02186e94 is marked as completed, has no blocker, and has complete remedy evidence with all checks passing.",
+          "support": "Both observations show doc_02186e94 as completed, with output_ref present, no blocker, and remedy_evidence indicating parsing and validation succeeded."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "This record is not blocked and shows no defect; it appears to be a negative control or mislabel.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fa1861fc",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_fa1861fc is blocked for 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Both observations show doc_fa1861fc as blocked for output_missing, but remedy_evidence for the same output_ref is complete and all checks pass, contradicting the blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The contradiction between the blocker and the remedy evidence suggests the block is stale or should be cleared.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fc186522",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fc186522 is blocked for 'destination_unresolved' with no remedy evidence.",
+          "support": "Both observations show doc_fc186522 as blocked for routing/destination_unresolved, with no remedy evidence and processor proc_6c0de4f1 offline."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The routing destination is unresolved and the processor is offline; routing or processor restoration is needed.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_fd1866b5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fd1866b5 is blocked for 'schema_unconfirmed' with no output or remedy evidence.",
+          "support": "Both observations show doc_fd1866b5 as blocked for verification/schema_unconfirmed, with output_ref null and no remedy evidence."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "Schema confirmation is missing and no output is present; requires review or further processing.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_6c0de4f1",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6c0de4f1 is offline, affecting routing for associated documents.",
+          "support": "Both observations show proc_6c0de4f1 with reachability.online: false, which blocks routing for doc_fc186522."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline and must be restored to resolve routing blocks.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

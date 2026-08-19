@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_27b8f75c",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_27b8f75c is blocked due to routing: destination_unresolved.",
+          "support": "The document status is 'blocked' with a routing blocker ('destination_unresolved'), and its associated processor (proc_c65f0d23) is offline, which justifies the block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "The processor required for routing is offline, which is a legitimate cause for the routing block. Restoring processor availability is necessary.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_28b8f8ef",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_28b8f8ef is blocked due to verification: schema_unconfirmed.",
+          "support": "The document status is 'blocked' with a verification blocker ('schema_unconfirmed'), and there is no remedy evidence or output_ref, indicating the schema has not been confirmed yet."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The block is legitimate as the schema is unconfirmed and no remedy evidence is present. Further inspection or upstream action is needed.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_29b8fa82",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_29b8fa82 is blocked due to verification: output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Despite the 'output_missing' blocker, remedy evidence for the same output_ref indicates all checks (parsed, validated) are complete, suggesting the block is outdated or not reconciled."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The block appears stale given the complete remedy evidence. Reconciliation of the output record should clear the contradiction.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_c65f0d23",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_c65f0d23 is offline.",
+          "support": "Processor reachability is explicitly marked as 'online: false', which is a legitimate reason for any dependent routing/document blocks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor must be brought online to resolve dependent routing blocks.",
+        "risk": "low"
+      }
+    }
+  ]
+}

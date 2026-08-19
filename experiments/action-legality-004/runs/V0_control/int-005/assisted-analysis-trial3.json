@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_3283e690",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_3283e690 is blocked due to 'schema_unconfirmed' verification blocker, with no output_ref or remedy evidence.",
+          "support": "Both observations show doc_3283e690 blocked for 'schema_unconfirmed', with no output_ref and no remedy evidence, and claim.held is false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is legitimately blocked due to unconfirmed schema and no evidence of resolution.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3383e823",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_3383e823 is blocked due to 'destination_unresolved' routing blocker, with no remedy evidence.",
+          "support": "Both observations show doc_3383e823 blocked for 'destination_unresolved', with no remedy evidence, and claim.held is false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is legitimately blocked due to unresolved routing destination and no evidence of resolution.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3583eb49",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_3583eb49 is blocked for 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_3583eb49 blocked for 'output_missing', but remedy_evidence is present, marked complete, with checks parsed and validated."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked despite remedy evidence indicating output is complete and validated, suggesting a stale or contradictory state.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_2958408a",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_2958408a is offline, affecting documents routed to it.",
+          "support": "Both observations show proc_2958408a with reachability.online: false, which is consistent with routing blockers on associated documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate cause for routing-related document blocks.",
+        "risk": "low"
+      }
+    }
+  ]
+}

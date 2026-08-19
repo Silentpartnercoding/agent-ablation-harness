@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_dc82cd54",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dc82cd54 is blocked with blocker class 'verification' and message 'schema_unconfirmed', with no output_ref and no remedy evidence.",
+          "support": "The document is blocked due to schema not being confirmed, and there is no evidence that this has been remedied or that the schema has been confirmed. The claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The document is legitimately blocked pending schema confirmation. Manual review or further automated schema confirmation is required.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dd82cee7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dd82cee7 is blocked with blocker class 'routing' and message 'destination_unresolved', with no remedy evidence.",
+          "support": "The document is blocked because its routing destination is unresolved, and there is no evidence that this has been addressed. The claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The document cannot proceed until its routing destination is resolved.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_df82d20d",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_df82d20d is blocked with blocker class 'verification' and message 'output_missing', but remedy evidence shows output_ref 'ref-42bef3e4' is complete, parsed, and validated.",
+          "support": "Despite the blocker, the remedy evidence indicates the required output is present and validated, suggesting the block is outdated or not reconciled with the current state."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document appears to be blocked in error; output is present and validated. The block should be cleared or reconciled.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_4719a42e",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_4719a42e is marked as offline in reachability.",
+          "support": "Processor is not online, which is a legitimate reason for any dependent documents to be blocked or for the processor itself to be considered blocked."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor must be brought online to resume processing of dependent documents.",
+        "risk": "low"
+      }
+    }
+  ]
+}

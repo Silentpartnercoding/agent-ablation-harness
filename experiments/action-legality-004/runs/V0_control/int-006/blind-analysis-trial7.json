@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_8e4ceb3c",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_8e4ceb3c is blocked for 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Both observations show doc_8e4ceb3c blocked for 'output_missing' with output_ref 'ref-0a586bbf'. Remedy evidence for this output_ref is marked complete with all checks passed, contradicting the continued block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked despite remedy evidence indicating the output is complete and validated. This suggests a stale or un-updated block state.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_904cee62",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_904cee62 is blocked for 'destination_unresolved' in routing.",
+          "support": "Both observations show doc_904cee62 blocked for routing with message 'destination_unresolved'. No remedy evidence is present, and the associated processor (proc_b3a76031) is offline, supporting the legitimacy of the block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The routing destination is unresolved and the processor is offline. Routing or processor status needs to be addressed.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_914ceff5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_914ceff5 is blocked for 'schema_unconfirmed' in verification.",
+          "support": "Both observations show doc_914ceff5 blocked for 'schema_unconfirmed' with no output_ref and no remedy evidence. The claim is not held, indicating the schema has not been confirmed."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Schema confirmation is still pending and no remedy evidence is available. Further inspection or schema validation is required.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_b3a76031",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_b3a76031 is offline.",
+          "support": "Both observations show proc_b3a76031 with reachability 'online': false. This directly impacts routing and document processing."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, which is a legitimate blocker for any dependent routing or processing tasks.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

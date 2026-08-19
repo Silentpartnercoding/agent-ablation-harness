@@ -1,0 +1,101 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_02186e94",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "doc_02186e94 is accused of being stalled, but it is completed with no blocker and has validated output.",
+          "support": "Both observations show doc_02186e94 with status 'completed', no blocker, and remedy_evidence indicating successful parsing and validation."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The alert is incorrect for this document; output is present and validated.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence of a blocker, missing output, or incomplete processing for doc_02186e94.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_fa1861fc",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_fa1861fc is blocked for 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Both observations show doc_fa1861fc as blocked for 'output_missing', but remedy_evidence for the referenced output (ref-6a91c4ff) is complete and validated."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Block persists despite output being present and validated; likely a stale or contradictory state.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that output is actually missing or invalid for doc_fa1861fc.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_fc186522",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fc186522 is blocked for 'destination_unresolved' and has no remedy evidence.",
+          "support": "Both observations show doc_fc186522 as blocked for routing with no remedy evidence and processor proc_6c0de4f1 is offline."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "Document is genuinely blocked due to unresolved routing and offline processor.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that routing is resolved or processor is online and document is unblocked.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_fd1866b5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fd1866b5 is blocked for 'schema_unconfirmed' with no output or remedy evidence.",
+          "support": "Both observations show doc_fd1866b5 as blocked for verification, no output_ref, and no remedy evidence."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "Document is genuinely blocked due to schema verification failure.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that schema is confirmed, output is present, or document is unblocked.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "proc_6c0de4f1",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6c0de4f1 is offline, causing routing blocks for associated documents.",
+          "support": "Both observations show proc_6c0de4f1 with reachability 'online': false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is genuinely offline, blocking dependent documents.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that proc_6c0de4f1 is online and reachable.",
+        "present": false
+      }
+    }
+  ]
+}

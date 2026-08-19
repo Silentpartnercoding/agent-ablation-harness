@@ -109,6 +109,41 @@ confounded by construction.
 so the confirmation-ritual hypothesis can be tested rather than guessed; and a
 V1 rewritten without a named fallback.
 
+## Post-hoc: the corpus dilutes the effect 3:1
+
+**This section is a post-hoc subgroup analysis and is not a result of this
+experiment.** The preregistration specified restraint pooled over all scoreable
+targets and said nothing about subgroups. It is recorded because it bears on
+whether the corpus can host the question at all, and it is labelled so that
+nobody later reads it as confirmatory.
+
+Each synthetic case contains four targets, of which exactly one is generated as
+**ambiguous**; the other three are a clear contradiction, a clear legitimate
+blocker, and an offline processor. `PAPER.md` reports the bias acting on
+ambiguity — its constructed negative control, where evidence clears the accused
+record, was rejected by both arms.
+
+Restricting the same 002 data to the ambiguous target only:
+
+| variant | blind | assisted | gap |
+| --- | --- | --- | --- |
+| V0 control | 0.6500 | 0.5250 | **+0.1250** |
+| V1 citation | 0.5000 | 1.0000 | −0.5000 |
+| V2 commit-first | 0.6500 | 0.4250 | +0.2250 |
+| V3 falsifier | 0.5500 | 0.3000 | +0.2500 |
+
+n = 40 per arm (8 cases × 5 trials; the negative control is excluded).
+
+The control gap widens from +0.0865 to +0.1250. Three of four targets are cases
+where both arms agree, so pooled scoring measures the effect diluted by
+agreement it was never going to find.
+
+**What this does not license.** A larger number obtained by choosing a subset
+after seeing the data is a hypothesis, not a finding, however well-motivated the
+subset. It is stated as a preregistered secondary analysis for 003 in
+`../restraint-interventions-003/PREREGISTRATION-ADDENDUM.md`, and any claim
+about it should rest on that run rather than on this paragraph.
+
 ## Provenance
 
 360 analyses in `runs/<variant>/<seed>/{blind,assisted}-analysis-trial{1..5}.json`.

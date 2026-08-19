@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_debe4e53",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_debe4e53 is blocked for 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Both observations show doc_debe4e53 blocked for 'output_missing', yet remedy_evidence for the referenced output (ref-683af16a) is complete and validated. This suggests the block is no longer legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked despite evidence that output is present and validated. The output record and block status should be reconciled.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dfbe4fe6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dfbe4fe6 is blocked for 'schema_unconfirmed' with no output_ref and no remedy evidence.",
+          "support": "Both observations show the document blocked for schema verification, with no output or remedy evidence to resolve the block. The block appears valid."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Block is legitimate and there is no evidence to suggest it should be lifted.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_e0be5179",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_e0be5179 is blocked for 'destination_unresolved' and its processor is offline.",
+          "support": "Both observations show the document blocked for routing with no remedy evidence, and the associated processor (proc_098c07d8) is offline. The block is legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "Block is legitimate, but routing or processor status may need to be addressed to resolve the block.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_098c07d8",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_098c07d8 is offline.",
+          "support": "Both observations show the processor as offline, which can legitimately block dependent documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline and should be restored to resolve downstream blocks.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

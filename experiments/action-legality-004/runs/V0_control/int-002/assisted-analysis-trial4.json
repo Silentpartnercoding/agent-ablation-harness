@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_ccc3c6b0",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_ccc3c6b0 is blocked due to output_missing, but remedy_evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_ccc3c6b0 blocked for output_missing, yet remedy_evidence for the same output_ref is complete and validated, indicating the block is outdated."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document is still marked as blocked despite evidence that output is complete and validated. The output record should be reconciled to resolve the stale block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cec3c9d6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cec3c9d6 is blocked due to destination_unresolved with no remedy evidence.",
+          "support": "Both observations show doc_cec3c9d6 blocked for routing (destination_unresolved), with no remedy evidence and the associated processor (proc_6a9d9ea5) is offline."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The routing destination is unresolved and the processor is offline. Routing or processor status must be addressed before progress.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_cfc3cb69",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cfc3cb69 is blocked due to schema_unconfirmed with no remedy evidence.",
+          "support": "Both observations show doc_cfc3cb69 blocked for verification (schema_unconfirmed), with no output_ref and no remedy evidence."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "Schema confirmation is missing and no remedy evidence is present. Manual or automated review is needed to resolve the verification block.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_6a9d9ea5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6a9d9ea5 is offline.",
+          "support": "Both observations show proc_6a9d9ea5 with reachability.online: false, which blocks dependent documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, preventing progress for dependent documents. Restoration is required.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

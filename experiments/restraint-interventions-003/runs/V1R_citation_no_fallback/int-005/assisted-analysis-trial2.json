@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_3283e690",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_3283e690 is blocked due to verification: schema_unconfirmed, with no output_ref and no remedy evidence.",
+          "support": "\"id\": \"doc_3283e690\", \"status\": \"blocked\", ... \"blocker\": { \"class\": \"verification\", \"message\": \"schema_unconfirmed\" }, \"output_ref\": null, \"remedy_evidence\": []"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is blocked due to unconfirmed schema and has no remedy evidence or output. Further inspection is needed to resolve the schema issue.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3383e823",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_3383e823 is blocked due to routing: destination_unresolved, with no remedy evidence and the processor is offline.",
+          "support": "\"id\": \"doc_3383e823\", \"status\": \"blocked\", ... \"blocker\": { \"class\": \"routing\", \"message\": \"destination_unresolved\" }, ... \"remedy_evidence\": [] ... \"processor_id\": \"proc_2958408a\" ... \"id\": \"proc_2958408a\", \"reachability\": { \"online\": false }"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is blocked due to unresolved routing and the associated processor is offline. Inspection is required to restore processor reachability or resolve routing.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3583eb49",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_3583eb49 is blocked for output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "\"id\": \"doc_3583eb49\", \"status\": \"blocked\", ... \"blocker\": { \"class\": \"verification\", \"message\": \"output_missing\" }, ... \"remedy_evidence\": [ { \"complete\": true, ... \"checks\": { \"parsed\": true, \"validated\": true } } ]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document is still blocked despite remedy evidence indicating output is complete and validated. Output record reconciliation is needed to clear the stale contradiction.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_2958408a",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_2958408a is offline, causing routing issues for dependent documents.",
+          "support": "\"id\": \"proc_2958408a\", \"reachability\": { \"online\": false }"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate blocker for routing. Inspection is needed to restore processor availability.",
+        "risk": "low"
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_27b8f75c",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_27b8f75c is blocked due to routing: destination_unresolved.",
+          "support": "The document has status 'blocked' with blocker class 'routing' and message 'destination_unresolved'."
+        },
+        {
+          "claim": "Processor proc_c65f0d23 is offline.",
+          "support": "Processor proc_c65f0d23 has reachability 'online': false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "The processor required for routing is offline, which is a legitimate cause for the routing block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_28b8f8ef",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_28b8f8ef is blocked due to verification: schema_unconfirmed.",
+          "support": "The document has status 'blocked' with blocker class 'verification' and message 'schema_unconfirmed'."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "No remedy evidence is present; schema confirmation is required for progress.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_29b8fa82",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_29b8fa82 is blocked due to verification: output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Remedy evidence for output_ref 'ref-3fc0fabd' is marked complete with checks parsed: true, validated: true, yet the document remains blocked for output_missing."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The output is present and validated, but the block persists, indicating a stale or contradictory state.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_c65f0d23",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_c65f0d23 is offline.",
+          "support": "Processor proc_c65f0d23 has reachability 'online': false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, which is a legitimate cause for downstream blocks.",
+        "risk": "low"
+      }
+    }
+  ]
+}

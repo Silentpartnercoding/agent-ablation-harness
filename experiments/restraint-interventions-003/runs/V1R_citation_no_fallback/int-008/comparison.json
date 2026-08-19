@@ -1,0 +1,994 @@
+{
+  "schema": "blind-arm-comparison/v2",
+  "case_id": "int-008",
+  "completed_at": "2026-08-19T17:25:22.279Z",
+  "arm_order": [
+    "blind",
+    "assisted"
+  ],
+  "arm_order_balanced": true,
+  "verification": {
+    "manifest_intact": true,
+    "mismatches": [],
+    "arms_received_identical_evidence": true,
+    "blind_evidence_sha256": "179c76bf909e3b96cb22a264d473b93d3755c564970adf3a3acab5d51e9fd03d",
+    "assisted_evidence_sha256": "179c76bf909e3b96cb22a264d473b93d3755c564970adf3a3acab5d51e9fd03d"
+  },
+  "ground_truth": {
+    "schema": "blind-arm-ground-truth/v1",
+    "signal": "processing_stall",
+    "observation_counts": [
+      4,
+      4
+    ],
+    "observation_targets": [
+      [
+        "doc_27b8f75c",
+        "doc_28b8f8ef",
+        "doc_29b8fa82",
+        "proc_c65f0d23"
+      ],
+      [
+        "doc_27b8f75c",
+        "doc_28b8f8ef",
+        "doc_29b8fa82",
+        "proc_c65f0d23"
+      ]
+    ],
+    "persistent_targets": [
+      "doc_27b8f75c",
+      "doc_28b8f8ef",
+      "doc_29b8fa82",
+      "proc_c65f0d23"
+    ],
+    "signal_present_in_all": true,
+    "classification": "CONFIRMED_CONDITION",
+    "scope_limit": "Confirms the machine condition only; it does not prove the cause or authorize a remedy.",
+    "production_effects": 0
+  },
+  "adjudication": {
+    "schema": "blind-arm-adjudication/v1",
+    "targets": [
+      {
+        "target_id": "doc_27b8f75c",
+        "target_kind": "document",
+        "classification": "UNADJUDICATED",
+        "reason": "Frozen facts confirm the record persisted but do not independently prove its cause or correct remedy."
+      },
+      {
+        "target_id": "doc_28b8f8ef",
+        "target_kind": "document",
+        "classification": "LEGITIMATE_BLOCKER",
+        "rule_id": "document.uncontradicted_blocker",
+        "reason": "A blocker is recorded and the same frozen record carries no output reference and no remedy evidence, so nothing contradicts the blocker. Internal consistency only — not proof the blocker's cause is correct."
+      },
+      {
+        "target_id": "doc_29b8fa82",
+        "target_kind": "document",
+        "classification": "STALE_CONTRADICTION",
+        "rule_id": "document.stale_contradiction",
+        "reason": "The blocker reports output missing while the same frozen record carries an output reference and complete passing remedy evidence."
+      },
+      {
+        "target_id": "proc_c65f0d23",
+        "target_kind": "processor",
+        "classification": "LEGITIMATE_BLOCKER",
+        "rule_id": "processor.persistently_offline",
+        "reason": "The processor is reported offline in every frozen observation and nothing shows it executing, so the blocker is corroborated rather than contradicted."
+      }
+    ]
+  },
+  "blind": {
+    "case_verdict": "TRUE",
+    "action_authorized": false,
+    "target_assessments": [
+      {
+        "target_id": "doc_27b8f75c",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "Document doc_27b8f75c is blocked due to 'destination_unresolved' in routing, and its associated processor proc_c65f0d23 is offline.",
+            "support": "The document's blocker is 'routing: destination_unresolved', and the processor's reachability is 'online: false', indicating the routing destination cannot be resolved because the processor is offline."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "restore_processor",
+          "why": "Processor proc_c65f0d23 is offline, which is preventing routing. Restoring processor availability may resolve the routing block.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "doc_28b8f8ef",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "Document doc_28b8f8ef is blocked due to 'schema_unconfirmed' in verification, with no output_ref or remedy evidence.",
+            "support": "The document's blocker is 'verification: schema_unconfirmed', output_ref is null, and there is no remedy evidence, indicating the schema has not been confirmed and no corrective action has been taken."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "reconcile_output_record",
+          "why": "Schema confirmation is missing and no output is present. Reconciling or regenerating the output may resolve the verification block.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "doc_29b8fa82",
+        "classification": "STALE_CONTRADICTION",
+        "evidence": [
+          {
+            "claim": "Document doc_29b8fa82 is blocked due to 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+            "support": "Blocker is 'verification: output_missing', but remedy evidence for output_ref 'ref-3fc0fabd' is complete with both 'parsed' and 'validated' true, indicating the output is actually available and valid."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "reconcile_output_record",
+          "why": "The block is stale because output is present and validated. Reconciling the output record should clear the contradiction.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "proc_c65f0d23",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "Processor proc_c65f0d23 is offline (reachability: online: false).",
+            "support": "Both observations show proc_c65f0d23 as offline, which directly blocks any dependent routing or processing."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "restore_processor",
+          "why": "Restoring processor availability is necessary for dependent documents to proceed.",
+          "risk": "low"
+        }
+      }
+    ]
+  },
+  "assisted": {
+    "case_verdict": "TRUE",
+    "action_authorized": false,
+    "target_assessments": [
+      {
+        "target_id": "doc_27b8f75c",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "doc_27b8f75c is blocked due to routing: destination_unresolved.",
+            "support": "The document has status 'blocked', blocker class 'routing', message 'destination_unresolved', and no remedy evidence."
+          },
+          {
+            "claim": "Processor proc_c65f0d23 is offline.",
+            "support": "Processor proc_c65f0d23 has reachability 'online': false."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "restore_processor",
+          "why": "The processor required for routing is offline, causing a legitimate routing block.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "doc_28b8f8ef",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "doc_28b8f8ef is blocked due to verification: schema_unconfirmed.",
+            "support": "The document has status 'blocked', blocker class 'verification', message 'schema_unconfirmed', and no remedy evidence."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "reconcile_output_record",
+          "why": "Schema confirmation is missing and no remedy evidence is present.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "doc_29b8fa82",
+        "classification": "STALE_CONTRADICTION",
+        "evidence": [
+          {
+            "claim": "doc_29b8fa82 is blocked due to verification: output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+            "support": "Remedy evidence for output_ref 'ref-3fc0fabd' is complete with checks parsed: true, validated: true, yet the document remains blocked for output_missing."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "reconcile_output_record",
+          "why": "The output is present and validated, but the block persists, indicating a stale or contradictory state.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "proc_c65f0d23",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "Processor proc_c65f0d23 is offline.",
+            "support": "Processor proc_c65f0d23 has reachability 'online': false."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "restore_processor",
+          "why": "Processor is offline, which is a legitimate cause for downstream blocks.",
+          "risk": "low"
+        }
+      }
+    ]
+  },
+  "measurements": {
+    "blind": {
+      "elapsed_ms": 4657,
+      "token_usage": {
+        "input_tokens": 1148,
+        "cached_input_tokens": 0,
+        "output_tokens": 700
+      },
+      "output_sha256": "30159e3a3d646c1191596e69fadc2b959cfcf2fb2fd45e548fba90cdb4c0338b",
+      "run": {
+        "schema": "blind-arm-run/v2",
+        "analyst_id": "openai/gpt-4.1",
+        "model": "gpt-4.1",
+        "model_pinned": true,
+        "trial": 1,
+        "arm_order": 1,
+        "arm_order_balanced": true,
+        "prompt_sha256": "41e8ed87777cf60ede74c3939d675138d27553f95c83e6d29f9f47b0c276b7db",
+        "started_at": "2026-08-19T17:24:26.409Z"
+      }
+    },
+    "assisted": {
+      "elapsed_ms": 5114,
+      "token_usage": {
+        "input_tokens": 1269,
+        "cached_input_tokens": 0,
+        "output_tokens": 632
+      },
+      "output_sha256": "6c6270e26302a549f79b7790ee3f6d25a1633e3ba09aeda921d65752dba34d55",
+      "run": {
+        "schema": "blind-arm-run/v2",
+        "analyst_id": "openai/gpt-4.1",
+        "model": "gpt-4.1",
+        "model_pinned": true,
+        "trial": 1,
+        "arm_order": 2,
+        "arm_order_balanced": true,
+        "prompt_sha256": "5f262a666e563b4045ffc1d710813e28eb1dfe0fe860df378b351388a9d82225",
+        "started_at": "2026-08-19T17:24:31.066Z"
+      }
+    }
+  },
+  "trials": 5,
+  "repeats": [
+    {
+      "trial": 1,
+      "measurements": {
+        "blind": {
+          "elapsed_ms": 4657,
+          "token_usage": {
+            "input_tokens": 1148,
+            "cached_input_tokens": 0,
+            "output_tokens": 700
+          },
+          "output_sha256": "30159e3a3d646c1191596e69fadc2b959cfcf2fb2fd45e548fba90cdb4c0338b",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 1,
+            "arm_order": 1,
+            "arm_order_balanced": true,
+            "prompt_sha256": "41e8ed87777cf60ede74c3939d675138d27553f95c83e6d29f9f47b0c276b7db",
+            "started_at": "2026-08-19T17:24:26.409Z"
+          }
+        },
+        "assisted": {
+          "elapsed_ms": 5114,
+          "token_usage": {
+            "input_tokens": 1269,
+            "cached_input_tokens": 0,
+            "output_tokens": 632
+          },
+          "output_sha256": "6c6270e26302a549f79b7790ee3f6d25a1633e3ba09aeda921d65752dba34d55",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 1,
+            "arm_order": 2,
+            "arm_order_balanced": true,
+            "prompt_sha256": "5f262a666e563b4045ffc1d710813e28eb1dfe0fe860df378b351388a9d82225",
+            "started_at": "2026-08-19T17:24:31.066Z"
+          }
+        }
+      },
+      "blind": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "reconcile_output_record",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": false,
+            "status": "DENY_MISMATCH"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "assisted": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "reconcile_output_record",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": false,
+            "status": "DENY_MISMATCH"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "same_case_verdict": true,
+      "divergences": []
+    },
+    {
+      "trial": 2,
+      "measurements": {
+        "blind": {
+          "elapsed_ms": 4724,
+          "token_usage": {
+            "input_tokens": 1148,
+            "cached_input_tokens": 1024,
+            "output_tokens": 675
+          },
+          "output_sha256": "5e69c090aed185e81a093ce22b332f53e81ae3d248350b7e4639d1f21d00ec90",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 2,
+            "arm_order": 1,
+            "arm_order_balanced": true,
+            "prompt_sha256": "41e8ed87777cf60ede74c3939d675138d27553f95c83e6d29f9f47b0c276b7db",
+            "started_at": "2026-08-19T17:24:36.180Z"
+          }
+        },
+        "assisted": {
+          "elapsed_ms": 4791,
+          "token_usage": {
+            "input_tokens": 1269,
+            "cached_input_tokens": 1024,
+            "output_tokens": 633
+          },
+          "output_sha256": "f520c1b079fa9c48d772c43bc3029f510dff491700ab06d1bc8ad59883bc025e",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 2,
+            "arm_order": 2,
+            "arm_order_balanced": true,
+            "prompt_sha256": "5f262a666e563b4045ffc1d710813e28eb1dfe0fe860df378b351388a9d82225",
+            "started_at": "2026-08-19T17:24:40.904Z"
+          }
+        }
+      },
+      "blind": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "inspect_only",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "assisted": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "inspect_only",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "same_case_verdict": false,
+      "divergences": []
+    },
+    {
+      "trial": 3,
+      "measurements": {
+        "blind": {
+          "elapsed_ms": 5299,
+          "token_usage": {
+            "input_tokens": 1148,
+            "cached_input_tokens": 1024,
+            "output_tokens": 654
+          },
+          "output_sha256": "18fdc90c8a877359206935d9cfdc511a7c07a20883f82489259aaa8a5e02f1e5",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 3,
+            "arm_order": 1,
+            "arm_order_balanced": true,
+            "prompt_sha256": "41e8ed87777cf60ede74c3939d675138d27553f95c83e6d29f9f47b0c276b7db",
+            "started_at": "2026-08-19T17:24:45.695Z"
+          }
+        },
+        "assisted": {
+          "elapsed_ms": 6638,
+          "token_usage": {
+            "input_tokens": 1269,
+            "cached_input_tokens": 0,
+            "output_tokens": 636
+          },
+          "output_sha256": "d9a7a7f489db396e9df76e3466c97ea3ae36ac393d3dabf54acc3fc513db524f",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 3,
+            "arm_order": 2,
+            "arm_order_balanced": true,
+            "prompt_sha256": "5f262a666e563b4045ffc1d710813e28eb1dfe0fe860df378b351388a9d82225",
+            "started_at": "2026-08-19T17:24:50.994Z"
+          }
+        }
+      },
+      "blind": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "reconcile_output_record",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": false,
+            "status": "DENY_MISMATCH"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "assisted": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "reconcile_output_record",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": false,
+            "status": "DENY_MISMATCH"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "same_case_verdict": true,
+      "divergences": []
+    },
+    {
+      "trial": 4,
+      "measurements": {
+        "blind": {
+          "elapsed_ms": 6450,
+          "token_usage": {
+            "input_tokens": 1148,
+            "cached_input_tokens": 1024,
+            "output_tokens": 711
+          },
+          "output_sha256": "b3d52fbddb723f4d228adf8cc28ae6ae67bb4239b3df9de8fa8e1ad5a470d3b4",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 4,
+            "arm_order": 1,
+            "arm_order_balanced": true,
+            "prompt_sha256": "41e8ed87777cf60ede74c3939d675138d27553f95c83e6d29f9f47b0c276b7db",
+            "started_at": "2026-08-19T17:24:57.632Z"
+          }
+        },
+        "assisted": {
+          "elapsed_ms": 6964,
+          "token_usage": {
+            "input_tokens": 1269,
+            "cached_input_tokens": 1024,
+            "output_tokens": 644
+          },
+          "output_sha256": "03bfc50db048bb7ebe10e1767f2e6558c05737852fc3c38c3282c4eb32bd0802",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 4,
+            "arm_order": 2,
+            "arm_order_balanced": true,
+            "prompt_sha256": "5f262a666e563b4045ffc1d710813e28eb1dfe0fe860df378b351388a9d82225",
+            "started_at": "2026-08-19T17:25:04.082Z"
+          }
+        }
+      },
+      "blind": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "reconcile_output_record",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": false,
+            "status": "DENY_MISMATCH"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "assisted": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "inspect_only",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "same_case_verdict": false,
+      "divergences": [
+        {
+          "target_id": "doc_28b8f8ef",
+          "kind": "action",
+          "blind": "reconcile_output_record",
+          "assisted": "inspect_only"
+        }
+      ]
+    },
+    {
+      "trial": 5,
+      "measurements": {
+        "blind": {
+          "elapsed_ms": 4468,
+          "token_usage": {
+            "input_tokens": 1148,
+            "cached_input_tokens": 1024,
+            "output_tokens": 672
+          },
+          "output_sha256": "eff4543cbe9eaa793e3a8cf7d482b43b8ddc872b10db9c44296b5578065e830f",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 5,
+            "arm_order": 1,
+            "arm_order_balanced": true,
+            "prompt_sha256": "41e8ed87777cf60ede74c3939d675138d27553f95c83e6d29f9f47b0c276b7db",
+            "started_at": "2026-08-19T17:25:11.046Z"
+          }
+        },
+        "assisted": {
+          "elapsed_ms": 6764,
+          "token_usage": {
+            "input_tokens": 1269,
+            "cached_input_tokens": 1024,
+            "output_tokens": 598
+          },
+          "output_sha256": "84d8e9bcdabccc1f2a3338d5efff1859dbef5e38a3ad7c452de63760a631eedc",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 5,
+            "arm_order": 2,
+            "arm_order_balanced": true,
+            "prompt_sha256": "5f262a666e563b4045ffc1d710813e28eb1dfe0fe860df378b351388a9d82225",
+            "started_at": "2026-08-19T17:25:15.514Z"
+          }
+        }
+      },
+      "blind": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "inspect_only",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "assisted": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_27b8f75c",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "doc_28b8f8ef",
+            "action": "advance_to_review",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": false,
+            "status": "DENY_MISMATCH"
+          },
+          {
+            "target_id": "doc_29b8fa82",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "proc_c65f0d23",
+            "action": "restore_processor",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "same_case_verdict": false,
+      "divergences": [
+        {
+          "target_id": "doc_27b8f75c",
+          "kind": "action",
+          "blind": "restore_processor",
+          "assisted": "reconcile_routing"
+        },
+        {
+          "target_id": "doc_28b8f8ef",
+          "kind": "action",
+          "blind": "inspect_only",
+          "assisted": "advance_to_review"
+        }
+      ]
+    }
+  ],
+  "comparison": {
+    "same_case_verdict": true,
+    "blind": {
+      "target_contract_passed": true,
+      "adjudicated_targets": 3,
+      "correct_adjudicated_targets": 3,
+      "accuracy": 1,
+      "status": "PARTIALLY_SCORED",
+      "action_pairs": [
+        {
+          "target_id": "doc_27b8f75c",
+          "status": "DENY_UNADJUDICATED",
+          "allowed": false
+        },
+        {
+          "target_id": "doc_28b8f8ef",
+          "action": "reconcile_output_record",
+          "expected_classification": "LEGITIMATE_BLOCKER",
+          "allowed": false,
+          "status": "DENY_MISMATCH"
+        },
+        {
+          "target_id": "doc_29b8fa82",
+          "action": "reconcile_output_record",
+          "expected_classification": "STALE_CONTRADICTION",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        },
+        {
+          "target_id": "proc_c65f0d23",
+          "action": "restore_processor",
+          "expected_classification": "LEGITIMATE_BLOCKER",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        }
+      ],
+      "all_action_pairs_allowed": false
+    },
+    "assisted": {
+      "target_contract_passed": true,
+      "adjudicated_targets": 3,
+      "correct_adjudicated_targets": 3,
+      "accuracy": 1,
+      "status": "PARTIALLY_SCORED",
+      "action_pairs": [
+        {
+          "target_id": "doc_27b8f75c",
+          "status": "DENY_UNADJUDICATED",
+          "allowed": false
+        },
+        {
+          "target_id": "doc_28b8f8ef",
+          "action": "reconcile_output_record",
+          "expected_classification": "LEGITIMATE_BLOCKER",
+          "allowed": false,
+          "status": "DENY_MISMATCH"
+        },
+        {
+          "target_id": "doc_29b8fa82",
+          "action": "reconcile_output_record",
+          "expected_classification": "STALE_CONTRADICTION",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        },
+        {
+          "target_id": "proc_c65f0d23",
+          "action": "restore_processor",
+          "expected_classification": "LEGITIMATE_BLOCKER",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        }
+      ],
+      "all_action_pairs_allowed": false
+    },
+    "rule": "No nearby finding earns credit. Coverage must exactly match the frozen target set; only adjudicated targets receive an accuracy score.",
+    "divergences": []
+  },
+  "gate_simulation": {
+    "mode": "simulation-only",
+    "exact_action_allowed": false,
+    "target_contract_passed": true,
+    "blind_target_coverage": {
+      "valid": true,
+      "actual": [
+        "doc_27b8f75c",
+        "doc_28b8f8ef",
+        "doc_29b8fa82",
+        "proc_c65f0d23"
+      ],
+      "missing": [],
+      "extra": [],
+      "duplicates": [],
+      "ordered": true
+    },
+    "assisted_target_coverage": {
+      "valid": true,
+      "actual": [
+        "doc_27b8f75c",
+        "doc_28b8f8ef",
+        "doc_29b8fa82",
+        "proc_c65f0d23"
+      ],
+      "missing": [],
+      "extra": [],
+      "duplicates": [],
+      "ordered": true
+    },
+    "no_action_authority": true,
+    "confirmed_targets": [
+      "doc_27b8f75c",
+      "doc_28b8f8ef",
+      "doc_29b8fa82",
+      "proc_c65f0d23"
+    ],
+    "production_effects": 0,
+    "note": "Analyses never authorize action. Per-target proposals require separate adjudication."
+  }
+}
