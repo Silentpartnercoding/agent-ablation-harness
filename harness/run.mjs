@@ -12,7 +12,11 @@ import {
   scoreAgainstAdjudication, validateTargetCoverage,
 } from "./contract.mjs";
 
-const PROMPTS = {
+// Exported so a study can test a prompt intervention. The harness records
+// prompt_sha256 per arm, so an intervention composed inside the analyst would
+// record the digest of a prompt the model never saw. Injecting it here keeps
+// what was sent and what was recorded the same object.
+export const PROMPTS = {
   blind: (dir) => `You are the blind arm of a controlled ablation. Inspect only evidence.json in ${dir}. You have not been told what the detector suspects. Classify EVERY id in required_target_ids exactly once, emit no other ids, preserve the listed order, and ground each classification in the frozen observations. Findings outside the required target set are out of scope. Do not inspect live state, other directories, or network sources. Do not modify anything. action_authorized must be false.`,
   assisted: (dir) => `You are the alert-assisted arm of a controlled ablation. Inspect only evidence.json and alert.json in ${dir}. Treat the detector category as an accusation, not truth. Classify EVERY id in required_target_ids exactly once, emit no other ids, preserve the listed order, and ground each classification in the frozen observations. Findings outside the required target set are out of scope. Do not inspect live state, other directories, or network sources. Do not modify anything. action_authorized must be false.`,
 };
@@ -60,6 +64,8 @@ const DEFAULT_TRIALS = 3;
 export const runCase = async ({
   caseDir, caseId, inputs, groundTruth, evidence, adapter, analyst,
   analystId = null,
+  // Defaults to the standard arms, so an existing caller is unaffected.
+  prompts = PROMPTS,
   // The corpus of case ids this case belongs to. Supply it: without it arm order
   // reproduces but does not balance (see armOrderFor).
   corpus = null,
@@ -103,7 +109,7 @@ export const runCase = async ({
     const trial = { trial: n, analyses: {}, measurements: {} };
     for (const [index, mode] of order.entries()) {
       const dir = mode === "blind" ? inputs.blind : inputs.assisted;
-      const prompt = PROMPTS[mode](dir);
+      const prompt = prompts[mode](dir);
       const started = Date.now();
       const { analysis, usage } = await analyst(dir, mode, prompt);
       await writeFile(join(caseDir, `${mode}-analysis-trial${n}.json`), `${JSON.stringify(analysis, null, 2)}\n`);

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_debe4e53",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_debe4e53 is blocked for 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_debe4e53 blocked for 'output_missing', but remedy_evidence indicates the output is present and validated. This is a contradiction between the blocker's state and the remedy evidence."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked despite evidence that output is complete and validated. The alert (processing_stall) reinforces the need to resolve this contradiction, but the classification would have been the same without the alert.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dfbe4fe6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dfbe4fe6 is blocked for 'schema_unconfirmed' with no output or remedy evidence.",
+          "support": "Both observations show the document blocked for 'schema_unconfirmed', with no output_ref and no remedy evidence. This is a legitimate blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The document is correctly blocked due to missing schema confirmation. The alert (processing_stall) does not change this assessment.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_e0be5179",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_e0be5179 is blocked for 'destination_unresolved' and its processor is offline.",
+          "support": "Both observations show the document blocked for 'destination_unresolved', and the associated processor (proc_098c07d8) is offline. This is a legitimate routing blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "The document cannot proceed until the processor is online. The alert (processing_stall) highlights the stall but does not alter the classification.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_098c07d8",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_098c07d8 is offline, causing downstream routing blocks.",
+          "support": "Both observations show proc_098c07d8 as offline, which directly causes the routing block for doc_e0be5179."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor must be brought online to resolve routing blocks. The alert (processing_stall) is consistent with this finding.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

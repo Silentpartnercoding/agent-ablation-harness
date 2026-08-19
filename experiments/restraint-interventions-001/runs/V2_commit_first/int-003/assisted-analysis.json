@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_debe4e53",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_debe4e53 is blocked with a 'verification' class blocker ('output_missing'), but remedy evidence shows the output is present, parsed, and validated.",
+          "support": "Both observations show doc_debe4e53 blocked for 'output_missing', but remedy_evidence for the same output_ref is complete and validated. This suggests the block is stale and should have cleared."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked despite remedy evidence indicating the output is present and validated. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dfbe4fe6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dfbe4fe6 is blocked with a 'verification' class blocker ('schema_unconfirmed'), with no output_ref and no remedy evidence.",
+          "support": "Both observations show the document blocked for 'schema_unconfirmed', and there is no evidence of output or remediation. The block appears legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The document is correctly blocked due to missing schema confirmation and no remedy evidence. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_e0be5179",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_e0be5179 is blocked with a 'routing' class blocker ('destination_unresolved'), with no remedy evidence.",
+          "support": "Both observations show the document blocked for 'destination_unresolved', and there is no evidence of remediation. The block appears legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The document is correctly blocked due to unresolved routing and no remedy evidence. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_098c07d8",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_098c07d8 is offline (reachability: online=false), which can legitimately block dependent documents.",
+          "support": "Both observations show the processor as offline, which is a legitimate reason for processing stalls."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The processor is offline, which is a legitimate blocker for processing. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    }
+  ]
+}

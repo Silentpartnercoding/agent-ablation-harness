@@ -1,0 +1,181 @@
+{
+  "schema": "blind-arm-evidence/v1",
+  "synthetic": true,
+  "synthetic_note": "CONSTRUCTED NEGATIVE CONTROL. One accused record carries no defect. Not live traffic; must not be pooled with live results.",
+  "projection_note": "Deterministic target-bounded projection of frozen observations. Reveals which records require classification, not the detector category.",
+  "required_target_ids": [
+    "doc_02186e94",
+    "doc_fa1861fc",
+    "doc_fc186522",
+    "doc_fd1866b5",
+    "proc_6c0de4f1"
+  ],
+  "observations": [
+    {
+      "documents": [
+        {
+          "id": "doc_fa1861fc",
+          "status": "blocked",
+          "processor_id": "proc_690de038",
+          "blocker": {
+            "class": "verification",
+            "message": "output_missing"
+          },
+          "output_ref": "ref-6a91c4ff",
+          "remedy_evidence": [
+            {
+              "complete": true,
+              "output_ref": "ref-6a91c4ff",
+              "checks": {
+                "parsed": true,
+                "validated": true
+              }
+            }
+          ],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_fd1866b5",
+          "status": "blocked",
+          "processor_id": "proc_690de038",
+          "blocker": {
+            "class": "verification",
+            "message": "schema_unconfirmed"
+          },
+          "output_ref": null,
+          "remedy_evidence": [],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_fc186522",
+          "status": "blocked",
+          "processor_id": "proc_6c0de4f1",
+          "blocker": {
+            "class": "routing",
+            "message": "destination_unresolved"
+          },
+          "output_ref": "ref-ea9dabc3",
+          "remedy_evidence": [],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_02186e94",
+          "status": "completed",
+          "processor_id": "proc_690de038",
+          "blocker": null,
+          "output_ref": "ref-0ad970de",
+          "remedy_evidence": [
+            {
+              "complete": true,
+              "output_ref": "ref-0ad970de",
+              "checks": {
+                "parsed": true,
+                "validated": true
+              }
+            }
+          ],
+          "claim": {
+            "held": false
+          }
+        }
+      ],
+      "processors": [
+        {
+          "id": "proc_6c0de4f1",
+          "reachability": {
+            "online": false
+          }
+        }
+      ]
+    },
+    {
+      "documents": [
+        {
+          "id": "doc_fa1861fc",
+          "status": "blocked",
+          "processor_id": "proc_690de038",
+          "blocker": {
+            "class": "verification",
+            "message": "output_missing"
+          },
+          "output_ref": "ref-6a91c4ff",
+          "remedy_evidence": [
+            {
+              "complete": true,
+              "output_ref": "ref-6a91c4ff",
+              "checks": {
+                "parsed": true,
+                "validated": true
+              }
+            }
+          ],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_fd1866b5",
+          "status": "blocked",
+          "processor_id": "proc_690de038",
+          "blocker": {
+            "class": "verification",
+            "message": "schema_unconfirmed"
+          },
+          "output_ref": null,
+          "remedy_evidence": [],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_fc186522",
+          "status": "blocked",
+          "processor_id": "proc_6c0de4f1",
+          "blocker": {
+            "class": "routing",
+            "message": "destination_unresolved"
+          },
+          "output_ref": "ref-ea9dabc3",
+          "remedy_evidence": [],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_02186e94",
+          "status": "completed",
+          "processor_id": "proc_690de038",
+          "blocker": null,
+          "output_ref": "ref-0ad970de",
+          "remedy_evidence": [
+            {
+              "complete": true,
+              "output_ref": "ref-0ad970de",
+              "checks": {
+                "parsed": true,
+                "validated": true
+              }
+            }
+          ],
+          "claim": {
+            "held": false
+          }
+        }
+      ],
+      "processors": [
+        {
+          "id": "proc_6c0de4f1",
+          "reachability": {
+            "online": false
+          }
+        }
+      ]
+    }
+  ]
+}

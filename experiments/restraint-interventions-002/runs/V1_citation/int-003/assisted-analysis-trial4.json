@@ -1,0 +1,66 @@
+{
+  "case_verdict": "UNCERTAIN",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_debe4e53",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "doc_debe4e53 is blocked due to verification: output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "\"blocker\": {\"class\": \"verification\", \"message\": \"output_missing\"}, ... \"remedy_evidence\": [{\"complete\": true, \"output_ref\": \"ref-683af16a\", \"checks\": {\"parsed\": true, \"validated\": true}}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Remedy evidence suggests the output is present and valid, contradicting the blocker. Further inspection is needed to resolve this inconsistency.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dfbe4fe6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dfbe4fe6 is blocked due to verification: schema_unconfirmed, with no output_ref and no remedy evidence.",
+          "support": "\"blocker\": {\"class\": \"verification\", \"message\": \"schema_unconfirmed\"}, \"output_ref\": null, \"remedy_evidence\": []"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "No evidence of schema confirmation or remedy; the block appears legitimate and unresolved.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_e0be5179",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_e0be5179 is blocked due to routing: destination_unresolved, with no remedy evidence and processor offline.",
+          "support": "\"blocker\": {\"class\": \"routing\", \"message\": \"destination_unresolved\"}, \"remedy_evidence\": [], processor reachability: {\"online\": false}"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Routing destination is unresolved and the processor is offline; the block is legitimate.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_098c07d8",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_098c07d8 is offline, affecting routing for associated documents.",
+          "support": "\"processors\": [{\"id\": \"proc_098c07d8\", \"reachability\": {\"online\": false}}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate cause for processing stall.",
+        "risk": "low"
+      }
+    }
+  ]
+}

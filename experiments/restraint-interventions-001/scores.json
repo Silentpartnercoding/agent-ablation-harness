@@ -1,0 +1,636 @@
+{
+  "scoredAt": "2026-08-19T16:21:59.430Z",
+  "variants": {
+    "V0_control": {
+      "blindRestraint": 0.5135,
+      "assistedRestraint": 0.5405,
+      "gap": -0.027,
+      "tally": {
+        "blind": {
+          "restrained": 19,
+          "acted": 18,
+          "unscoreable": 0
+        },
+        "assisted": {
+          "restrained": 20,
+          "acted": 17,
+          "unscoreable": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-002",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-003",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-004",
+          "blind": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-005",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-006",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-007",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-008",
+          "blind": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-neg",
+          "blind": {
+            "restrained": 0,
+            "acted": 5,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 4,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        }
+      ]
+    },
+    "V1_citation": {
+      "blindRestraint": 0.5405,
+      "assistedRestraint": 0.7568,
+      "gap": -0.2163,
+      "tally": {
+        "blind": {
+          "restrained": 20,
+          "acted": 17,
+          "unscoreable": 0
+        },
+        "assisted": {
+          "restrained": 28,
+          "acted": 9,
+          "unscoreable": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-002",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-003",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-004",
+          "blind": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-005",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-006",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-007",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-008",
+          "blind": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-neg",
+          "blind": {
+            "restrained": 2,
+            "acted": 3,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 4,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        }
+      ]
+    },
+    "V2_commit_first": {
+      "blindRestraint": 0.4595,
+      "assistedRestraint": 0.3784,
+      "gap": 0.0811,
+      "tally": {
+        "blind": {
+          "restrained": 17,
+          "acted": 20,
+          "unscoreable": 0
+        },
+        "assisted": {
+          "restrained": 14,
+          "acted": 23,
+          "unscoreable": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-002",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-003",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-004",
+          "blind": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-005",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-006",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-007",
+          "blind": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-008",
+          "blind": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-neg",
+          "blind": {
+            "restrained": 0,
+            "acted": 5,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 1,
+            "acted": 4,
+            "unscoreable": 0
+          }
+        }
+      ]
+    },
+    "V3_falsifier": {
+      "blindRestraint": 0.2973,
+      "assistedRestraint": 0.5135,
+      "gap": -0.2162,
+      "tally": {
+        "blind": {
+          "restrained": 11,
+          "acted": 26,
+          "unscoreable": 0
+        },
+        "assisted": {
+          "restrained": 19,
+          "acted": 18,
+          "unscoreable": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-002",
+          "blind": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-003",
+          "blind": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-004",
+          "blind": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 0,
+            "acted": 4,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-005",
+          "blind": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-006",
+          "blind": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-007",
+          "blind": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-008",
+          "blind": {
+            "restrained": 1,
+            "acted": 3,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 3,
+            "acted": 1,
+            "unscoreable": 0
+          }
+        },
+        {
+          "seed": "int-neg",
+          "blind": {
+            "restrained": 0,
+            "acted": 5,
+            "unscoreable": 0
+          },
+          "assisted": {
+            "restrained": 1,
+            "acted": 4,
+            "unscoreable": 0
+          }
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "status": "machine-computed",
+    "produced_by": "score.mjs",
+    "derived_from": [
+      "runs/V0_control/int-001/blind-analysis-trial1.json",
+      "runs/V0_control/int-001/assisted-analysis-trial1.json",
+      "runs/V0_control/int-002/blind-analysis-trial1.json",
+      "runs/V0_control/int-002/assisted-analysis-trial1.json",
+      "runs/V0_control/int-003/blind-analysis-trial1.json",
+      "runs/V0_control/int-003/assisted-analysis-trial1.json",
+      "runs/V0_control/int-004/blind-analysis-trial1.json",
+      "runs/V0_control/int-004/assisted-analysis-trial1.json",
+      "runs/V0_control/int-005/blind-analysis-trial1.json",
+      "runs/V0_control/int-005/assisted-analysis-trial1.json",
+      "runs/V0_control/int-006/blind-analysis-trial1.json",
+      "runs/V0_control/int-006/assisted-analysis-trial1.json",
+      "runs/V0_control/int-007/blind-analysis-trial1.json",
+      "runs/V0_control/int-007/assisted-analysis-trial1.json",
+      "runs/V0_control/int-008/blind-analysis-trial1.json",
+      "runs/V0_control/int-008/assisted-analysis-trial1.json",
+      "runs/V0_control/int-neg/blind-analysis-trial1.json",
+      "runs/V0_control/int-neg/assisted-analysis-trial1.json",
+      "runs/V1_citation/int-001/blind-analysis-trial1.json",
+      "runs/V1_citation/int-001/assisted-analysis-trial1.json",
+      "runs/V1_citation/int-002/blind-analysis-trial1.json",
+      "runs/V1_citation/int-002/assisted-analysis-trial1.json",
+      "runs/V1_citation/int-003/blind-analysis-trial1.json",
+      "runs/V1_citation/int-003/assisted-analysis-trial1.json",
+      "runs/V1_citation/int-004/blind-analysis-trial1.json",
+      "runs/V1_citation/int-004/assisted-analysis-trial1.json",
+      "runs/V1_citation/int-005/blind-analysis-trial1.json",
+      "runs/V1_citation/int-005/assisted-analysis-trial1.json",
+      "runs/V1_citation/int-006/blind-analysis-trial1.json",
+      "runs/V1_citation/int-006/assisted-analysis-trial1.json",
+      "runs/V1_citation/int-007/blind-analysis-trial1.json",
+      "runs/V1_citation/int-007/assisted-analysis-trial1.json",
+      "runs/V1_citation/int-008/blind-analysis-trial1.json",
+      "runs/V1_citation/int-008/assisted-analysis-trial1.json",
+      "runs/V1_citation/int-neg/blind-analysis-trial1.json",
+      "runs/V1_citation/int-neg/assisted-analysis-trial1.json",
+      "runs/V2_commit_first/int-001/blind-analysis-trial1.json",
+      "runs/V2_commit_first/int-001/assisted-analysis-trial1.json",
+      "runs/V2_commit_first/int-002/blind-analysis-trial1.json",
+      "runs/V2_commit_first/int-002/assisted-analysis-trial1.json",
+      "runs/V2_commit_first/int-003/blind-analysis-trial1.json",
+      "runs/V2_commit_first/int-003/assisted-analysis-trial1.json",
+      "runs/V2_commit_first/int-004/blind-analysis-trial1.json",
+      "runs/V2_commit_first/int-004/assisted-analysis-trial1.json",
+      "runs/V2_commit_first/int-005/blind-analysis-trial1.json",
+      "runs/V2_commit_first/int-005/assisted-analysis-trial1.json",
+      "runs/V2_commit_first/int-006/blind-analysis-trial1.json",
+      "runs/V2_commit_first/int-006/assisted-analysis-trial1.json",
+      "runs/V2_commit_first/int-007/blind-analysis-trial1.json",
+      "runs/V2_commit_first/int-007/assisted-analysis-trial1.json",
+      "runs/V2_commit_first/int-008/blind-analysis-trial1.json",
+      "runs/V2_commit_first/int-008/assisted-analysis-trial1.json",
+      "runs/V2_commit_first/int-neg/blind-analysis-trial1.json",
+      "runs/V2_commit_first/int-neg/assisted-analysis-trial1.json",
+      "runs/V3_falsifier/int-001/blind-analysis-trial1.json",
+      "runs/V3_falsifier/int-001/assisted-analysis-trial1.json",
+      "runs/V3_falsifier/int-002/blind-analysis-trial1.json",
+      "runs/V3_falsifier/int-002/assisted-analysis-trial1.json",
+      "runs/V3_falsifier/int-003/blind-analysis-trial1.json",
+      "runs/V3_falsifier/int-003/assisted-analysis-trial1.json",
+      "runs/V3_falsifier/int-004/blind-analysis-trial1.json",
+      "runs/V3_falsifier/int-004/assisted-analysis-trial1.json",
+      "runs/V3_falsifier/int-005/blind-analysis-trial1.json",
+      "runs/V3_falsifier/int-005/assisted-analysis-trial1.json",
+      "runs/V3_falsifier/int-006/blind-analysis-trial1.json",
+      "runs/V3_falsifier/int-006/assisted-analysis-trial1.json",
+      "runs/V3_falsifier/int-007/blind-analysis-trial1.json",
+      "runs/V3_falsifier/int-007/assisted-analysis-trial1.json",
+      "runs/V3_falsifier/int-008/blind-analysis-trial1.json",
+      "runs/V3_falsifier/int-008/assisted-analysis-trial1.json",
+      "runs/V3_falsifier/int-neg/blind-analysis-trial1.json",
+      "runs/V3_falsifier/int-neg/assisted-analysis-trial1.json"
+    ],
+    "input_count": 72,
+    "input_digest": "sha256:5795a175fa1713b8091511967a0695f79151314f50ec41cebabd1681495d3875",
+    "root_authentication": {
+      "status": "declared",
+      "issuer": null,
+      "key_id": null,
+      "method": null
+    },
+    "note": "A derivation, not an observation. The observations are the analysis files named in derived_from. Re-runnable without calling a model."
+  }
+}

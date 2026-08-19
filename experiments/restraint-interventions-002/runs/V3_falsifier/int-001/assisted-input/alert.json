@@ -1,0 +1,11 @@
+{
+  "schema": "blind-arm-alert/v1",
+  "signal": "processing_stall",
+  "target_ids": [
+    "doc_dc82cd54",
+    "doc_dd82cee7",
+    "doc_df82d20d",
+    "proc_4719a42e"
+  ],
+  "note": "Detector category only. An accusation, not a finding."
+}

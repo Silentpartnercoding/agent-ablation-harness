@@ -1,0 +1,66 @@
+{
+  "case_verdict": "UNCERTAIN",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_ccc3c6b0",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "doc_ccc3c6b0 is blocked due to output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "\"remedy_evidence\": [ { \"complete\": true, \"output_ref\": \"ref-8303e4f3\", \"checks\": { \"parsed\": true, \"validated\": true } } ]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Remedy evidence suggests the output is present and valid, contradicting the blocker. Further inspection is needed to resolve this inconsistency.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cec3c9d6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cec3c9d6 is blocked due to destination_unresolved and its processor is offline.",
+          "support": "\"blocker\": { \"class\": \"routing\", \"message\": \"destination_unresolved\" }, \"processor_id\": \"proc_6a9d9ea5\", \"reachability\": { \"online\": false }"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The processor required for routing is offline, making the block legitimate. Inspection is needed to determine when the processor will be available.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cfc3cb69",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cfc3cb69 is blocked due to schema_unconfirmed with no remedy evidence.",
+          "support": "\"blocker\": { \"class\": \"verification\", \"message\": \"schema_unconfirmed\" }, \"remedy_evidence\": []"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "No remedy evidence is present and schema is unconfirmed, so the block is legitimate. Inspection is needed to determine next steps.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_6a9d9ea5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6a9d9ea5 is offline, affecting document processing.",
+          "support": "\"reachability\": { \"online\": false }"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate cause for processing stall. Inspection is needed to determine when it will be online.",
+        "risk": "low"
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_008d51ff",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "doc_008d51ff is blocked due to output_missing, but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Both observations show doc_008d51ff as blocked for output_missing, but remedy_evidence is complete, parsed, and validated for the referenced output. This suggests the block is stale or transient, not a legitimate ongoing stall."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document appears to have completed output and passed checks, so the block should be cleared or reconciled.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_018d5392",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_018d5392 is blocked due to schema_unconfirmed and has no output or remedy evidence.",
+          "support": "Both observations show the document as blocked for schema_unconfirmed, with no output_ref and no remedy evidence. There is no indication the block is stale or resolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The document is genuinely blocked and needs intervention to resolve the schema confirmation issue.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_028d5525",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_028d5525 is blocked due to destination_unresolved and has no remedy evidence.",
+          "support": "Both observations show the document as blocked for routing (destination_unresolved), with no remedy evidence. The processor it depends on is offline, supporting the legitimacy of the block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The document is genuinely blocked due to unresolved routing and offline processor; requires intervention.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_c717ce74",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_c717ce74 is offline, causing downstream routing blocks.",
+          "support": "Both observations show proc_c717ce74 as offline (reachability: online: false), which directly causes routing blocks for dependent documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline and blocking dependent documents; restoring it is necessary to resolve the stall.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

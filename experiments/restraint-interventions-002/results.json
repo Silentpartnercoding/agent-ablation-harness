@@ -1,0 +1,304 @@
+{
+  "model": "gpt-4.1",
+  "startedAt": "2026-08-19T16:14:38.265Z",
+  "variants": {
+    "V0_control": {
+      "why": "current text, including the existing debiasing sentence",
+      "promptSha256": "sha256:e5b9b647f80758e743317baee0cc1485eff1a3cfd2b1d588193390683eb4bcf9",
+      "blindRestraint": null,
+      "assistedRestraint": null,
+      "gap": null,
+      "tally": {
+        "blind": {
+          "restrained": 0,
+          "total": 0
+        },
+        "assisted": {
+          "restrained": 0,
+          "total": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-002",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-003",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-004",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-005",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-006",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-007",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-008",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-neg",
+          "negative": true,
+          "trials": 5,
+          "wrote": true
+        }
+      ],
+      "uncachedInputTokens": 67925
+    },
+    "V1_citation": {
+      "why": "changes the price of acting",
+      "promptSha256": "sha256:2ee828f87bd47763848e717ce003e158f8a5643212a168db742ac446493c74ed",
+      "blindRestraint": null,
+      "assistedRestraint": null,
+      "gap": null,
+      "tally": {
+        "blind": {
+          "restrained": 0,
+          "total": 0
+        },
+        "assisted": {
+          "restrained": 0,
+          "total": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-002",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-003",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-004",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-005",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-006",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-007",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-008",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-neg",
+          "negative": true,
+          "trials": 5,
+          "wrote": true
+        }
+      ],
+      "uncachedInputTokens": 70666
+    },
+    "V2_commit_first": {
+      "why": "changes the order of commitment",
+      "promptSha256": "sha256:fce36ea99896bfadf0d6fa5765f0ba737c61f2de8975671ab9b5b18fe3741ff4",
+      "blindRestraint": null,
+      "assistedRestraint": null,
+      "gap": null,
+      "tally": {
+        "blind": {
+          "restrained": 0,
+          "total": 0
+        },
+        "assisted": {
+          "restrained": 0,
+          "total": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-002",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-003",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-004",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-005",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-006",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-007",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-008",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-neg",
+          "negative": true,
+          "trials": 5,
+          "wrote": true
+        }
+      ],
+      "uncachedInputTokens": 64643
+    },
+    "V3_falsifier": {
+      "why": "changes what is asked for",
+      "promptSha256": "sha256:af23c4bbe7e3212a31f38dd698617cefeb86c20a6d2b17fb154e1e037e868efa",
+      "blindRestraint": null,
+      "assistedRestraint": null,
+      "gap": null,
+      "tally": {
+        "blind": {
+          "restrained": 0,
+          "total": 0
+        },
+        "assisted": {
+          "restrained": 0,
+          "total": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-002",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-003",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-004",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-005",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-006",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-007",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-008",
+          "negative": false,
+          "trials": 5,
+          "wrote": true
+        },
+        {
+          "seed": "int-neg",
+          "negative": true,
+          "trials": 5,
+          "wrote": true
+        }
+      ],
+      "uncachedInputTokens": 66217
+    }
+  },
+  "corpusDigest": "sha256:a823506ca499e0f1532f149692f0d509fbe6ebfacd7998b3778dfd244844e620",
+  "finishedAt": "2026-08-19T16:54:23.608Z"
+}

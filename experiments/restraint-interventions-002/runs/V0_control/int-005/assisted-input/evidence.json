@@ -1,0 +1,138 @@
+{
+  "schema": "blind-arm-evidence/v1",
+  "projection_note": "Deterministic target-bounded projection of frozen observations. Reveals which records require classification, not the detector category.",
+  "required_target_ids": [
+    "doc_3283e690",
+    "doc_3383e823",
+    "doc_3583eb49",
+    "proc_2958408a"
+  ],
+  "observations": [
+    {
+      "documents": [
+        {
+          "id": "doc_3583eb49",
+          "status": "blocked",
+          "processor_id": "proc_28583ef7",
+          "blocker": {
+            "class": "verification",
+            "message": "output_missing"
+          },
+          "output_ref": "ref-7328d870",
+          "remedy_evidence": [
+            {
+              "complete": true,
+              "output_ref": "ref-7328d870",
+              "checks": {
+                "parsed": true,
+                "validated": true
+              }
+            }
+          ],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_3283e690",
+          "status": "blocked",
+          "processor_id": "proc_28583ef7",
+          "blocker": {
+            "class": "verification",
+            "message": "schema_unconfirmed"
+          },
+          "output_ref": null,
+          "remedy_evidence": [],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_3383e823",
+          "status": "blocked",
+          "processor_id": "proc_2958408a",
+          "blocker": {
+            "class": "routing",
+            "message": "destination_unresolved"
+          },
+          "output_ref": "ref-b9156be4",
+          "remedy_evidence": [],
+          "claim": {
+            "held": false
+          }
+        }
+      ],
+      "processors": [
+        {
+          "id": "proc_2958408a",
+          "reachability": {
+            "online": false
+          }
+        }
+      ]
+    },
+    {
+      "documents": [
+        {
+          "id": "doc_3583eb49",
+          "status": "blocked",
+          "processor_id": "proc_28583ef7",
+          "blocker": {
+            "class": "verification",
+            "message": "output_missing"
+          },
+          "output_ref": "ref-7328d870",
+          "remedy_evidence": [
+            {
+              "complete": true,
+              "output_ref": "ref-7328d870",
+              "checks": {
+                "parsed": true,
+                "validated": true
+              }
+            }
+          ],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_3283e690",
+          "status": "blocked",
+          "processor_id": "proc_28583ef7",
+          "blocker": {
+            "class": "verification",
+            "message": "schema_unconfirmed"
+          },
+          "output_ref": null,
+          "remedy_evidence": [],
+          "claim": {
+            "held": false
+          }
+        },
+        {
+          "id": "doc_3383e823",
+          "status": "blocked",
+          "processor_id": "proc_2958408a",
+          "blocker": {
+            "class": "routing",
+            "message": "destination_unresolved"
+          },
+          "output_ref": "ref-b9156be4",
+          "remedy_evidence": [],
+          "claim": {
+            "held": false
+          }
+        }
+      ],
+      "processors": [
+        {
+          "id": "proc_2958408a",
+          "reachability": {
+            "online": false
+          }
+        }
+      ]
+    }
+  ]
+}
