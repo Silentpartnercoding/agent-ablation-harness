@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_8e4ceb3c",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "doc_8e4ceb3c is blocked due to output_missing, but remedy evidence shows the output is complete, parsed, and validated.",
+          "support": "Both observations show doc_8e4ceb3c as blocked for output_missing, but remedy_evidence for the referenced output is complete and passes all checks. This suggests the block is no longer legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The block appears resolved by remedy evidence; no further action is needed.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_904cee62",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_904cee62 is blocked due to destination_unresolved with no remedy evidence.",
+          "support": "Both observations show doc_904cee62 blocked for routing (destination_unresolved), with no remedy evidence and claim not held. The block is current and unresolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Block is legitimate and unresolved; further inspection is warranted.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_914ceff5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_914ceff5 is blocked due to schema_unconfirmed with no remedy evidence.",
+          "support": "Both observations show doc_914ceff5 blocked for verification (schema_unconfirmed), with no remedy evidence and claim not held. The block is current and unresolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Block is legitimate and unresolved; further inspection is warranted.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_b3a76031",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_b3a76031 is offline, affecting document processing.",
+          "support": "Both observations show proc_b3a76031 as offline (reachability: online=false), which is a legitimate reason for processing stalls for documents routed through this processor."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate blocker; further inspection is warranted.",
+        "risk": "low"
+      }
+    }
+  ]
+}

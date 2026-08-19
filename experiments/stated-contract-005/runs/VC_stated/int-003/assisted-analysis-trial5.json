@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_debe4e53",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_debe4e53 is blocked with a verification blocker: output_missing, but remedy evidence shows output_ref ref-683af16a is complete, parsed, and validated.",
+          "support": "Despite the remedy evidence indicating the output is complete and validated, the document remains blocked with the same output_missing message in both observations. This suggests a persistent, legitimate blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document remains blocked despite remedy evidence, indicating a persistent issue that requires further inspection.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_dfbe4fe6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_dfbe4fe6 is blocked with a verification blocker: schema_unconfirmed, with no output_ref and no remedy evidence.",
+          "support": "The document is consistently blocked for schema_unconfirmed in both observations, with no progress or remedy evidence, indicating a legitimate unresolved blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "No remedy evidence or output is present, so the blocker is legitimate and needs further inspection.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_e0be5179",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_e0be5179 is blocked with a routing blocker: destination_unresolved, with no remedy evidence.",
+          "support": "The document is blocked for destination_unresolved in both observations, with no remedy evidence or change in status, indicating a persistent legitimate blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The routing blocker persists with no sign of resolution, so further inspection is warranted.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_098c07d8",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_098c07d8 is offline in both observations.",
+          "support": "The processor's reachability is consistently offline, which is a legitimate reason for processing stalls and document blockers."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor offline status is a legitimate blocker for downstream processing; further inspection is needed to determine cause and remedy.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

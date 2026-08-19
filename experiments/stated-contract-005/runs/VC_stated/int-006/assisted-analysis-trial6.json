@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_8e4ceb3c",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_8e4ceb3c is blocked due to 'output_missing' (verification class), but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Despite remedy evidence indicating the output is complete and validated, the document remains blocked with the same 'output_missing' status in both observations. This suggests a persistent, legitimate blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document remains blocked despite remedy evidence, indicating a legitimate unresolved issue that requires further inspection.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_904cee62",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_904cee62 is blocked due to 'destination_unresolved' (routing class) and has no remedy evidence.",
+          "support": "Both observations show the document blocked for the same routing issue, with no progress or remedy evidence, indicating a persistent legitimate blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The routing issue remains unresolved with no remedy evidence, requiring further inspection.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_914ceff5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_914ceff5 is blocked due to 'schema_unconfirmed' (verification class) and has no remedy evidence.",
+          "support": "Both observations show the document blocked for the same schema issue, with no remedy evidence, indicating a persistent legitimate blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The schema verification issue remains unresolved with no remedy evidence, requiring further inspection.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_b3a76031",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_b3a76031 is offline in both observations.",
+          "support": "The processor's reachability is consistently 'online: false', which is a legitimate blocker for any documents it processes."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is persistently offline, which is a legitimate blocker and requires inspection to resolve.",
+        "risk": "medium"
+      }
+    }
+  ]
+}
