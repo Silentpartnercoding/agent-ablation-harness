@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_8e4ceb3c",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_8e4ceb3c is blocked for 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Remedy evidence for output_ref 'ref-0a586bbf' is complete with both 'parsed' and 'validated' true, yet the document remains blocked for missing output."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document is blocked despite remedy evidence indicating output is available and valid. The output record and block status should be reconciled.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_904cee62",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_904cee62 is blocked for 'destination_unresolved' with no remedy evidence.",
+          "support": "Blocker class is 'routing' and message is 'destination_unresolved'. No remedy evidence is present, and the associated processor (proc_b3a76031) is offline."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Block is legitimate due to unresolved routing and offline processor. No evidence suggests this is erroneous.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_914ceff5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_914ceff5 is blocked for 'schema_unconfirmed' with no remedy evidence.",
+          "support": "Blocker class is 'verification' and message is 'schema_unconfirmed'. No output_ref or remedy evidence is present."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Block is legitimate due to lack of schema confirmation and absence of remedy evidence.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_b3a76031",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_b3a76031 is offline.",
+          "support": "Reachability status is 'online: false' in both observations."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Processor is correctly marked offline; no evidence of error or contradiction.",
+        "risk": "low"
+      }
+    }
+  ]
+}

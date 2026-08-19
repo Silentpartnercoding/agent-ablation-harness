@@ -1,0 +1,66 @@
+{
+  "case_verdict": "UNCERTAIN",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_27b8f75c",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_27b8f75c is blocked due to routing: destination_unresolved, with no remedy evidence and processor proc_c65f0d23 is offline.",
+          "support": "\"id\": \"doc_27b8f75c\", \"status\": \"blocked\", \"blocker\": {\"class\": \"routing\", \"message\": \"destination_unresolved\"}, ... \"processor_id\": \"proc_c65f0d23\" ... \"id\": \"proc_c65f0d23\", \"reachability\": {\"online\": false}"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Blocker is legitimate due to unresolved routing and offline processor; further inspection needed to determine root cause.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_28b8f8ef",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_28b8f8ef is blocked due to verification: schema_unconfirmed, with no output_ref and no remedy evidence.",
+          "support": "\"id\": \"doc_28b8f8ef\", \"status\": \"blocked\", \"blocker\": {\"class\": \"verification\", \"message\": \"schema_unconfirmed\"}, \"output_ref\": null, \"remedy_evidence\": []"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Blocker is legitimate as schema confirmation is missing and no remedy evidence is present.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_29b8fa82",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_29b8fa82 is blocked for output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "\"id\": \"doc_29b8fa82\", \"status\": \"blocked\", \"blocker\": {\"class\": \"verification\", \"message\": \"output_missing\"}, ... \"remedy_evidence\": [{\"complete\": true, \"output_ref\": \"ref-3fc0fabd\", \"checks\": {\"parsed\": true, \"validated\": true}}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Contradiction between blocker and remedy evidence; inspection needed to reconcile state.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_c65f0d23",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_c65f0d23 is offline, which is a legitimate cause for routing and processing stalls.",
+          "support": "\"id\": \"proc_c65f0d23\", \"reachability\": {\"online\": false}"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate blocker; further inspection required to determine why.",
+        "risk": "low"
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_27b8f75c",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_27b8f75c is blocked due to routing: destination_unresolved, with no remedy evidence and the associated processor proc_c65f0d23 is offline.",
+          "support": "Both observations show doc_27b8f75c blocked for routing (destination_unresolved), with no remedy evidence, and processor proc_c65f0d23 is offline (reachability: online: false). This is a legitimate blocker as the processor required for routing is not available."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor proc_c65f0d23 is offline, preventing routing resolution for doc_27b8f75c.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_28b8f8ef",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_28b8f8ef is blocked due to verification: schema_unconfirmed, with no output_ref and no remedy evidence.",
+          "support": "Both observations show doc_28b8f8ef blocked for verification (schema_unconfirmed), with no output_ref and no remedy evidence. This indicates the schema could not be confirmed and no corrective action has been taken, making this a legitimate blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "No output or remedy evidence exists for doc_28b8f8ef; schema confirmation is required.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_29b8fa82",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_29b8fa82 is blocked due to verification: output_missing, but remedy evidence shows output_ref ref-3fc0fabd is complete, parsed, and validated.",
+          "support": "Both observations show doc_29b8fa82 blocked for output_missing, but remedy evidence for the same output_ref (ref-3fc0fabd) is marked complete with all checks passed (parsed: true, validated: true). This is a contradiction: the blocker should have been cleared."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Remedy evidence indicates output is present and valid, but the document remains blocked for output_missing.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_c65f0d23",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_c65f0d23 is offline (reachability: online: false) in both observations.",
+          "support": "Both observations confirm proc_c65f0d23 is offline, which directly blocks any dependent routing or processing tasks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline and must be restored to resolve dependent document blockers.",
+        "risk": "low"
+      }
+    }
+  ]
+}

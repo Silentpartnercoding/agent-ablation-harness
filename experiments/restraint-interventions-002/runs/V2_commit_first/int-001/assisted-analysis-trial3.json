@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_dc82cd54",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dc82cd54 is blocked due to 'schema_unconfirmed' with no output_ref and no remedy evidence.",
+          "support": "Both observations show doc_dc82cd54 as blocked for verification (schema_unconfirmed), with no output_ref and no remedy evidence. The claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The document is blocked for a legitimate reason (schema unconfirmed) and there is no evidence of resolution or error. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dd82cee7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dd82cee7 is blocked due to 'destination_unresolved' with no remedy evidence and the associated processor is offline.",
+          "support": "Both observations show doc_dd82cee7 as blocked for routing (destination_unresolved), with no remedy evidence. The processor proc_4719a42e is offline. The claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The document is blocked due to unresolved routing and the processor is offline. This is a legitimate blocker. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_df82d20d",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_df82d20d is blocked for 'output_missing', but remedy evidence shows the output is complete, parsed, and validated.",
+          "support": "Both observations show doc_df82d20d as blocked for verification (output_missing), but remedy evidence for the same output_ref is present and marked complete, parsed, and validated. The claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "There is a contradiction: the document is still marked as blocked for missing output, but the remedy evidence indicates the output is present and valid. The alert does not change this assessment.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_4719a42e",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_4719a42e is offline.",
+          "support": "Both observations show proc_4719a42e with reachability.online: false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The processor is offline, which is a legitimate reason for blocking related documents. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    }
+  ]
+}

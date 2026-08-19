@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_3283e690",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_3283e690 is blocked due to 'schema_unconfirmed' with no output_ref and no remedy evidence.",
+          "support": "Both observations show doc_3283e690 as blocked for 'schema_unconfirmed', with no output_ref and no remedy evidence, and claim.held is false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The document is genuinely blocked with no sign of resolution or error in the alert; review is needed to resolve the schema issue.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3383e823",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_3383e823 is blocked due to 'destination_unresolved' with no remedy evidence and claim.held is false.",
+          "support": "Both observations show doc_3383e823 as blocked for routing ('destination_unresolved'), with no remedy evidence and claim.held is false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The document is genuinely blocked due to unresolved routing; review is needed to resolve the destination.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3583eb49",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_3583eb49 is blocked for 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_3583eb49 as blocked for 'output_missing', but remedy_evidence is present, complete, and passes all checks. This suggests the block is stale or not updated."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document appears to be incorrectly blocked; output is present and validated, so the block should be cleared.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_2958408a",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_2958408a is offline (reachability: online=false), which can cause downstream blocks.",
+          "support": "Both observations show proc_2958408a as offline, which is a legitimate cause for processing stalls or blocks in associated documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "Processor is offline, which is a legitimate blocker; review is needed to restore processor availability.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

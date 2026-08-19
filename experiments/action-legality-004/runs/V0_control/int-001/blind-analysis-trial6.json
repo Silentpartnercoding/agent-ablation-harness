@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_dc82cd54",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_dc82cd54 is blocked with blocker class 'verification' and message 'schema_unconfirmed', with no output_ref and no remedy evidence.",
+          "support": "The document is blocked due to schema not being confirmed, and there is no evidence that this has been resolved or is stale. The claim is not held, and the status is consistently blocked in both observations."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The schema for this document remains unconfirmed and no remedy evidence is present. Manual review may be required to resolve the schema issue.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_dd82cee7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_dd82cee7 is blocked with blocker class 'routing' and message 'destination_unresolved', with no remedy evidence and processor proc_4719a42e is offline.",
+          "support": "The document is blocked due to unresolved routing destination, and the associated processor is offline in both observations. No remedy evidence is present, and the claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The routing destination is unresolved and the processor is offline. Routing or processor status needs to be reconciled.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_df82d20d",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_df82d20d is blocked with blocker class 'verification' and message 'output_missing', but remedy evidence shows output_ref 'ref-42bef3e4' is complete, parsed, and validated.",
+          "support": "Despite the blocker indicating missing output, the remedy evidence demonstrates that the required output is present and validated. This suggests the block is stale or contradictory."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The output is present and validated, but the block persists. The output record and block status should be reconciled to resolve the contradiction.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_4719a42e",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_4719a42e is offline in both observations.",
+          "support": "The processor's reachability is consistently reported as offline, which is a legitimate reason for any dependent routing or processing to be blocked."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline and must be restored to resolve dependent document blocks.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

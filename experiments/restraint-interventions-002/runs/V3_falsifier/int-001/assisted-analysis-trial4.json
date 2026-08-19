@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_dc82cd54",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dc82cd54 is blocked due to 'schema_unconfirmed' with no remedy evidence.",
+          "support": "Both observations show doc_dc82cd54 with status 'blocked', blocker class 'verification', message 'schema_unconfirmed', output_ref null, and no remedy evidence. No evidence is present that the schema has been confirmed or that the block has been resolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document remains blocked with no sign of resolution or error in the blocker's status.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dd82cee7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dd82cee7 is blocked due to 'destination_unresolved' and its processor is offline.",
+          "support": "Both observations show doc_dd82cee7 with status 'blocked', blocker class 'routing', message 'destination_unresolved', and no remedy evidence. The associated processor (proc_4719a42e) is offline, which would prevent routing resolution. No evidence is present that the destination has been resolved or the processor is back online."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is blocked for a routing reason and the processor is offline, with no evidence of resolution.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_df82d20d",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_df82d20d is blocked for 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_df82d20d with status 'blocked', blocker class 'verification', message 'output_missing', but also show remedy_evidence with complete: true, output_ref matching, and checks parsed and validated. This contradicts the continued 'output_missing' block. Evidence that would show the alert is wrong would be if the output was actually missing or incomplete, but the frozen observations show the output is present and validated."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "There is a contradiction between the blocker's claim and the remedy evidence; output appears present and validated.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_4719a42e",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_4719a42e is offline, which blocks dependent documents.",
+          "support": "Both observations show proc_4719a42e with reachability.online: false. No evidence is present that the processor is online or available."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate cause for blocking dependent documents.",
+        "risk": "low"
+      }
+    }
+  ]
+}

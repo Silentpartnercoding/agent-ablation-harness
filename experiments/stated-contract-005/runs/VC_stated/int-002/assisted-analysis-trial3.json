@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_ccc3c6b0",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_ccc3c6b0 is blocked for output_missing, but remedy evidence shows complete, parsed, and validated output for the referenced output_ref.",
+          "support": "Both observations show doc_ccc3c6b0 blocked for output_missing, yet remedy_evidence for ref-8303e4f3 is complete and validated, contradicting the continued block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked despite remedy evidence indicating the output is present and valid. This suggests the block is stale and should be reconciled.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cec3c9d6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cec3c9d6 is blocked for destination_unresolved with no remedy evidence.",
+          "support": "Both observations show doc_cec3c9d6 blocked for routing/destination_unresolved, with no remedy evidence or claim held. The block appears current and unresolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The routing block is legitimate and unresolved; further inspection is warranted to determine next steps.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cfc3cb69",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cfc3cb69 is blocked for schema_unconfirmed with no remedy evidence.",
+          "support": "Both observations show doc_cfc3cb69 blocked for verification/schema_unconfirmed, with no output_ref or remedy evidence. The block is current and legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The schema verification block is legitimate and unresolved; further inspection is warranted.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_6a9d9ea5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6a9d9ea5 is offline, affecting its ability to process associated documents.",
+          "support": "Both observations show proc_6a9d9ea5 with reachability.online: false, indicating it is not available to process or resolve blocks for its documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate blocker for processing. Inspection is needed to determine cause or resolution.",
+        "risk": "low"
+      }
+    }
+  ]
+}

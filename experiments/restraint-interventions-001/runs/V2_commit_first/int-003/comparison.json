@@ -1,0 +1,494 @@
+{
+  "schema": "blind-arm-comparison/v2",
+  "case_id": "int-003",
+  "completed_at": "2026-08-19T16:01:34.999Z",
+  "arm_order": [
+    "assisted",
+    "blind"
+  ],
+  "arm_order_balanced": true,
+  "verification": {
+    "manifest_intact": true,
+    "mismatches": [],
+    "arms_received_identical_evidence": true,
+    "blind_evidence_sha256": "74fbe9b9b1cbe4eeadae39089fd7d8bff900217e9863a6c0a5934527b4ff8248",
+    "assisted_evidence_sha256": "74fbe9b9b1cbe4eeadae39089fd7d8bff900217e9863a6c0a5934527b4ff8248"
+  },
+  "ground_truth": {
+    "schema": "blind-arm-ground-truth/v1",
+    "signal": "processing_stall",
+    "observation_counts": [
+      4,
+      4
+    ],
+    "observation_targets": [
+      [
+        "doc_debe4e53",
+        "doc_dfbe4fe6",
+        "doc_e0be5179",
+        "proc_098c07d8"
+      ],
+      [
+        "doc_debe4e53",
+        "doc_dfbe4fe6",
+        "doc_e0be5179",
+        "proc_098c07d8"
+      ]
+    ],
+    "persistent_targets": [
+      "doc_debe4e53",
+      "doc_dfbe4fe6",
+      "doc_e0be5179",
+      "proc_098c07d8"
+    ],
+    "signal_present_in_all": true,
+    "classification": "CONFIRMED_CONDITION",
+    "scope_limit": "Confirms the machine condition only; it does not prove the cause or authorize a remedy.",
+    "production_effects": 0
+  },
+  "adjudication": {
+    "schema": "blind-arm-adjudication/v1",
+    "targets": [
+      {
+        "target_id": "doc_debe4e53",
+        "target_kind": "document",
+        "classification": "STALE_CONTRADICTION",
+        "rule_id": "document.stale_contradiction",
+        "reason": "The blocker reports output missing while the same frozen record carries an output reference and complete passing remedy evidence."
+      },
+      {
+        "target_id": "doc_dfbe4fe6",
+        "target_kind": "document",
+        "classification": "LEGITIMATE_BLOCKER",
+        "rule_id": "document.uncontradicted_blocker",
+        "reason": "A blocker is recorded and the same frozen record carries no output reference and no remedy evidence, so nothing contradicts the blocker. Internal consistency only — not proof the blocker's cause is correct."
+      },
+      {
+        "target_id": "doc_e0be5179",
+        "target_kind": "document",
+        "classification": "UNADJUDICATED",
+        "reason": "Frozen facts confirm the record persisted but do not independently prove its cause or correct remedy."
+      },
+      {
+        "target_id": "proc_098c07d8",
+        "target_kind": "processor",
+        "classification": "LEGITIMATE_BLOCKER",
+        "rule_id": "processor.persistently_offline",
+        "reason": "The processor is reported offline in every frozen observation and nothing shows it executing, so the blocker is corroborated rather than contradicted."
+      }
+    ]
+  },
+  "blind": {
+    "case_verdict": "TRUE",
+    "action_authorized": false,
+    "target_assessments": [
+      {
+        "target_id": "doc_debe4e53",
+        "classification": "STALE_CONTRADICTION",
+        "evidence": [
+          {
+            "claim": "Document doc_debe4e53 is blocked for 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+            "support": "Remedy evidence for output_ref 'ref-683af16a' is marked complete with both 'parsed' and 'validated' true, yet the document remains blocked for missing output."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "reconcile_output_record",
+          "why": "The output exists and passes checks, but the block persists, indicating a stale or unupdated block state.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "doc_dfbe4fe6",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "Document doc_dfbe4fe6 is blocked for 'schema_unconfirmed' with no output_ref and no remedy evidence.",
+            "support": "No output or remedy evidence is present, so the schema cannot be confirmed and the block is legitimate."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "no_action",
+          "why": "Block is appropriate until output or remedy evidence is provided.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "doc_e0be5179",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "Document doc_e0be5179 is blocked for 'destination_unresolved' and its processor (proc_098c07d8) is offline.",
+            "support": "Processor reachability is 'online: false', so routing cannot resolve the destination, making the block legitimate."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "no_action",
+          "why": "Block is appropriate until processor is online or routing is resolved.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "proc_098c07d8",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "Processor proc_098c07d8 is offline.",
+            "support": "Both observations show 'online: false' for this processor, justifying any routing or processing blocks."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "no_action",
+          "why": "Processor is offline; no further action until it is restored.",
+          "risk": "low"
+        }
+      }
+    ]
+  },
+  "assisted": {
+    "case_verdict": "TRUE",
+    "action_authorized": false,
+    "target_assessments": [
+      {
+        "target_id": "doc_debe4e53",
+        "classification": "STALE_CONTRADICTION",
+        "evidence": [
+          {
+            "claim": "doc_debe4e53 is blocked with a 'verification' class blocker ('output_missing'), but remedy evidence shows the output is present, parsed, and validated.",
+            "support": "Both observations show doc_debe4e53 blocked for 'output_missing', but remedy_evidence for the same output_ref is complete and validated. This suggests the block is stale and should have cleared."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "reconcile_output_record",
+          "why": "The document remains blocked despite remedy evidence indicating the output is present and validated. The alert does not change this assessment.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "doc_dfbe4fe6",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "doc_dfbe4fe6 is blocked with a 'verification' class blocker ('schema_unconfirmed'), with no output_ref and no remedy evidence.",
+            "support": "Both observations show the document blocked for 'schema_unconfirmed', and there is no evidence of output or remediation. The block appears legitimate."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "no_action",
+          "why": "The document is correctly blocked due to missing schema confirmation and no remedy evidence. The alert does not change this assessment.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "doc_e0be5179",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "doc_e0be5179 is blocked with a 'routing' class blocker ('destination_unresolved'), with no remedy evidence.",
+            "support": "Both observations show the document blocked for 'destination_unresolved', and there is no evidence of remediation. The block appears legitimate."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "no_action",
+          "why": "The document is correctly blocked due to unresolved routing and no remedy evidence. The alert does not change this assessment.",
+          "risk": "low"
+        }
+      },
+      {
+        "target_id": "proc_098c07d8",
+        "classification": "LEGITIMATE_BLOCKER",
+        "evidence": [
+          {
+            "claim": "proc_098c07d8 is offline (reachability: online=false), which can legitimately block dependent documents.",
+            "support": "Both observations show the processor as offline, which is a legitimate reason for processing stalls."
+          }
+        ],
+        "proposed_next_step": {
+          "action": "no_action",
+          "why": "The processor is offline, which is a legitimate blocker for processing. The alert does not change this assessment.",
+          "risk": "low"
+        }
+      }
+    ]
+  },
+  "measurements": {
+    "blind": {
+      "elapsed_ms": 7050,
+      "token_usage": {
+        "input_tokens": 1131,
+        "cached_input_tokens": 0,
+        "output_tokens": 599
+      },
+      "output_sha256": "86b524ee79a5a18a6971daf0ef880133a5de11c9a94caad0ff645b5f3f8e4b48",
+      "run": {
+        "schema": "blind-arm-run/v2",
+        "analyst_id": "openai/gpt-4.1",
+        "model": "gpt-4.1",
+        "model_pinned": true,
+        "trial": 1,
+        "arm_order": 2,
+        "arm_order_balanced": true,
+        "prompt_sha256": "62ff20da90fe52d574b1f234bb06a9d0ddab128b858fc984b31e5fd4419c31aa",
+        "started_at": "2026-08-19T16:01:27.948Z"
+      }
+    },
+    "assisted": {
+      "elapsed_ms": 6272,
+      "token_usage": {
+        "input_tokens": 1259,
+        "cached_input_tokens": 0,
+        "output_tokens": 661
+      },
+      "output_sha256": "82e706b5ad2d31dbcbb92c11785f77ff3545e53d7b62aed7fca41401c40b69dd",
+      "run": {
+        "schema": "blind-arm-run/v2",
+        "analyst_id": "openai/gpt-4.1",
+        "model": "gpt-4.1",
+        "model_pinned": true,
+        "trial": 1,
+        "arm_order": 1,
+        "arm_order_balanced": true,
+        "prompt_sha256": "b8ac2bde1a0d880739f737caec37f505f60e1d1c1d3070568a26b6ef2b2a7c09",
+        "started_at": "2026-08-19T16:01:21.676Z"
+      }
+    }
+  },
+  "trials": 1,
+  "repeats": [
+    {
+      "trial": 1,
+      "measurements": {
+        "assisted": {
+          "elapsed_ms": 6272,
+          "token_usage": {
+            "input_tokens": 1259,
+            "cached_input_tokens": 0,
+            "output_tokens": 661
+          },
+          "output_sha256": "82e706b5ad2d31dbcbb92c11785f77ff3545e53d7b62aed7fca41401c40b69dd",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 1,
+            "arm_order": 1,
+            "arm_order_balanced": true,
+            "prompt_sha256": "b8ac2bde1a0d880739f737caec37f505f60e1d1c1d3070568a26b6ef2b2a7c09",
+            "started_at": "2026-08-19T16:01:21.676Z"
+          }
+        },
+        "blind": {
+          "elapsed_ms": 7050,
+          "token_usage": {
+            "input_tokens": 1131,
+            "cached_input_tokens": 0,
+            "output_tokens": 599
+          },
+          "output_sha256": "86b524ee79a5a18a6971daf0ef880133a5de11c9a94caad0ff645b5f3f8e4b48",
+          "run": {
+            "schema": "blind-arm-run/v2",
+            "analyst_id": "openai/gpt-4.1",
+            "model": "gpt-4.1",
+            "model_pinned": true,
+            "trial": 1,
+            "arm_order": 2,
+            "arm_order_balanced": true,
+            "prompt_sha256": "62ff20da90fe52d574b1f234bb06a9d0ddab128b858fc984b31e5fd4419c31aa",
+            "started_at": "2026-08-19T16:01:27.948Z"
+          }
+        }
+      },
+      "blind": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_debe4e53",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "doc_dfbe4fe6",
+            "action": "no_action",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "doc_e0be5179",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "proc_098c07d8",
+            "action": "no_action",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "assisted": {
+        "target_contract_passed": true,
+        "adjudicated_targets": 3,
+        "correct_adjudicated_targets": 3,
+        "accuracy": 1,
+        "status": "PARTIALLY_SCORED",
+        "action_pairs": [
+          {
+            "target_id": "doc_debe4e53",
+            "action": "reconcile_output_record",
+            "expected_classification": "STALE_CONTRADICTION",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "doc_dfbe4fe6",
+            "action": "no_action",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          },
+          {
+            "target_id": "doc_e0be5179",
+            "status": "DENY_UNADJUDICATED",
+            "allowed": false
+          },
+          {
+            "target_id": "proc_098c07d8",
+            "action": "no_action",
+            "expected_classification": "LEGITIMATE_BLOCKER",
+            "allowed": true,
+            "status": "SIMULATED_ALLOW"
+          }
+        ],
+        "all_action_pairs_allowed": false
+      },
+      "same_case_verdict": true,
+      "divergences": []
+    }
+  ],
+  "comparison": {
+    "same_case_verdict": true,
+    "blind": {
+      "target_contract_passed": true,
+      "adjudicated_targets": 3,
+      "correct_adjudicated_targets": 3,
+      "accuracy": 1,
+      "status": "PARTIALLY_SCORED",
+      "action_pairs": [
+        {
+          "target_id": "doc_debe4e53",
+          "action": "reconcile_output_record",
+          "expected_classification": "STALE_CONTRADICTION",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        },
+        {
+          "target_id": "doc_dfbe4fe6",
+          "action": "no_action",
+          "expected_classification": "LEGITIMATE_BLOCKER",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        },
+        {
+          "target_id": "doc_e0be5179",
+          "status": "DENY_UNADJUDICATED",
+          "allowed": false
+        },
+        {
+          "target_id": "proc_098c07d8",
+          "action": "no_action",
+          "expected_classification": "LEGITIMATE_BLOCKER",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        }
+      ],
+      "all_action_pairs_allowed": false
+    },
+    "assisted": {
+      "target_contract_passed": true,
+      "adjudicated_targets": 3,
+      "correct_adjudicated_targets": 3,
+      "accuracy": 1,
+      "status": "PARTIALLY_SCORED",
+      "action_pairs": [
+        {
+          "target_id": "doc_debe4e53",
+          "action": "reconcile_output_record",
+          "expected_classification": "STALE_CONTRADICTION",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        },
+        {
+          "target_id": "doc_dfbe4fe6",
+          "action": "no_action",
+          "expected_classification": "LEGITIMATE_BLOCKER",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        },
+        {
+          "target_id": "doc_e0be5179",
+          "status": "DENY_UNADJUDICATED",
+          "allowed": false
+        },
+        {
+          "target_id": "proc_098c07d8",
+          "action": "no_action",
+          "expected_classification": "LEGITIMATE_BLOCKER",
+          "allowed": true,
+          "status": "SIMULATED_ALLOW"
+        }
+      ],
+      "all_action_pairs_allowed": false
+    },
+    "rule": "No nearby finding earns credit. Coverage must exactly match the frozen target set; only adjudicated targets receive an accuracy score.",
+    "divergences": []
+  },
+  "gate_simulation": {
+    "mode": "simulation-only",
+    "exact_action_allowed": false,
+    "target_contract_passed": true,
+    "blind_target_coverage": {
+      "valid": true,
+      "actual": [
+        "doc_debe4e53",
+        "doc_dfbe4fe6",
+        "doc_e0be5179",
+        "proc_098c07d8"
+      ],
+      "missing": [],
+      "extra": [],
+      "duplicates": [],
+      "ordered": true
+    },
+    "assisted_target_coverage": {
+      "valid": true,
+      "actual": [
+        "doc_debe4e53",
+        "doc_dfbe4fe6",
+        "doc_e0be5179",
+        "proc_098c07d8"
+      ],
+      "missing": [],
+      "extra": [],
+      "duplicates": [],
+      "ordered": true
+    },
+    "no_action_authority": true,
+    "confirmed_targets": [
+      "doc_debe4e53",
+      "doc_dfbe4fe6",
+      "doc_e0be5179",
+      "proc_098c07d8"
+    ],
+    "production_effects": 0,
+    "note": "Analyses never authorize action. Per-target proposals require separate adjudication."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_debe4e53",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_debe4e53 is blocked with a verification blocker: output_missing, but remedy evidence shows output_ref ref-683af16a is complete, parsed, and validated.",
+          "support": "Despite the remedy evidence indicating the output is complete and validated, the document remains blocked with 'output_missing'. This suggests a legitimate blocker, possibly due to a stale or unrecognized state transition."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Manual inspection is needed to reconcile the mismatch between the remedy evidence and the persistent blocker.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_dfbe4fe6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_dfbe4fe6 is blocked with a verification blocker: schema_unconfirmed, has no output_ref, and no remedy evidence.",
+          "support": "The absence of output and remedy evidence supports that the document is genuinely blocked pending schema confirmation."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Further inspection is required to determine why schema confirmation is missing and to resolve the block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_e0be5179",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_e0be5179 is blocked with a routing blocker: destination_unresolved, has an output_ref but no remedy evidence.",
+          "support": "The routing destination is unresolved and there is no evidence of attempted or successful remedy, indicating a legitimate routing block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Manual inspection is needed to determine why the routing destination is unresolved and to facilitate resolution.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_098c07d8",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_098c07d8 is offline (reachability: online=false).",
+          "support": "Processor unavailability is a legitimate cause for processing stalls and document blocks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Inspection is needed to determine the cause of processor offline status and to plan restoration.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

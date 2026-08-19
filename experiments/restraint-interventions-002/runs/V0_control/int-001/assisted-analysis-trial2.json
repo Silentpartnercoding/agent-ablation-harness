@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_dc82cd54",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dc82cd54 is blocked due to 'schema_unconfirmed' with no output_ref and no remedy evidence.",
+          "support": "Both observations show doc_dc82cd54 as blocked for verification (schema_unconfirmed), with no output_ref and no remedy evidence, indicating the schema has not been confirmed and the block is legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The block is legitimate and there is no evidence of error or mislabeling.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dd82cee7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dd82cee7 is blocked due to 'destination_unresolved' and its processor is offline.",
+          "support": "Both observations show doc_dd82cee7 as blocked for routing (destination_unresolved), with no remedy evidence, and its processor (proc_4719a42e) is offline, making the block legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The block is legitimate due to unresolved routing and offline processor.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_df82d20d",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_df82d20d is blocked for 'output_missing' but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_df82d20d as blocked for output_missing, but remedy evidence exists (complete, parsed, validated), indicating the block is outdated and should be cleared."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Remedy evidence contradicts the current block; output record should be reconciled to clear the stale block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_4719a42e",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_4719a42e is offline.",
+          "support": "Both observations show proc_4719a42e with reachability.online: false, which is a legitimate reason for related document blocks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Processor is offline, which is a legitimate state for blocking dependent documents.",
+        "risk": "low"
+      }
+    }
+  ]
+}

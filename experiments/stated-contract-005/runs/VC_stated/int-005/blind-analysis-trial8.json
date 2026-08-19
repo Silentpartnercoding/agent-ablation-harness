@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_3283e690",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_3283e690 is blocked with blocker class 'verification' and message 'schema_unconfirmed', with no output_ref and no remedy evidence.",
+          "support": "The document remains blocked due to schema not being confirmed, and there is no evidence of remediation or output. This is a legitimate verification blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is correctly blocked due to an unresolved schema verification issue, with no remediation present.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3383e823",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_3383e823 is blocked with blocker class 'routing' and message 'destination_unresolved', with no remedy evidence.",
+          "support": "The document is blocked because its routing destination is unresolved, and there is no evidence of remediation. This is a legitimate routing blocker."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is correctly blocked due to unresolved routing destination, with no remediation present.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3583eb49",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_3583eb49 is blocked with blocker class 'verification' and message 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Despite the blocker, the remedy evidence indicates the output is present and validated, contradicting the continued blocked status. This suggests the block is stale."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document's output is complete and validated, so the block should be reconciled to reflect the current state.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_2958408a",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_2958408a is offline (reachability: online=false).",
+          "support": "The processor is not reachable, which is a legitimate reason for any associated blocks or failures."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The processor is offline, which is a legitimate blocker; further inspection may be needed if the status changes.",
+        "risk": "low"
+      }
+    }
+  ]
+}

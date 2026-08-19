@@ -1,0 +1,82 @@
+{
+  "model": "gpt-4.1",
+  "startedAt": "2026-08-19T18:06:58.511Z",
+  "variants": {
+    "V0_control": {
+      "why": "unchanged control; the question is the arms, not a variant",
+      "promptSha256": "sha256:e5b9b647f80758e743317baee0cc1485eff1a3cfd2b1d588193390683eb4bcf9",
+      "blindRestraint": null,
+      "assistedRestraint": null,
+      "gap": null,
+      "tally": {
+        "blind": {
+          "restrained": 0,
+          "total": 0
+        },
+        "assisted": {
+          "restrained": 0,
+          "total": 0
+        }
+      },
+      "perCase": [
+        {
+          "seed": "int-001",
+          "negative": false,
+          "trials": 10,
+          "wrote": true
+        },
+        {
+          "seed": "int-002",
+          "negative": false,
+          "trials": 10,
+          "wrote": true
+        },
+        {
+          "seed": "int-003",
+          "negative": false,
+          "trials": 10,
+          "wrote": true
+        },
+        {
+          "seed": "int-004",
+          "negative": false,
+          "trials": 10,
+          "wrote": true
+        },
+        {
+          "seed": "int-005",
+          "negative": false,
+          "trials": 10,
+          "wrote": true
+        },
+        {
+          "seed": "int-006",
+          "negative": false,
+          "trials": 10,
+          "wrote": true
+        },
+        {
+          "seed": "int-007",
+          "negative": false,
+          "trials": 10,
+          "wrote": true
+        },
+        {
+          "seed": "int-008",
+          "negative": false,
+          "trials": 10,
+          "wrote": true
+        },
+        {
+          "seed": "int-neg",
+          "negative": true,
+          "trials": 10,
+          "wrote": true
+        }
+      ],
+      "uncachedInputTokens": 122358
+    }
+  },
+  "corpusDigest": "sha256:a823506ca499e0f1532f149692f0d509fbe6ebfacd7998b3778dfd244844e620",
+  "finishedAt": "2026-08-19T18:24:53.712Z"
+}

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_3283e690",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_3283e690 is blocked due to 'schema_unconfirmed' verification.",
+          "support": "Both observations show doc_3283e690 with status 'blocked', blocker class 'verification', message 'schema_unconfirmed', no output_ref, and no remedy evidence. The claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is blocked for a clear verification reason (schema unconfirmed) with no evidence of resolution.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3383e823",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_3383e823 is blocked due to 'destination_unresolved' routing.",
+          "support": "Both observations show doc_3383e823 with status 'blocked', blocker class 'routing', message 'destination_unresolved', and no remedy evidence. The claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is blocked for a clear routing reason (destination unresolved) with no evidence of resolution.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3583eb49",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_3583eb49 is blocked due to 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_3583eb49 with status 'blocked', blocker class 'verification', message 'output_missing', but remedy_evidence is present and marked complete with all checks passed. The claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Remedy evidence indicates the output is present and validated, contradicting the blocker. The output record should be reconciled to resolve the stale block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_2958408a",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_2958408a is offline.",
+          "support": "Both observations show proc_2958408a with reachability 'online': false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate cause for related document blocks.",
+        "risk": "low"
+      }
+    }
+  ]
+}

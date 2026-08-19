@@ -1,0 +1,26 @@
+{
+  "schema": "blind-arm-case/v1",
+  "created_at": "2026-08-19T16:48:46.552Z",
+  "status": "frozen",
+  "required_targets": [
+    "doc_3283e690",
+    "doc_3383e823",
+    "doc_3583eb49",
+    "proc_2958408a"
+  ],
+  "production_effects": 0,
+  "files": [
+    {
+      "path": "assisted-input/alert.json",
+      "sha256": "7d5c845b1f877d0cfe6c4372e8fa14ecde981ba7c7a16e3fd595b4c8da130e84"
+    },
+    {
+      "path": "assisted-input/evidence.json",
+      "sha256": "5e9e51e61443fd79a9ad060477fec195633fae3e96c8d7a3907cb0cf22f657c1"
+    },
+    {
+      "path": "blind-input/evidence.json",
+      "sha256": "5e9e51e61443fd79a9ad060477fec195633fae3e96c8d7a3907cb0cf22f657c1"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_3283e690",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_3283e690 is blocked with blocker class 'verification' and message 'schema_unconfirmed'. There is no output_ref and no remedy_evidence.",
+          "support": "A verification blocker with 'schema_unconfirmed' and no remedy evidence indicates the document cannot proceed until schema is confirmed. This is a legitimate reason for blocking."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Blocker is legitimate and there is no evidence of error or mislabeling.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3383e823",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_3383e823 is blocked with blocker class 'routing' and message 'destination_unresolved'. The processor proc_2958408a is offline.",
+          "support": "A routing blocker with 'destination_unresolved' and the associated processor being offline is a legitimate reason for blocking, as routing cannot be resolved while the processor is unreachable."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Blocker is legitimate due to processor offline status and unresolved routing.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_3583eb49",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_3583eb49 is blocked with blocker class 'verification' and message 'output_missing', but remedy_evidence shows complete, parsed, and validated output for the referenced output_ref.",
+          "support": "The presence of complete and validated remedy evidence contradicts the continued 'output_missing' blocker, suggesting the block is stale and should have been cleared."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Remedy evidence indicates the output is present and validated, so the block should be reconciled.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_2958408a",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_2958408a is marked as offline in both observations.",
+          "support": "Processor offline status is a legitimate reason for any associated routing or processing blocks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Processor is offline, which is a legitimate state for blocking dependent documents.",
+        "risk": "low"
+      }
+    }
+  ]
+}

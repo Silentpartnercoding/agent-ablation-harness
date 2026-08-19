@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_ccc3c6b0",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_ccc3c6b0 is blocked for 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_ccc3c6b0 blocked for 'output_missing' with output_ref 'ref-8303e4f3'. Remedy evidence for this output_ref is present and marked complete with all checks passed, yet the block persists."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked despite remedy evidence indicating the output is complete and valid. This suggests a stale or unacknowledged state.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cec3c9d6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_cec3c9d6 is blocked for 'destination_unresolved' with no remedy evidence.",
+          "support": "Both observations show doc_cec3c9d6 blocked for routing ('destination_unresolved'), with no remedy evidence and the associated processor (proc_6a9d9ea5) offline."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "The processor required for routing is offline, which is a legitimate cause for the block. Restoring processor availability is necessary.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cfc3cb69",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_cfc3cb69 is blocked for 'schema_unconfirmed' with no output or remedy evidence.",
+          "support": "Both observations show doc_cfc3cb69 blocked for verification ('schema_unconfirmed'), with no output_ref and no remedy evidence, indicating the schema has not been confirmed."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "No evidence of resolution or progress; further inspection or intervention may be needed to confirm schema.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_6a9d9ea5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_6a9d9ea5 is offline in both observations.",
+          "support": "Both observations list proc_6a9d9ea5 with reachability 'online': false, which directly impacts routing for associated documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, which is a legitimate blocker for routing-dependent documents.",
+        "risk": "low"
+      }
+    }
+  ]
+}

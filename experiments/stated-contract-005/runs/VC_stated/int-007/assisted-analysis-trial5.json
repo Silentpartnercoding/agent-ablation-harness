@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_008d51ff",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_008d51ff is blocked for 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_008d51ff blocked for output_missing, yet remedy_evidence for output_ref 'ref-1a2a7de6' is complete and passes all checks. The block is stale."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Remedy evidence indicates the output is present and valid, contradicting the current blocked status.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_018d5392",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_018d5392 is blocked for 'schema_unconfirmed' with no output_ref or remedy evidence.",
+          "support": "Both observations show doc_018d5392 blocked for schema_unconfirmed, with no output_ref and no remedy evidence. The block is current and justified."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "No evidence contradicts the block; further inspection may be needed to resolve schema confirmation.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_028d5525",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_028d5525 is blocked for 'destination_unresolved' with no remedy evidence.",
+          "support": "Both observations show doc_028d5525 blocked for routing/destination_unresolved, with no remedy evidence. The block is current and justified."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "No evidence contradicts the block; further inspection may be needed to resolve routing.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_c717ce74",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_c717ce74 is offline in both observations.",
+          "support": "Both observations show proc_c717ce74 with reachability.online: false, indicating a legitimate processing stall."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate cause for processing stall; further inspection may be needed to restore service.",
+        "risk": "low"
+      }
+    }
+  ]
+}

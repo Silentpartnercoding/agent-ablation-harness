@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_27b8f75c",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_27b8f75c is blocked due to routing: destination_unresolved.",
+          "support": "Both observations show doc_27b8f75c blocked with a routing blocker (destination_unresolved), and its associated processor (proc_c65f0d23) is offline, making the block legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Block is legitimate due to unresolved routing and offline processor. No evidence of mislabeling or staleness.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_28b8f8ef",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_28b8f8ef is blocked due to verification: schema_unconfirmed.",
+          "support": "Both observations show doc_28b8f8ef blocked with a verification blocker (schema_unconfirmed), with no remedy evidence or output_ref, indicating the block is current and justified."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Block is legitimate due to unconfirmed schema and lack of remedy evidence.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_29b8fa82",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_29b8fa82 is blocked due to verification: output_missing, but remedy evidence is present and complete.",
+          "support": "Both observations show doc_29b8fa82 blocked for output_missing, but remedy_evidence is present, complete, and shows parsed and validated checks as true. This suggests the block is stale and should have been cleared."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Remedy evidence indicates the output is present and validated, so the block is likely stale and needs reconciliation.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_c65f0d23",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_c65f0d23 is offline.",
+          "support": "Both observations show proc_c65f0d23 with reachability.online: false, justifying any related blocks as legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Processor is offline, so its status is legitimate and not a mislabel or transient issue.",
+        "risk": "low"
+      }
+    }
+  ]
+}

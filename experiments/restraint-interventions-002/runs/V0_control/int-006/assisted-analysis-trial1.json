@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_8e4ceb3c",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_8e4ceb3c is blocked due to output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Remedy evidence for doc_8e4ceb3c (output_ref: ref-0a586bbf) is marked complete with all checks passed, contradicting the continued 'output_missing' block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document appears to be incorrectly blocked; output is present and validated.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_904cee62",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_904cee62 is blocked due to routing: destination_unresolved.",
+          "support": "No remedy evidence is present and the processor proc_b3a76031 is offline, so the routing destination cannot be resolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, which is preventing routing. Bringing it online may resolve the block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_914ceff5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_914ceff5 is blocked due to verification: schema_unconfirmed.",
+          "support": "No output_ref or remedy evidence is present, so schema confirmation cannot proceed."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Block is legitimate and requires further input or processing to resolve.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_b3a76031",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_b3a76031 is offline.",
+          "support": "Processor reachability is explicitly marked as online: false in both observations."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Restoring processor online status is necessary for dependent document routing.",
+        "risk": "low"
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_008d51ff",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_008d51ff is blocked due to output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "\"blocker\": {\"class\": \"verification\", \"message\": \"output_missing\"} ... \"remedy_evidence\": [{\"complete\": true, \"output_ref\": \"ref-1a2a7de6\", \"checks\": {\"parsed\": true, \"validated\": true}}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Remedy evidence indicates output is present and validated, contradicting the output_missing blocker.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_018d5392",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_018d5392 is blocked due to schema_unconfirmed, with no output_ref and no remedy evidence.",
+          "support": "\"blocker\": {\"class\": \"verification\", \"message\": \"schema_unconfirmed\"}, \"output_ref\": null, \"remedy_evidence\": []"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "No evidence of progress or resolution; schema remains unconfirmed.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_028d5525",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_028d5525 is blocked due to destination_unresolved, with no remedy evidence and processor offline.",
+          "support": "\"blocker\": {\"class\": \"routing\", \"message\": \"destination_unresolved\"}, \"remedy_evidence\": [], processor proc_c717ce74: \"online\": false"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Routing destination unresolved and processor is offline; no sign of resolution.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_c717ce74",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_c717ce74 is offline, affecting routing for dependent documents.",
+          "support": "\"processors\": [{\"id\": \"proc_c717ce74\", \"reachability\": {\"online\": false}}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate cause for processing stall.",
+        "risk": "low"
+      }
+    }
+  ]
+}

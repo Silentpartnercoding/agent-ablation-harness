@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_8e4ceb3c",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "doc_8e4ceb3c is blocked due to output_missing, but remedy evidence shows the output is present, parsed, and validated.",
+          "support": "Remedy evidence for doc_8e4ceb3c (output_ref: ref-0a586bbf) is complete, parsed, and validated, indicating the block is no longer legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The block appears resolved by remedy evidence; no further action is needed.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_904cee62",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_904cee62 is blocked due to destination_unresolved with no remedy evidence.",
+          "support": "The document remains blocked for routing reasons, and there is no evidence of resolution or remedy."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Block is legitimate and unresolved; further inspection is warranted.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_914ceff5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_914ceff5 is blocked due to schema_unconfirmed with no remedy evidence.",
+          "support": "The document remains blocked for verification reasons, and there is no evidence of resolution or remedy."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Block is legitimate and unresolved; further inspection is warranted.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_b3a76031",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_b3a76031 is offline, affecting document processing.",
+          "support": "Processor reachability is offline, which is a legitimate cause for processing stalls."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor offline status is a legitimate blocker; further inspection is warranted.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

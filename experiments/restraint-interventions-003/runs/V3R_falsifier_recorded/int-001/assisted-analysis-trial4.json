@@ -1,0 +1,82 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_dc82cd54",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dc82cd54 is blocked due to 'schema_unconfirmed' with no remedy evidence.",
+          "support": "Both observations show doc_dc82cd54 with status 'blocked', blocker class 'verification', message 'schema_unconfirmed', output_ref null, and no remedy evidence."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Block is legitimate and unresolved; no evidence of error or resolution.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that doc_dc82cd54 is not actually blocked, or that the schema is confirmed and the block is stale or resolved.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_dd82cee7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_dd82cee7 is blocked due to 'destination_unresolved' and its processor is offline.",
+          "support": "Both observations show doc_dd82cee7 with status 'blocked', blocker class 'routing', message 'destination_unresolved', and processor proc_4719a42e is offline."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Block is legitimate and unresolved; processor is offline and destination unresolved.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that doc_dd82cee7 is not blocked, or that the destination is resolved and processor is online.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_df82d20d",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_df82d20d is blocked for 'output_missing', but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_df82d20d with status 'blocked', blocker class 'verification', message 'output_missing', but remedy_evidence is present and complete with all checks true."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Block appears stale or contradictory; output is present and validated, so block should be cleared.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the remedy evidence is incomplete, invalid, or not associated with the correct output_ref.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "proc_4719a42e",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_4719a42e is offline, causing downstream document blocks.",
+          "support": "Both observations show proc_4719a42e with reachability.online: false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate cause for blocking dependent documents.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that proc_4719a42e is online or that its offline status is incorrectly reported.",
+        "present": false
+      }
+    }
+  ]
+}

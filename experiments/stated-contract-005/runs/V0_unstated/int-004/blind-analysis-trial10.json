@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_548c4330",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_548c4330 is blocked with blocker class 'routing' and message 'destination_unresolved'. The processor proc_8ba55aa7 is offline.",
+          "support": "The document's status is 'blocked' due to routing issues, and the associated processor is not reachable (online: false), which justifies the block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "The processor required for routing is offline, which is a legitimate cause for the block. Restoring processor connectivity may resolve the issue.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_558c44c3",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_558c44c3 is blocked with blocker class 'verification' and message 'schema_unconfirmed'. There is no output_ref and no remedy evidence.",
+          "support": "The document cannot proceed due to missing schema confirmation, and there is no evidence that this has been resolved. This is a legitimate verification block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The block is legitimate and there is no evidence of resolution. Await further input or schema confirmation.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_568c4656",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_568c4656 is blocked with blocker class 'verification' and message 'output_missing', but remedy_evidence shows complete output with all checks passed.",
+          "support": "Despite the block, remedy evidence indicates that the output is present, parsed, and validated. The block appears outdated or not reconciled with the current state."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The block is contradicted by remedy evidence showing the output is complete and validated. The output record should be reconciled to unblock the document.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_8ba55aa7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_8ba55aa7 is offline (online: false).",
+          "support": "Processor reachability is required for document routing and processing. Its offline status is a legitimate blocker for dependent documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Restoring processor connectivity is necessary for dependent document processing and routing.",
+        "risk": "low"
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_008d51ff",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "doc_008d51ff is blocked for 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Remedy evidence for output_ref 'ref-1a2a7de6' is complete, parsed, and validated. The claim is not held. This suggests the block is stale or already resolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document appears to be blocked erroneously; output is present and validated. Without the alert, I would have classified this as FALSE_OR_TRANSIENT. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_018d5392",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_018d5392 is blocked for 'schema_unconfirmed' with no output and no remedy evidence.",
+          "support": "No output_ref, no remedy evidence, and the claim is not held. The block appears legitimate and unresolved."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "This is a legitimate blocker due to missing schema confirmation. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_028d5525",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_028d5525 is blocked for 'destination_unresolved' with no remedy evidence.",
+          "support": "Blocker is routing/destination_unresolved, no remedy evidence, and the claim is not held. The processor it depends on is offline."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "This is a legitimate blocker due to unresolved routing and offline processor. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_c717ce74",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_c717ce74 is offline, affecting dependent documents.",
+          "support": "Processor reachability is 'online: false' in both observations. This is a legitimate cause for downstream blocks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Processor is offline, which is a legitimate blocker for routing. The alert does not change this assessment.",
+        "risk": "low"
+      }
+    }
+  ]
+}

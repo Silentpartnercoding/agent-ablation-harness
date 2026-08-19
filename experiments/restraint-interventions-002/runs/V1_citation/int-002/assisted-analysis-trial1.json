@@ -1,0 +1,66 @@
+{
+  "case_verdict": "UNCERTAIN",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_ccc3c6b0",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "doc_ccc3c6b0 is blocked due to output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "\"remedy_evidence\": [ { \"complete\": true, \"output_ref\": \"ref-8303e4f3\", \"checks\": { \"parsed\": true, \"validated\": true } } ]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Remedy evidence suggests the output is present and valid, contradicting the blocker. Further inspection is needed to resolve the mismatch.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cec3c9d6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cec3c9d6 is blocked due to destination_unresolved with no remedy evidence and its processor is offline.",
+          "support": "\"blocker\": { \"class\": \"routing\", \"message\": \"destination_unresolved\" }, \"remedy_evidence\": [], \"processor_id\": \"proc_6a9d9ea5\" and \"reachability\": { \"online\": false }"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Blocker is consistent with processor being offline and no remedy evidence is present.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cfc3cb69",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cfc3cb69 is blocked due to schema_unconfirmed with no output or remedy evidence.",
+          "support": "\"blocker\": { \"class\": \"verification\", \"message\": \"schema_unconfirmed\" }, \"output_ref\": null, \"remedy_evidence\": []"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Blocker is consistent with missing output and no remedy evidence.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_6a9d9ea5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6a9d9ea5 is offline.",
+          "support": "\"reachability\": { \"online\": false }"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which can cause downstream blocks.",
+        "risk": "low"
+      }
+    }
+  ]
+}

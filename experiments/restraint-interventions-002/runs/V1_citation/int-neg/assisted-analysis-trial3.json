@@ -1,0 +1,81 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_02186e94",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "doc_02186e94 is a blocker or stalled",
+          "support": "status: completed, blocker: null, remedy_evidence: [{complete: true, ... parsed: true, validated: true}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "Document is completed with no blocker and all remedy checks passed. No evidence of a stall.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fa1861fc",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_fa1861fc is blocked due to output_missing",
+          "support": "status: blocked, blocker: {class: verification, message: output_missing}, remedy_evidence: [{complete: true, ... parsed: true, validated: true}]"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Remedy evidence shows output is present and validated, contradicting the output_missing blocker.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fc186522",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fc186522 is blocked due to destination_unresolved",
+          "support": "status: blocked, blocker: {class: routing, message: destination_unresolved}, processor_id: proc_6c0de4f1 (offline)"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Blocker is legitimate due to unresolved routing and offline processor.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fd1866b5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fd1866b5 is blocked due to schema_unconfirmed",
+          "support": "status: blocked, blocker: {class: verification, message: schema_unconfirmed}, remedy_evidence: []"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Blocker is legitimate; schema remains unconfirmed and no remedy evidence is present.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_6c0de4f1",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6c0de4f1 is a source of processing stall",
+          "support": "reachability: {online: false}"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which can legitimately cause downstream stalls.",
+        "risk": "low"
+      }
+    }
+  ]
+}

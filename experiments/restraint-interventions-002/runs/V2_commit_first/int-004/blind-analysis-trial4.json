@@ -1,0 +1,66 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_548c4330",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_548c4330 is blocked with blocker class 'routing' and message 'destination_unresolved'. The processor proc_8ba55aa7 is offline.",
+          "support": "A routing blocker with 'destination_unresolved' is legitimate if the processor is offline, as shown by reachability.online: false for proc_8ba55aa7. No remedy evidence is present."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, causing unresolved routing. Restoring processor may resolve the block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_558c44c3",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_558c44c3 is blocked with blocker class 'verification' and message 'schema_unconfirmed'. No output_ref or remedy evidence is present.",
+          "support": "A verification blocker for 'schema_unconfirmed' is legitimate when there is no output or remedy evidence to confirm schema. The claim is not held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Schema confirmation is missing; reconciling output may resolve the verification block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_568c4656",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_568c4656 is blocked with blocker class 'verification' and message 'output_missing', but remedy_evidence shows complete, parsed, and validated output for the referenced output_ref.",
+          "support": "The presence of complete and validated remedy evidence for the output contradicts the 'output_missing' blocker, indicating the block is stale."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Blocker is stale due to available and validated output; reconciling output record should clear the block.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_8ba55aa7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_8ba55aa7 is offline (reachability.online: false).",
+          "support": "Offline processor status is a legitimate blocker for any dependent routing or processing tasks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Restoring processor is necessary to resolve routing and processing blocks for dependent documents.",
+        "risk": "low"
+      }
+    }
+  ]
+}

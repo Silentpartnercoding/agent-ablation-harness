@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_debe4e53",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_debe4e53 is blocked for 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Remedy evidence for output_ref 'ref-683af16a' is complete and passes all checks, contradicting the continued 'output_missing' block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The block is no longer valid given the available remedy evidence. The output exists and is validated.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dfbe4fe6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_dfbe4fe6 is blocked for 'schema_unconfirmed' and has no output_ref or remedy evidence.",
+          "support": "No output or remedy evidence is present, so the verification block is justified."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Block is legitimate and unresolved; further inspection may be needed if new evidence appears.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_e0be5179",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_e0be5179 is blocked for 'destination_unresolved' with no remedy evidence.",
+          "support": "No remedy evidence or resolution for the routing issue is present, so the block is legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Block is legitimate and unresolved; further inspection may be needed if new evidence appears.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_098c07d8",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_098c07d8 is offline (reachability: online=false).",
+          "support": "Processor is not reachable, which is a legitimate reason for blocking related documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline; further inspection may be needed if its status changes.",
+        "risk": "low"
+      }
+    }
+  ]
+}

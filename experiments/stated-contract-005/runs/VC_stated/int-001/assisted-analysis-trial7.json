@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_dc82cd54",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_dc82cd54 is blocked with a verification blocker: schema_unconfirmed, has no output_ref, and no remedy evidence.",
+          "support": "Both observations show doc_dc82cd54 as blocked due to schema_unconfirmed, with no output or remedy evidence, and claim.held is false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is genuinely blocked due to unconfirmed schema and lacks any evidence of resolution.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dd82cee7",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_dd82cee7 is blocked with a routing blocker: destination_unresolved, has an output_ref but no remedy evidence.",
+          "support": "Both observations show doc_dd82cee7 as blocked for destination_unresolved, with no remedy evidence and claim.held is false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is genuinely blocked due to unresolved routing destination and lacks remedy evidence.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_df82d20d",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_df82d20d is blocked with a verification blocker: output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Both observations show doc_df82d20d as blocked for output_missing, but remedy_evidence indicates the output is complete and validated, contradicting the blocker's reason."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document is still marked as blocked despite remedy evidence showing the output is present and validated, indicating a stale or un-updated block state.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_4719a42e",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_4719a42e is offline (reachability.online: false) in both observations.",
+          "support": "Both observations show proc_4719a42e as offline, which is a legitimate reason for processing stall."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is genuinely offline, which is a legitimate processing blocker.",
+        "risk": "low"
+      }
+    }
+  ]
+}

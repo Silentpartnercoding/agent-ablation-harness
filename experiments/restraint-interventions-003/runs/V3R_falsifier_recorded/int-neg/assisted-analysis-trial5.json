@@ -1,0 +1,101 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_02186e94",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "doc_02186e94 is accused of being stalled, but it is completed with validated output and no blocker.",
+          "support": "Both observations show doc_02186e94 with status 'completed', no blocker, and remedy evidence confirming output is parsed and validated."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The alert is incorrect for this document; output is complete and validated.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that doc_02186e94 is actually blocked or incomplete (e.g., status 'blocked', missing output, or failed validation).",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_fa1861fc",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_fa1861fc is blocked for 'output_missing', but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Both observations show doc_fa1861fc as blocked, but also show remedy evidence with complete, parsed, and validated output for the referenced output."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The block is contradicted by the presence of complete and validated output; likely a stale or un-updated block status.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the output is actually missing or invalid (e.g., no remedy evidence, failed validation, or missing output_ref).",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_fc186522",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fc186522 is blocked due to 'destination_unresolved' and has no remedy evidence.",
+          "support": "Both observations show doc_fc186522 as blocked with a routing blocker and no remedy evidence."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The document is genuinely blocked due to unresolved routing; needs routing resolution.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the routing destination is resolved and the document is no longer blocked (e.g., status 'completed', remedy evidence present).",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_fd1866b5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fd1866b5 is blocked for 'schema_unconfirmed' with no output or remedy evidence.",
+          "support": "Both observations show doc_fd1866b5 as blocked, output_ref is null, and remedy evidence is empty."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "The document is genuinely blocked due to schema confirmation issues; requires review or intervention.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that schema is confirmed and document is unblocked (e.g., status 'completed', remedy evidence present).",
+        "present": false
+      }
+    },
+    {
+      "target_id": "proc_6c0de4f1",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6c0de4f1 is offline, which can cause processing stalls for documents it handles.",
+          "support": "Both observations show proc_6c0de4f1 with reachability 'online': false."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline and must be restored to resume processing.",
+        "risk": "medium"
+      },
+      "falsifier": {
+        "described": "Evidence that the processor is online and reachable (e.g., reachability 'online': true).",
+        "present": false
+      }
+    }
+  ]
+}

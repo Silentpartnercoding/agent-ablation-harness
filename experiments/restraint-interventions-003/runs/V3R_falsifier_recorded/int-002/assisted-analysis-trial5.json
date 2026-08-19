@@ -1,0 +1,82 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_ccc3c6b0",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_ccc3c6b0 is blocked due to verification: output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Despite remedy evidence indicating the output is complete and validated, the document remains blocked with the same verification error across both observations. This suggests a persistent, legitimate stall."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "Remedy evidence is present but the block persists, indicating a possible system or logic error requiring human review.",
+        "risk": "medium"
+      },
+      "falsifier": {
+        "described": "Evidence that the document is no longer blocked, or that the remedy evidence has cleared the blocker and the document is progressing.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_cec3c9d6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cec3c9d6 is blocked due to routing: destination_unresolved, with no remedy evidence.",
+          "support": "Both observations show the document blocked for the same routing reason, with no sign of progress or attempted remedy."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "Routing destination remains unresolved with no remedy evidence; requires routing intervention.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the routing destination has been resolved or the document is no longer blocked.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_cfc3cb69",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_cfc3cb69 is blocked due to verification: schema_unconfirmed, with no output or remedy evidence.",
+          "support": "Both observations show the document blocked for the same verification reason, with no progress or remedy evidence."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "No remedy evidence or progress; requires review to determine why schema remains unconfirmed.",
+        "risk": "medium"
+      },
+      "falsifier": {
+        "described": "Evidence that the schema has been confirmed or the document is no longer blocked.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "proc_6a9d9ea5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6a9d9ea5 is offline in both observations.",
+          "support": "Processor is consistently unreachable (online: false), which would stall any documents requiring its processing."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, blocking dependent documents; restoring processor is necessary to resume processing.",
+        "risk": "medium"
+      },
+      "falsifier": {
+        "described": "Evidence that the processor is online and reachable.",
+        "present": false
+      }
+    }
+  ]
+}

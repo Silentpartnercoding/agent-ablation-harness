@@ -1,0 +1,81 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_02186e94",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "doc_02186e94 is experiencing a processing stall.",
+          "support": "Both observations show doc_02186e94 with status 'completed', no blocker, and remedy evidence confirming output is parsed and validated. There is no evidence of a stall."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document is not stalled; output is complete and validated. The alert is incorrect for this target.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fa1861fc",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_fa1861fc is experiencing a processing stall due to output_missing.",
+          "support": "The document is marked 'blocked' for 'output_missing', but remedy evidence shows the referenced output is complete, parsed, and validated. This indicates the block is stale and should be cleared."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "Remedy evidence exists for the output, so the block is outdated and should be resolved.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fc186522",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fc186522 is experiencing a processing stall due to destination_unresolved.",
+          "support": "The document is 'blocked' with a routing blocker ('destination_unresolved'), and there is no remedy evidence or output indicating resolution. The stall is legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The routing destination is unresolved and must be addressed to proceed.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_fd1866b5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fd1866b5 is experiencing a processing stall due to schema_unconfirmed.",
+          "support": "The document is 'blocked' with a verification blocker ('schema_unconfirmed'), has no output, and no remedy evidence. The stall is legitimate."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "advance_to_review",
+        "why": "Schema confirmation is missing and must be resolved before processing can continue.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_6c0de4f1",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6c0de4f1 is experiencing a processing stall.",
+          "support": "Both observations show proc_6c0de4f1 as offline (reachability: online=false), which would prevent processing and cause a stall."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline and must be restored to resume processing.",
+        "risk": "medium"
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_8e4ceb3c",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "doc_8e4ceb3c is blocked due to output_missing, but remedy evidence shows output is present, parsed, and validated.",
+          "support": "Remedy evidence for output_ref 'ref-0a586bbf' is complete, parsed, and validated, contradicting the continued 'output_missing' block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document remains blocked despite remedy evidence indicating the output is present and valid. The block appears stale.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the remedy evidence is incomplete, invalid, or not associated with the correct output_ref.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_904cee62",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_904cee62 is blocked due to destination_unresolved and has no remedy evidence.",
+          "support": "The document is blocked for routing (destination_unresolved), and there is no remedy evidence or claim held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The block is legitimate and unresolved; routing needs to be addressed.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the destination has been resolved or remedy evidence exists.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "doc_914ceff5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_914ceff5 is blocked due to schema_unconfirmed and has no remedy evidence.",
+          "support": "The document is blocked for verification (schema_unconfirmed), and there is no remedy evidence or claim held."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The block is legitimate and unresolved; no remedy evidence is present.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that schema has been confirmed or remedy evidence exists.",
+        "present": false
+      }
+    },
+    {
+      "target_id": "proc_b3a76031",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_b3a76031 is offline.",
+          "support": "Processor reachability is 'online': false in all observations."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "Processor is offline, which is a legitimate cause for processing stall.",
+        "risk": "low"
+      },
+      "falsifier": {
+        "described": "Evidence that the processor is online or reachable.",
+        "present": false
+      }
+    }
+  ]
+}
