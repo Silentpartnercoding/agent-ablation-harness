@@ -1,0 +1,82 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_ccc3c6b0",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document is blocked with verification blocker 'output_missing'",
+          "support": "Frozen observations show status 'blocked', blocker class 'verification', message 'output_missing', output_ref 'ref-8303e4f3'"
+        },
+        {
+          "claim": "Remedy evidence indicates output is complete and validated",
+          "support": "remedy_evidence array contains entry with complete=true, output_ref 'ref-8303e4f3', checks parsed=true and validated=true"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The blocker claims output is missing but remedy evidence shows the output is complete and validated, indicating a stale or inconsistent blocker state that needs reconciliation",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cec3c9d6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document is blocked with routing blocker 'destination_unresolved'",
+          "support": "Frozen observations show status 'blocked', blocker class 'routing', message 'destination_unresolved', output_ref 'ref-81f81d47'"
+        },
+        {
+          "claim": "No remedy evidence is present",
+          "support": "remedy_evidence array is empty"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The document is blocked due to unresolved destination routing with no remedy evidence, requiring routing reconciliation to resolve the stall",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_cfc3cb69",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document is blocked with verification blocker 'schema_unconfirmed'",
+          "support": "Frozen observations show status 'blocked', blocker class 'verification', message 'schema_unconfirmed', output_ref null"
+        },
+        {
+          "claim": "No remedy evidence is present",
+          "support": "remedy_evidence array is empty"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The document is blocked due to unconfirmed schema with no remedy evidence, requiring output record reconciliation to confirm schema compliance",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_6a9d9ea5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor is offline",
+          "support": "Frozen observations show processor proc_6a9d9ea5 with reachability online=false"
+        },
+        {
+          "claim": "Document doc_cec3c9d6 is routed to this offline processor",
+          "support": "doc_cec3c9d6 has processor_id proc_6a9d9ea5 and is blocked with routing blocker destination_unresolved"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "The processor is offline which is causing a routing stall for doc_cec3c9d6, restoring the processor would resolve the processing stall",
+        "risk": "high"
+      }
+    }
+  ]
+}

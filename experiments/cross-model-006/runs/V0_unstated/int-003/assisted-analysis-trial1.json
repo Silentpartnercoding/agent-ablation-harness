@@ -1,0 +1,82 @@
+{
+  "case_verdict": "TRUE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_debe4e53",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document is blocked with verification blocker 'output_missing'",
+          "support": "Frozen observations show status 'blocked' with blocker class 'verification' and message 'output_missing'"
+        },
+        {
+          "claim": "Remedy evidence indicates output is complete and validated",
+          "support": "remedy_evidence contains entry with complete=true, parsed=true, validated=true for output_ref ref-683af16a"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The blocker is a verification issue with remedy evidence present; inspection confirms the block is legitimate and not stale",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_dfbe4fe6",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document is blocked with verification blocker 'schema_unconfirmed'",
+          "support": "Frozen observations show status 'blocked' with blocker class 'verification' and message 'schema_unconfirmed'"
+        },
+        {
+          "claim": "No remedy evidence is present to resolve the schema confirmation",
+          "support": "remedy_evidence array is empty and output_ref is null"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The schema_unconfirmed blocker lacks remedy evidence; reconciling the output record may resolve the stale contradiction",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_e0be5179",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "Document is blocked with routing blocker 'destination_unresolved'",
+          "support": "Frozen observations show status 'blocked' with blocker class 'routing' and message 'destination_unresolved'"
+        },
+        {
+          "claim": "No remedy evidence is present to resolve the routing issue",
+          "support": "remedy_evidence array is empty"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The destination_unresolved routing blocker has no remedy evidence; reconciling routing may resolve the issue",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "proc_098c07d8",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "Processor is marked as offline",
+          "support": "Frozen observations show reachability online=false for processor proc_098c07d8"
+        },
+        {
+          "claim": "The processor being offline may be a transient state rather than a permanent failure",
+          "support": "No additional evidence indicates permanent failure; the offline status could be transient"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "restore_processor",
+        "why": "The processor is offline which may be transient; restoring the processor could resolve the stall",
+        "risk": "low"
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_dc82cd54",
+      "classification": "MISLABELED_OR_INSUFFICIENT_EVIDENCE",
+      "evidence": [
+        {
+          "claim": "Document is blocked with verification blocker 'schema_unconfirmed'",
+          "support": "Frozen observations show status 'blocked' with blocker.class 'verification' and blocker.message 'schema_unconfirmed'"
+        },
+        {
+          "claim": "No remedy evidence is present",
+          "support": "remedy_evidence array is empty in both observations"
+        }
+      ]
+    },
+    {
+      "target_id": "doc_dd82cee7",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "Document is blocked with routing blocker 'destination_unresolved'",
+          "support": "Frozen observations show status 'blocked' with blocker.class 'routing' and blocker.message 'destination_unresolved'"
+        },
+        {
+          "claim": "Assigned processor proc_4719a42e is offline",
+          "support": "processors array shows proc_4719a42e with reachability.online false in both observations"
+        }
+      ]
+    },
+    {
+      "target_id": "doc_df82d20d",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document is blocked with verification blocker 'output_missing'",
+          "support": "Frozen observations show status 'blocked' with blocker.class 'verification' and blocker.message 'output_missing'"
+        },
+        {
+          "claim": "Remedy evidence indicates output is complete and validated",
+          "support": "remedy_evidence contains entry with complete true, output_ref 'ref-42bef3e4', checks.parsed true, checks.validated true"
+        }
+      ]
+    },
+    {
+      "target_id": "proc_4719a42e",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "Processor is offline",
+          "support": "processors array shows proc_4719a42e with reachability.online false in both observations"
+        }
+      ]
+    }
+  ]
+}

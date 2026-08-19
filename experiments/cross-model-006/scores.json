@@ -1,0 +1,57 @@
+{
+  "scoredAt": "2026-08-19T20:04:39.858Z",
+  "trials": 0,
+  "byVariant": {},
+  "h1_stating_closes_the_gap": {
+    "hypothesis": "VC illegal rate is lower than V0 by more than 2 SE",
+    "v0Pooled": null,
+    "vcPooled": null,
+    "difference": null,
+    "inSE": null,
+    "verdict": "NOT AVAILABLE"
+  },
+  "blind": {
+    "perTrial": [],
+    "illegalRate": null,
+    "sd": null,
+    "se": null
+  },
+  "assisted": {
+    "perTrial": [],
+    "illegalRate": null,
+    "sd": null,
+    "se": null
+  },
+  "h1_base_rate": {
+    "hypothesis": "illegal-action rate over both arms is above 15%",
+    "rate": null,
+    "verdict": "REFUTED - 003's 26.8% was an artifact of that run"
+  },
+  "h2_assistance_raises_it": {
+    "hypothesis": "assisted illegal rate exceeds blind by more than 2 SE",
+    "difference": 0,
+    "seOfDifference": 0,
+    "inSE": null,
+    "verdict": "NOT ESTABLISHED"
+  },
+  "powered": "NO - void per preregistration",
+  "byClassification": {},
+  "illegalDirection": {
+    "toward_acting": 0,
+    "toward_restraint": 0
+  },
+  "provenance": {
+    "status": "machine-computed",
+    "produced_by": "score.mjs",
+    "derived_from": [],
+    "input_count": 0,
+    "input_digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "root_authentication": {
+      "status": "declared",
+      "issuer": null,
+      "key_id": null,
+      "method": null
+    },
+    "note": "A derivation, not an observation. Re-runnable without calling a model."
+  }
+}

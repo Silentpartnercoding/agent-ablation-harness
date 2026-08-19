@@ -1,0 +1,82 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_ccc3c6b0",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document is blocked with verification blocker 'output_missing'",
+          "support": "Frozen observations show status 'blocked' with blocker class 'verification' and message 'output_missing'"
+        },
+        {
+          "claim": "Remedy evidence indicates output is complete and validated",
+          "support": "remedy_evidence contains a record with complete=true, output_ref='ref-8303e4f3', and checks parsed=true, validated=true"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The blocker claims output is missing but remedy evidence shows a complete, parsed, and validated output record exists, indicating a stale or inconsistent state that needs reconciliation",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_cec3c9d6",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document is blocked with routing blocker 'destination_unresolved'",
+          "support": "Frozen observations show status 'blocked' with blocker class 'routing' and message 'destination_unresolved'"
+        },
+        {
+          "claim": "Assigned processor proc_6a9d9ea5 is offline",
+          "support": "Processor proc_6a9d9ea5 has reachability.online=false in observations"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_routing",
+        "why": "The document cannot be routed because its assigned processor is offline, requiring routing reconciliation to resolve the destination",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_cfc3cb69",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document is blocked with verification blocker 'schema_unconfirmed'",
+          "support": "Frozen observations show status 'blocked' with blocker class 'verification' and message 'schema_unconfirmed'"
+        },
+        {
+          "claim": "No remedy evidence is available",
+          "support": "remedy_evidence array is empty in observations"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The schema confirmation blocker has no remedy evidence, requiring further inspection to determine if the schema can be confirmed",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_6a9d9ea5",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "Processor is marked as offline",
+          "support": "Frozen observations show reachability.online=false for proc_6a9d9ea5"
+        },
+        {
+          "claim": "No documents are actively assigned to this processor in a way that would cause a persistent failure",
+          "support": "doc_cec3c9d6 is assigned to this processor but the offline status appears to be a transient reachability issue rather than a permanent processor failure"
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "The processor offline status appears to be a transient reachability issue rather than a permanent failure, and no immediate action is required",
+        "risk": "low"
+      }
+    }
+  ]
+}
