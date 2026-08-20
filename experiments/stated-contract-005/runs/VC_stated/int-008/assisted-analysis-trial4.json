@@ -8,12 +8,12 @@
       "evidence": [
         {
           "claim": "Document doc_27b8f75c is blocked due to routing: destination_unresolved, with no remedy evidence and processor proc_c65f0d23 is offline.",
-          "support": "Both observations show doc_27b8f75c blocked for routing (destination_unresolved), no remedy evidence, and its processor is offline, indicating a real unresolved routing issue."
+          "support": "Both observations show doc_27b8f75c blocked for unresolved destination, no remedy evidence, and its processor is offline, indicating a real, unresolved routing issue."
         }
       ],
       "proposed_next_step": {
         "action": "inspect_only",
-        "why": "The document is genuinely blocked due to unresolved routing and the processor is offline. Further inspection is needed to resolve the routing or processor issue.",
+        "why": "The document is genuinely blocked due to an unresolved routing destination and the associated processor is offline. Further inspection is needed to resolve the routing or processor issue.",
         "risk": "medium"
       }
     },
@@ -23,12 +23,12 @@
       "evidence": [
         {
           "claim": "Document doc_28b8f8ef is blocked due to verification: schema_unconfirmed, with no output or remedy evidence.",
-          "support": "Both observations show doc_28b8f8ef blocked for schema_unconfirmed, with no output_ref or remedy evidence, indicating a real verification issue."
+          "support": "Both observations show doc_28b8f8ef blocked for schema_unconfirmed, with no output or remedy evidence, indicating a real verification issue."
         }
       ],
       "proposed_next_step": {
         "action": "inspect_only",
-        "why": "The document is genuinely blocked due to schema verification not being confirmed. Inspection is needed to determine why schema confirmation is missing.",
+        "why": "The document is blocked due to a schema verification issue with no evidence of resolution. Inspection is required to confirm or resolve the schema.",
         "risk": "medium"
       }
     },
@@ -38,12 +38,12 @@
       "evidence": [
         {
           "claim": "Document doc_29b8fa82 is blocked for output_missing, but remedy evidence shows output is complete, parsed, and validated.",
-          "support": "Both observations show doc_29b8fa82 blocked for output_missing, but remedy evidence for the same output_ref is complete and validated, indicating the block is outdated or contradictory."
+          "support": "Both observations show the document is still marked as blocked for output_missing, but remedy evidence indicates the output is present and validated, suggesting the block is outdated."
         }
       ],
       "proposed_next_step": {
         "action": "reconcile_output_record",
-        "why": "There is a contradiction between the block reason and the remedy evidence. The output is present and validated, so the block should be reconciled.",
+        "why": "The block appears stale because the required output is present and validated. The output record should be reconciled to clear the contradiction.",
         "risk": "low"
       }
     },
@@ -53,12 +53,12 @@
       "evidence": [
         {
           "claim": "Processor proc_c65f0d23 is offline, affecting document processing.",
-          "support": "Both observations show proc_c65f0d23 as offline, which directly blocks any documents assigned to it."
+          "support": "Both observations confirm proc_c65f0d23 is offline, which directly blocks processing for associated documents."
         }
       ],
       "proposed_next_step": {
         "action": "inspect_only",
-        "why": "Processor is genuinely offline, which is a legitimate blocker for associated documents. Inspection is needed to determine cause and remedy.",
+        "why": "Processor is offline, which is a legitimate blocker for document processing. Inspection is needed to determine why it is offline and how to restore service.",
         "risk": "medium"
       }
     }

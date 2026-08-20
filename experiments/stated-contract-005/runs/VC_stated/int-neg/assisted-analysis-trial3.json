@@ -1,0 +1,81 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_02186e94",
+      "classification": "FALSE_OR_TRANSIENT",
+      "evidence": [
+        {
+          "claim": "doc_02186e94 is accused of being a blocker, but its status is 'completed' with no blocker present and all remedy evidence checks are complete and validated.",
+          "support": "Both observations show doc_02186e94 as completed, with no blocker, and remedy evidence indicating successful parsing and validation."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "no_action",
+        "why": "There is no evidence of a legitimate block or defect; the document is completed and validated.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fa1861fc",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fa1861fc is blocked due to 'output_missing' despite remedy evidence showing output is present and validated.",
+          "support": "Status is 'blocked' with a verification blocker ('output_missing'), but remedy evidence for the referenced output is complete and validated in both observations."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "There is a contradiction between the blocker's claim and the remedy evidence; further inspection is needed to reconcile this.",
+        "risk": "medium"
+      }
+    },
+    {
+      "target_id": "doc_fc186522",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fc186522 is blocked due to 'destination_unresolved' with no remedy evidence present.",
+          "support": "Status is 'blocked' with a routing blocker ('destination_unresolved'), and there is no remedy evidence in either observation."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is genuinely blocked with no sign of resolution; further inspection is warranted.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_fd1866b5",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "doc_fd1866b5 is blocked due to 'schema_unconfirmed' and has no remedy evidence.",
+          "support": "Status is 'blocked' with a verification blocker ('schema_unconfirmed'), and remedy evidence is empty in both observations."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The document is blocked with no evidence of schema confirmation or remedy; further inspection is appropriate.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_6c0de4f1",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "proc_6c0de4f1 is offline, which may be causing or contributing to document blocks.",
+          "support": "Processor reachability is 'online: false' in both observations, and it is associated with blocked documents."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline and may be a root cause of document blocks; further inspection is needed.",
+        "risk": "medium"
+      }
+    }
+  ]
+}
