@@ -9,6 +9,7 @@
 // the result uninterpretable.
 
 import { createHash } from "node:crypto";
+import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -19,6 +20,13 @@ import * as synthetic from "../../adapters/synthetic.mjs";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const MODEL = process.env.ABLATION_MODEL ?? "gpt-4.1";
 const TRIALS = Number(process.env.ABLATION_TRIALS ?? 10);
+const FORCE = process.env.ABLATION_FORCE === "1";
+const SELECTED_VARIANTS = process.env.ABLATION_VARIANTS
+  ? new Set(process.env.ABLATION_VARIANTS.split(",").map((v) => v.trim()))
+  : null;
+const SELECTED_SEEDS = process.env.ABLATION_SEEDS
+  ? new Set(process.env.ABLATION_SEEDS.split(",").map((v) => v.trim()))
+  : null;
 const KEY = process.env.OPENAI_API_KEY;
 if (!KEY) throw new Error("OPENAI_API_KEY required");
 
@@ -129,6 +137,21 @@ for (const [name, spec] of Object.entries(VARIANTS)) {
 
   for (const { seed, c, negative } of cases) {
     const caseDir = join(outDir, name, seed);
+
+    // Resume. `comparison.json` is written only when a case finishes, so its
+    // presence is a completion marker rather than an inference from how many
+    // files happen to be on disk. A finished case is never re-run, because
+    // re-running it would re-freeze its inputs and overwrite the artifacts the
+    // published numbers were scored from. ABLATION_FORCE=1 overrides, and
+    // should be used only when the intent is to discard prior results.
+    if (SELECTED_VARIANTS && !SELECTED_VARIANTS.has(name)) continue;
+    if (SELECTED_SEEDS && !SELECTED_SEEDS.has(seed)) continue;
+    if (!FORCE && existsSync(join(caseDir, "comparison.json"))) {
+      process.stdout.write(`  ${name}  ${seed}  complete, skipped\n`);
+      perCase.push({ seed, negative: Boolean(negative), trials: TRIALS, skipped: true });
+      continue;
+    }
+
     await mkdir(caseDir, { recursive: true });
     // Freeze before running: both arms are handed the same bytes, and the
     // manifest is what lets that be verified afterwards rather than asserted.

@@ -1,5 +1,5 @@
 {
-  "scoredAt": "2026-08-19T19:29:27.839Z",
+  "scoredAt": "2026-08-20T05:09:32.687Z",
   "trials": 10,
   "byVariant": {
     "V0_unstated": {
@@ -138,19 +138,19 @@
   "powered": "yes",
   "byClassification": {
     "LEGITIMATE_BLOCKER": {
-      "legal": 797,
+      "legal": 908,
       "illegal": 179,
-      "illegalRate": 0.1834
+      "illegalRate": 0.1647
     },
     "STALE_CONTRADICTION": {
-      "legal": 307,
+      "legal": 340,
       "illegal": 0,
       "illegalRate": 0
     },
     "FALSE_OR_TRANSIENT": {
-      "legal": 11,
+      "legal": 31,
       "illegal": 2,
-      "illegalRate": 0.1538
+      "illegalRate": 0.0606
     },
     "MISLABELED_OR_INSUFFICIENT_EVIDENCE": {
       "legal": 0,
@@ -487,12 +487,48 @@
       "runs/VC_stated/int-007/blind-analysis-trial8.json",
       "runs/VC_stated/int-007/blind-analysis-trial9.json",
       "runs/VC_stated/int-008/assisted-analysis-trial1.json",
+      "runs/VC_stated/int-008/assisted-analysis-trial10.json",
       "runs/VC_stated/int-008/assisted-analysis-trial2.json",
+      "runs/VC_stated/int-008/assisted-analysis-trial3.json",
+      "runs/VC_stated/int-008/assisted-analysis-trial4.json",
+      "runs/VC_stated/int-008/assisted-analysis-trial5.json",
+      "runs/VC_stated/int-008/assisted-analysis-trial6.json",
+      "runs/VC_stated/int-008/assisted-analysis-trial7.json",
+      "runs/VC_stated/int-008/assisted-analysis-trial8.json",
+      "runs/VC_stated/int-008/assisted-analysis-trial9.json",
       "runs/VC_stated/int-008/blind-analysis-trial1.json",
-      "runs/VC_stated/int-008/blind-analysis-trial2.json"
+      "runs/VC_stated/int-008/blind-analysis-trial10.json",
+      "runs/VC_stated/int-008/blind-analysis-trial2.json",
+      "runs/VC_stated/int-008/blind-analysis-trial3.json",
+      "runs/VC_stated/int-008/blind-analysis-trial4.json",
+      "runs/VC_stated/int-008/blind-analysis-trial5.json",
+      "runs/VC_stated/int-008/blind-analysis-trial6.json",
+      "runs/VC_stated/int-008/blind-analysis-trial7.json",
+      "runs/VC_stated/int-008/blind-analysis-trial8.json",
+      "runs/VC_stated/int-008/blind-analysis-trial9.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial1.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial10.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial2.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial3.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial4.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial5.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial6.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial7.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial8.json",
+      "runs/VC_stated/int-neg/assisted-analysis-trial9.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial1.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial10.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial2.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial3.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial4.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial5.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial6.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial7.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial8.json",
+      "runs/VC_stated/int-neg/blind-analysis-trial9.json"
     ],
-    "input_count": 324,
-    "input_digest": "sha256:ccd3faaa6c9b8ea46e0d77a22ceea04d6903422dcd6bd6ac37a9934b24e7be64",
+    "input_count": 360,
+    "input_digest": "sha256:2c579208beaedc68281968b39f30db9d06ccfd4de9e67890d892c4fb512e687a",
     "root_authentication": {
       "status": "declared",
       "issuer": null,

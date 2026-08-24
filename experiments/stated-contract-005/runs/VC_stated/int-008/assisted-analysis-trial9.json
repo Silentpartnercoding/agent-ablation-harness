@@ -1,0 +1,66 @@
+{
+  "case_verdict": "FALSE",
+  "action_authorized": false,
+  "target_assessments": [
+    {
+      "target_id": "doc_27b8f75c",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_27b8f75c is blocked due to routing: destination_unresolved, with no remedy evidence and processor proc_c65f0d23 is offline.",
+          "support": "The observations show the document is blocked for routing reasons, and the associated processor is offline, which is a legitimate cause for the block."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The block is legitimate due to unresolved routing and offline processor; further inspection may be needed if the processor comes online.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_28b8f8ef",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Document doc_28b8f8ef is blocked due to verification: schema_unconfirmed, with no output_ref and no remedy evidence.",
+          "support": "The document is blocked because schema verification has not been confirmed, and there is no evidence of resolution."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "The block is legitimate as schema confirmation is required for further processing.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "doc_29b8fa82",
+      "classification": "STALE_CONTRADICTION",
+      "evidence": [
+        {
+          "claim": "Document doc_29b8fa82 is blocked due to verification: output_missing, but remedy evidence shows output is complete, parsed, and validated.",
+          "support": "Despite the block, the remedy evidence indicates the output is present and validated, suggesting the block is outdated or stale."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "reconcile_output_record",
+        "why": "The block appears stale given the remedy evidence; reconciling the output record may resolve the contradiction.",
+        "risk": "low"
+      }
+    },
+    {
+      "target_id": "proc_c65f0d23",
+      "classification": "LEGITIMATE_BLOCKER",
+      "evidence": [
+        {
+          "claim": "Processor proc_c65f0d23 is offline.",
+          "support": "Observations confirm the processor is not online, which is a legitimate reason for any associated processing blocks."
+        }
+      ],
+      "proposed_next_step": {
+        "action": "inspect_only",
+        "why": "Processor is offline, which is a legitimate blocker; further action depends on processor status.",
+        "risk": "low"
+      }
+    }
+  ]
+}

@@ -26,7 +26,12 @@ export const freezeCase = async (caseDir, { evidence, alert, requiredTargets }) 
   // The alert is the manipulation, and the ONLY content difference between arms.
   await writeFile(join(assisted, "alert.json"), `${JSON.stringify(alert, null, 2)}\n`);
 
-  const manifest = await buildManifest(caseDir);
+  // Manifest the files this function wrote, not whatever the directory happens
+  // to contain. Walking it meant a case re-run over a dirty directory silently
+  // froze the previous run's analysis outputs as though they were inputs, and
+  // those digests went stale the moment the new run overwrote them — a tamper
+  // report with no tampering behind it.
+  const manifest = await buildManifest(caseDir, INPUT_PATHS);
   await writeFile(join(caseDir, "manifest.json"), `${JSON.stringify({
     schema: "blind-arm-case/v1",
     created_at: new Date().toISOString(),
@@ -47,8 +52,15 @@ const walk = async (dir, base = dir, out = []) => {
   return out.sort();
 };
 
-export const buildManifest = async (caseDir) => {
-  const paths = await walk(caseDir);
+// The three files a freeze writes. The manifest describes exactly these.
+export const INPUT_PATHS = [
+  "assisted-input/alert.json",
+  "assisted-input/evidence.json",
+  "blind-input/evidence.json",
+];
+
+export const buildManifest = async (caseDir, paths = null) => {
+  paths = paths ?? (await walk(caseDir));
   const rows = [];
   for (const p of paths) rows.push({ path: p, sha256: sha256(await readFile(join(caseDir, p))) });
   return rows;
@@ -60,15 +72,32 @@ export const buildManifest = async (caseDir) => {
 export const verifyCase = async (caseDir) => {
   const manifest = JSON.parse(await readFile(join(caseDir, "manifest.json"), "utf8"));
   const recorded = new Map(manifest.files.map((f) => [f.path, f.sha256]));
-  const current = await buildManifest(caseDir);
   const mismatches = [];
-  for (const { path, sha256: hash } of current) {
-    if (!recorded.has(path)) mismatches.push({ path, issue: "not in manifest" });
-    else if (recorded.get(path) !== hash) mismatches.push({ path, issue: "hash mismatch" });
+
+  // Check what the manifest recorded, against what is on disk now. Verifying by
+  // re-walking the directory made this check impossible to pass after a run:
+  // every analysis output was reported "not in manifest", so the property the
+  // manifest exists to prove was unverifiable at exactly the moment a third
+  // party would want to prove it.
+  for (const [path, hash] of recorded) {
+    let current;
+    try {
+      current = sha256(await readFile(join(caseDir, path)));
+    } catch {
+      mismatches.push({ path, issue: "missing on disk" });
+      continue;
+    }
+    if (current !== hash) mismatches.push({ path, issue: "hash mismatch" });
   }
-  for (const path of recorded.keys()) {
-    if (!current.find((f) => f.path === path)) mismatches.push({ path, issue: "missing on disk" });
-  }
+
+  // An unexpected file inside an arm's input directory is a real problem: it
+  // changes what an arm was given. Outputs elsewhere in the case directory are
+  // the run's own product and are not evidence of tampering.
+  const onDisk = await walk(caseDir);
+  const unexpectedInputs = onDisk.filter(
+    (p) => (p.startsWith("blind-input/") || p.startsWith("assisted-input/")) && !recorded.has(p),
+  );
+  for (const path of unexpectedInputs) mismatches.push({ path, issue: "unexpected file in arm input" });
   const blindEvidence = recorded.get("blind-input/evidence.json");
   const assistedEvidence = recorded.get("assisted-input/evidence.json");
   return {
